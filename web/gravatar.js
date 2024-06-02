@@ -6,7 +6,7 @@ fetch('https://gravatar.com/' + config.emailMd5Hash + '.json')
   .then(response => {
     const userProfile = response["entry"][0];
     // Uncomment below to see what all data you can use:
-    console.log(userProfile)
+    // console.log(userProfile)
 
     // Update various elements:
     document.getElementById("loading").style = "display: none;"
