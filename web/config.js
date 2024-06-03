@@ -31,7 +31,7 @@ const emailMd5Hash = MD5.generate(emailAddress);
 const customLinks = {
   "links": [
     {
-      "label": "Linkedin",
+      "label": "ericktmr",
       "url": "https://www.linkedin.com/in/ericktmr/",
       "domain": "https://www.linkedin.com/",
       "useEmojiIcon": false
