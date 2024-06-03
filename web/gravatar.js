@@ -42,7 +42,7 @@ fetch('https://gravatar.com/' + config.emailMd5Hash + '.json')
       socialsFill = socialsFill + "<p>" + config.customLinks["links"][i]["label"] + "</p></li></a>"
     }
     if (config.showEmailLink) {
-      socialsFill = socialsFill + "<a rel='noopener' href='mailto:" + config.emailAddress + "' target='_blank '><li><p>✉ Entre em contato</p></li>"
+      socialsFill = socialsFill + "<a rel='noopener' href='mailto:" + config.emailAddress + "' target='_blank '><li><p>📩 Entre em contato</p></li>"
     }
     document.getElementById("socials").innerHTML = "<ul>" + socialsFill + "</ul>";
     document.getElementById("credit").style = "display: inherit;"
