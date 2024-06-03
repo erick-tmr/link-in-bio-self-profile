@@ -3,10 +3,11 @@ body {
 }
 
 main {
-  max-width: 50vw;
+  max-width: min(70vw, 800px);
   margin-left: auto;
   margin-right: auto;
   margin-top: 4vh;
+  margin-bottom: 4vh;
   background-color: rgba(143, 172, 172, 0.8);
   padding-top: 6vh;
   padding-bottom: 6vh;
@@ -63,7 +64,7 @@ li {
   align-items: center;
   justify-content: center;
   margin-top: 2%;
-  width: min(30vw, 100%);
+  width: min(50vw, 300px);
   margin-left: auto;
   margin-right: auto;
 }

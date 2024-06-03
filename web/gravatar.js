@@ -12,10 +12,10 @@ fetch('https://gravatar.com/' + config.emailMd5Hash + '.json')
     document.getElementById("loading").style = "display: none;"
     document.querySelector("link[rel='shortcut icon']").href = userProfile["thumbnailUrl"] + ".ico";
     document.querySelector("link[rel*='icon']").href = userProfile["thumbnailUrl"] + ".ico";
-    document.querySelector("title").innerHTML = userProfile["displayName"] + " | Link Page";
-    document.getElementById("ogTitle").content = userProfile["displayName"] + " | Link Page";
+    document.querySelector("title").innerHTML = userProfile["displayName"] + " | Personal Page";
+    document.getElementById("ogTitle").content = userProfile["displayName"] + " | Personal Page";
     document.getElementById("ogSiteName").content = window.location.hostname;
-    document.getElementById("ogDesc").content = userProfile["displayName"] + "'s social and web links."
+    document.getElementById("ogDesc").content = userProfile["displayName"] + "links de redes sociais, contato e mentoria"
     document.getElementById("themeColor").content = userProfile.profileBackground?.color;
     document.getElementById("profileImage").src = userProfile["thumbnailUrl"]
     document.getElementById("profileImage").alt = userProfile["displayName"] + "\'s Profile Picture"
