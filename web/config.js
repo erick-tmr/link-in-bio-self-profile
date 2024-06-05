@@ -33,7 +33,7 @@ const customLinks = {
     {
       "label": "ericktmr",
       "url": "https://www.linkedin.com/in/ericktmr/",
-      "domain": "https://www.linkedin.com/",
+      "domain": "https://www.linkedin.com",
       "useEmojiIcon": false
     },
     {
