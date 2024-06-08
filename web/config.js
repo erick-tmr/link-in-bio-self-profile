@@ -50,6 +50,13 @@ const customLinks = {
       "useEmojiIcon": true,
       "emojiIcon": "📆"
     },
+    {
+      "label": "Pergunte me qualquer coisa",
+      "url": "https://curiouscat.live/ErickTakeshi",
+      "domain": "",
+      "useEmojiIcon": true,
+      "emojiIcon": "🐈❓"
+    },
   ]
 }
 
