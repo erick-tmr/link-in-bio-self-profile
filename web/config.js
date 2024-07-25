@@ -44,7 +44,7 @@ const customLinks = {
       "emojiIcon": "📝"
     },
     {
-      "label": "Serie de posts sobre OAuth & OpenID Connect",
+      "label": "OAuth & OIDC",
       "url": "https://dev.to/erick_tmr/series/28190",
       "domain": "",
       "useEmojiIcon": true,
