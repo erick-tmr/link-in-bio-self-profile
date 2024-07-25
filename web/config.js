@@ -44,6 +44,13 @@ const customLinks = {
       "emojiIcon": "📝"
     },
     {
+      "label": "Serie de posts sobre OAuth & OpenID Connect",
+      "url": "https://dev.to/erick_tmr/series/28190",
+      "domain": "",
+      "useEmojiIcon": true,
+      "emojiIcon": "🔒"
+    },
+    {
       "label": "Mentoria Tech",
       "url": "https://calendly.com/ericktmr/mentoria",
       "domain": "",
