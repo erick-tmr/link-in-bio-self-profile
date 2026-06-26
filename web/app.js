@@ -1,7 +1,7 @@
 /* ===========================================================================
    Erick Takeshi — personal page
-   Vanilla port of the prototype's DCLogic component: EN/PT i18n + a procedural
-   chiptune music dock built on the Web Audio API.
+   Vanilla port of the prototype's DCLogic component: EN/PT i18n + a looping
+   music dock (Littleroot Town lo-fi) driven by an HTMLAudioElement.
    =========================================================================== */
 (function () {
   "use strict";
@@ -112,84 +112,33 @@
     });
   });
 
-  /* ---- Chiptune music dock --------------------------------------------- */
-  var N = {
-    C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.0, A4: 440.0, B4: 493.88,
-    C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.0
-  };
-  var LEAD = [
-    N.E5, 0, N.C5, 0, N.G4, 0, N.C5, N.E5, N.D5, 0, N.B4, 0, N.G4, 0, N.B4, N.D5,
-    N.C5, 0, N.A4, 0, N.E4, 0, N.A4, N.C5, N.D5, 0, 0, N.E5, N.G5, 0, N.E5, 0
-  ];
-  var B = { C3: 130.81, G2: 98.0, A2: 110.0, F2: 87.31, E2: 82.41 };
-  var BASS = [
-    B.C3, 0, 0, 0, B.G2, 0, 0, 0, B.A2, 0, 0, 0, B.F2, 0, 0, 0,
-    B.C3, 0, 0, 0, B.E2, 0, 0, 0, B.F2, 0, 0, 0, B.G2, 0, 0, 0
-  ];
-  var STEP_MS = 60000 / 132 / 4; // 132 bpm, sixteenth notes
-
-  var ctx = null, master = null, timer = null, step = 0;
-
-  function ensureAudio() {
-    if (ctx) {
-      if (ctx.state === "suspended") ctx.resume();
-      return;
-    }
-    var AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
-    ctx = new AC();
-    master = ctx.createGain();
-    master.gain.value = state.musicOn ? 0.16 : 0.0;
-    master.connect(ctx.destination);
-    timer = setInterval(tick, STEP_MS);
-  }
-
-  function blip(freq, dur, type, gain) {
-    if (!freq || !ctx) return;
-    var t = ctx.currentTime;
-    var o = ctx.createOscillator();
-    var g = ctx.createGain();
-    o.type = type;
-    o.frequency.value = freq;
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(gain, t + 0.008);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g);
-    g.connect(master);
-    o.start(t);
-    o.stop(t + dur + 0.02);
-  }
-
-  function tick() {
-    if (!ctx) return;
-    var s = step % 32;
-    blip(LEAD[s], (STEP_MS / 1000) * 1.6, "square", 0.5);
-    blip(BASS[s], (STEP_MS / 1000) * 3.2, "triangle", 0.6);
-    step++;
-  }
-
+  /* ---- Music dock — Littleroot Town lo-fi loop ------------------------- */
   var dock = document.getElementById("dock");
   var musicBtn = document.getElementById("musicBtn");
+  var track = document.getElementById("track");
+  if (track) track.volume = 0.5;
+
+  function playTrack() {
+    // play() rejects until the page has had a user gesture; swallow that.
+    if (track && state.musicOn) track.play().catch(function () {});
+  }
 
   function toggleMusic() {
-    ensureAudio();
     state.musicOn = !state.musicOn;
     if (dock) dock.classList.toggle("is-muted", !state.musicOn);
     if (musicBtn) musicBtn.setAttribute("aria-pressed", String(state.musicOn));
-    if (master && ctx) {
-      var t = ctx.currentTime;
-      master.gain.cancelScheduledValues(t);
-      master.gain.setValueAtTime(master.gain.value, t);
-      master.gain.linearRampToValueAtTime(state.musicOn ? 0.16 : 0.0, t + 0.25);
+    if (track) {
+      if (state.musicOn) track.play().catch(function () {});
+      else track.pause();
     }
     updateMusicLabel();
   }
 
   if (musicBtn) musicBtn.addEventListener("click", toggleMusic);
 
-  // Start audio on the first user gesture (browser autoplay policy).
+  // Start playback on the first user gesture (browser autoplay policy).
   function kick() {
-    ensureAudio();
+    playTrack();
     window.removeEventListener("pointerdown", kick);
     window.removeEventListener("keydown", kick);
   }
