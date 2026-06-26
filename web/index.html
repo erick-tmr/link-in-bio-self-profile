@@ -1,31 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Erick Takeshi - Personal Page</title>
-    <link rel="icon" type="image/ico" href="">
-    <link rel="shortcut icon" type="image/ico" href="">
-    <link rel="stylesheet" href="styles.css">
-    <meta id="ogTitle" property="og:title" content="" />
-    <meta id="ogSiteName" property="og:site_name" content="Erick Takeshi - Personal Page" />
-    <meta id="ogDesc" property="og:description" content="Links de redes sociais, contato e mentoria" />
-    <meta id="themeColor" name="theme-color" content="#000000">
 
-    <script src="https://cdn.jsdelivr.net/npm/md5-js-tools@1.0.2/lib/md5.min.js"></script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a130e'/%3E%3Ccircle cx='50' cy='50' r='22' fill='%2335d68a'/%3E%3C/svg%3E" />
+
+    <meta name="theme-color" content="#0a130e" />
+    <meta name="description" content="Erick Takeshi — software engineer, Pokémon ROM hacker and JDM enthusiast. Links, projects, blog and tech mentoring." />
+    <meta property="og:title" content="Erick Takeshi - Personal Page" />
+    <meta property="og:site_name" content="Erick Takeshi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Software engineer · Pokémon ROM hacker · JDM enthusiast." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <main>
-      <p id="loading">Loading...</p>
-      <img id="profileImage">
-      <h1 id="formattedName"></h1>
-      <p id="location"></p>
-      <p id="aboutBio"></p>
-      <div id="socials"></div>
-      <p id="credit"></p>
-    </main>
-    <script type="module" src="./gravatar.js"></script>
+    <!-- Ambient background layers -->
+    <div class="bg-scanlines" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="brand">
+            <span class="dot dot--green blink" aria-hidden="true"></span>
+            <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+          </div>
+          <div class="site-header__right">
+            <span class="tz">BR · GMT-3</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero__photo">
+            <div class="gbcam">
+              <div class="gbcam__top">
+                <span class="dot dot--red blink blink--slow" aria-hidden="true"></span>
+                <span class="gbcam__label">BATTERY</span>
+                <span class="gbcam__label gbcam__label--right">DOT-MATRIX</span>
+              </div>
+              <div class="gbcam__screen">
+                <img src="assets/me-gbcam.png" alt="Erick · Game Boy Camera portrait" />
+                <div class="gbcam__scanlines" aria-hidden="true"></div>
+                <div class="gbcam__caption">
+                  <span>GB CAMERA</span>
+                  <span>128×112</span>
+                </div>
+              </div>
+              <div class="gbcam__bottom">
+                <span class="gbcam__label">TRAINER Nº001</span>
+                <span class="gbcam__label gbcam__label--green">HOENN</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__info">
+            <div class="eyebrow eyebrow--green">● TRAINER CARD</div>
+            <h1 class="hero__name">ERICK <span class="accent-green">TAKESHI</span></h1>
+            <div class="hero__handle">@ericktmr</div>
+            <p class="hero__role" data-i18n="bioRole"></p>
+            <p class="hero__line" data-i18n="bioLine"></p>
+            <div class="chips">
+              <span class="chip">OAuth / OIDC</span>
+              <span class="chip">Game Boy ASM</span>
+              <span class="chip chip--red">JDM</span>
+              <span class="chip">Mentoria</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURED 01 · CARTRIDGE -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">FEATURED BUILD ▸ 01</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title">Pokémon Crystal Legacy: <span class="accent-green">Timeless</span></h2>
+          <p class="section__sub" data-i18n="projTitleSub"></p>
+
+          <div class="cartridge-card">
+            <div class="cartridge-card__art">
+              <div class="cartridge">
+                <span class="cartridge__notch" aria-hidden="true"></span>
+                <span class="cartridge__screen" aria-hidden="true"></span>
+                <span class="cartridge__label">MBC5 · NO RTC</span>
+              </div>
+            </div>
+
+            <div class="cartridge-card__info">
+              <div class="tags">
+                <span class="tag tag--green">MBC5</span>
+                <span class="tag tag--red">NO RTC</span>
+                <span class="tag tag--blue">GBC</span>
+                <span class="tag tag--lime">SAVE-SAFE</span>
+              </div>
+              <p class="lead" data-i18n="projLead"></p>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat__value stat__value--red">0</div>
+                  <div class="stat__label" data-i18n="statRtc"></div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value stat__value--lime">100%</div>
+                  <div class="stat__label" data-i18n="statSave"></div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value stat__value--blue">∞</div>
+                  <div class="stat__label" data-i18n="statTime"></div>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <a class="btn btn--red" href="https://github.com/erick-tmr/Pokemon_Crystal_Legacy_Timeless/releases/latest" target="_blank" rel="noopener">▶ <span data-i18n="ctaDownload"></span></a>
+                <a class="btn btn--green" href="https://erick-tmr.github.io/Pokemon_Crystal_Legacy_Timeless/" target="_blank" rel="noopener"><span data-i18n="ctaOpen"></span> ↗</a>
+                <a class="btn btn--ghost" href="https://github.com/erick-tmr/Pokemon_Crystal_Legacy_Timeless" target="_blank" rel="noopener"><span data-i18n="ctaSource"></span> ⌥</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURED 02 · BLOG -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--blue">FEATURED BUILD ▸ 02 · WRITING</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title" data-i18n="blogTitle"></h2>
+
+          <div class="terminal">
+            <div class="terminal__bar">
+              <span class="terminal__dot terminal__dot--red"></span>
+              <span class="terminal__dot terminal__dot--blue"></span>
+              <span class="terminal__dot terminal__dot--green"></span>
+              <span class="terminal__path">erick_tmr · dev.to</span>
+            </div>
+            <div class="terminal__body">
+              <div><span class="term-user">erick@hoenn</span><span class="term-dir">:~/blog$</span> ls --featured</div>
+              <a class="term-link" href="https://dev.to/erick_tmr/series/28190" target="_blank" rel="noopener">oauth-and-oidc.series/<span class="term-comment">   # a deep dive on identity ↗</span></a>
+              <a class="term-link" href="https://dev.to/erick_tmr" target="_blank" rel="noopener">latest-posts/<span class="term-comment">        # notes on backend &amp; auth ↗</span></a>
+              <div class="term-out" data-i18n="blogLead"></div>
+              <div class="term-prompt"><span class="term-user">erick@hoenn</span><span class="term-dir">:~/blog$</span> <span class="term-cursor">&nbsp;</span></div>
+            </div>
+            <div class="terminal__actions">
+              <a class="btn btn--green" href="https://dev.to/erick_tmr" target="_blank" rel="noopener"><span data-i18n="ctaBlog"></span> ↗</a>
+              <a class="btn btn--ghost" href="https://dev.to/erick_tmr/series/28190" target="_blank" rel="noopener">🔒 <span data-i18n="ctaSeries"></span></a>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTROLS / LINKS -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--red">CONTROLS · LINKS</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title" data-i18n="linksTitle"></h2>
+
+          <div class="links-grid">
+            <a class="link-card" href="https://www.linkedin.com/in/ericktmr/" target="_blank" rel="noopener">
+              <span class="link-card__icon accent-green">in</span>
+              <span class="link-card__text">
+                <span class="link-card__title">LinkedIn</span>
+                <span class="link-card__sub" data-i18n="linkedinSub"></span>
+              </span>
+              <span class="link-card__arrow accent-green">↗</span>
+            </a>
+            <a class="link-card" href="https://calendly.com/ericktmr/mentoria" target="_blank" rel="noopener">
+              <span class="link-card__icon accent-blue link-card__icon--sm">CAL</span>
+              <span class="link-card__text">
+                <span class="link-card__title">Mentoria Tech</span>
+                <span class="link-card__sub" data-i18n="mentoriaSub"></span>
+              </span>
+              <span class="link-card__arrow accent-green">↗</span>
+            </a>
+            <a class="link-card" href="https://curiouscat.live/ErickTakeshi" target="_blank" rel="noopener">
+              <span class="link-card__icon accent-red link-card__icon--lg">?</span>
+              <span class="link-card__text">
+                <span class="link-card__title">Ask Me Anything</span>
+                <span class="link-card__sub" data-i18n="amaSub"></span>
+              </span>
+              <span class="link-card__arrow accent-green">↗</span>
+            </a>
+            <a class="link-card" href="https://github.com/erick-tmr" target="_blank" rel="noopener">
+              <span class="link-card__icon accent-green">GH</span>
+              <span class="link-card__text">
+                <span class="link-card__title">GitHub</span>
+                <span class="link-card__sub" data-i18n="githubSub"></span>
+              </span>
+              <span class="link-card__arrow accent-green">↗</span>
+            </a>
+            <a class="link-card link-card--mail" href="mailto:erick.tmr@outlook.com">
+              <span class="link-card__icon accent-red link-card__icon--lg">@</span>
+              <span class="link-card__text">
+                <span class="link-card__title">Email</span>
+                <span class="link-card__sub" data-i18n="emailSub"></span>
+              </span>
+              <span class="link-card__arrow accent-red">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- HOENN LEGENDARY BANNER -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">RIVAL BATTLE · HOENN</span>
+            <span class="rule"></span>
+          </div>
+          <div class="banner">
+            <img src="assets/groudon-kyogre.gif" alt="Groudon vs Kyogre — Hoenn legendary battle" />
+            <div class="banner__scanlines" aria-hidden="true"></div>
+            <div class="banner__glow banner__glow--left" aria-hidden="true"></div>
+            <div class="banner__glow banner__glow--right" aria-hidden="true"></div>
+            <div class="banner__tag banner__tag--left">
+              <span class="dot dot--square dot--red" aria-hidden="true"></span>
+              <span class="banner__name banner__name--red">GROUDON</span>
+            </div>
+            <div class="banner__tag banner__tag--right">
+              <span class="banner__name banner__name--blue">KYOGRE</span>
+              <span class="dot dot--square dot--kyogre" aria-hidden="true"></span>
+            </div>
+            <div class="banner__caption">
+              <span class="banner__caption-text" data-i18n="bannerCaption"></span>
+              <span class="banner__caption-meta">EMERALD · 386</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- DRIVER PROFILE / ABOUT -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">SYSTEM · ABOUT</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title" data-i18n="aboutTitle"></h2>
+
+          <div class="about">
+            <!-- GARAGE -->
+            <div class="panel">
+              <div class="panel__head">
+                <span class="dot dot--square dot--red dot--glow" aria-hidden="true"></span>
+                <span class="panel__title" data-i18n="garageTitle"></span>
+              </div>
+
+              <div class="ride">
+                <img src="assets/lancer-evo.png" alt="Mitsubishi Lancer Evolution" />
+                <span class="ride__tag ride__tag--green">● LANCER EVO</span>
+                <span class="ride__tag ride__tag--red">JDM</span>
+              </div>
+
+              <div class="spec-list">
+                <div class="spec spec--divider">
+                  <span class="spec__label" data-i18n="lRide"></span>
+                  <span class="spec__value">Mitsubishi Lancer</span>
+                </div>
+                <div class="spec">
+                  <span class="spec__label" data-i18n="lStyle"></span>
+                  <span class="spec__value accent-red">JDM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SAVE DATA -->
+            <div class="panel panel--save">
+              <div class="panel__head">
+                <span class="dot dot--square dot--lime dot--glow" aria-hidden="true"></span>
+                <span class="panel__title" data-i18n="saveTitle"></span>
+              </div>
+
+              <img class="panel__watermark" src="assets/rayquaza-shiny.png" alt="" aria-hidden="true" />
+
+              <div class="save-list">
+                <div class="save-row">
+                  <div class="save-row__label" data-i18n="lMain"></div>
+                  <div class="save-row__value">Pokémon Emerald · Hoenn</div>
+                </div>
+                <div class="save-row">
+                  <div class="save-row__label" data-i18n="lSide"></div>
+                  <div class="save-row__value">Game Boy ROM hacking · RGBDS</div>
+                </div>
+                <div class="save-row">
+                  <div class="save-row__label" data-i18n="lClass"></div>
+                  <div class="save-row__value">Backend Engineer</div>
+                </div>
+
+                <div class="hp">
+                  <div class="hp__head"><span>HP</span><span class="accent-lime">CRYSTAL CLEAR</span></div>
+                  <div class="hp__bar"><div class="hp__fill"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+          <div>
+            <div class="site-footer__brand">ERICK<span class="brand__dot">.</span>TMR</div>
+            <div class="site-footer__note">© 2026 Erick Takeshi · <span data-i18n="footerNote"></span></div>
+          </div>
+          <div class="site-footer__legal">
+            Fan project · Pokémon &amp; Celebi © Nintendo / Game Freak.<br />
+            Not affiliated. No ROM distributed.
+          </div>
+        </footer>
+      </div>
+
+      <!-- MUSIC DOCK -->
+      <div class="dock" id="dock">
+        <div class="dock__ring">
+          <div class="dock__orbit" aria-hidden="true">
+            <div class="dock__orbit-arm">
+              <img class="dock__ray" src="assets/rayquaza-sprite.png" alt="" />
+            </div>
+          </div>
+          <button type="button" class="dock__btn" id="musicBtn" aria-label="Toggle music" aria-pressed="true">
+            <span class="eq" aria-hidden="true">
+              <span class="eq__bar"></span>
+              <span class="eq__bar"></span>
+              <span class="eq__bar"></span>
+              <span class="eq__bar"></span>
+            </span>
+          </button>
+        </div>
+        <div class="dock__label" id="musicLabel"></div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
   </body>
 </html>
