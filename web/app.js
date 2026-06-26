@@ -116,7 +116,8 @@
   var dock = document.getElementById("dock");
   var musicBtn = document.getElementById("musicBtn");
   var track = document.getElementById("track");
-  if (track) track.volume = 0.5;
+  // Full volume — let visitors adjust loudness with their own device controls.
+  if (track) track.volume = 1.0;
 
   function playTrack() {
     // play() rejects until the page has had a user gesture; swallow that.
