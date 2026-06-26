@@ -1,1 +1,5 @@
 .DS_Store
+
+# Static assets are hosted in S3 (s3://www.ericktakeshi.com.br/assets/),
+# not tracked in git. Publish them with ./scripts/sync-assets.sh
+web/assets/
