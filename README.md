@@ -26,3 +26,25 @@ prefix.
 The deploy workflow (`.github/workflows/deploy.yml`) syncs `web/` to the bucket
 but excludes `assets/*`, so it never uploads or deletes anything under the
 assets prefix.
+
+## Deployment
+
+On every push to `main`, `.github/workflows/deploy.yml`:
+
+1. Syncs `web/` (excluding `assets/*`) to the S3 bucket
+   (`s3://www.ericktakeshi.com.br`) — AWS auth is keyless via GitHub OIDC role
+   assumption.
+2. Purges the Cloudflare cache so updated `index.html` / `app.js` / `styles.css`
+   go live immediately. Cloudflare fronts the bucket and caches static files for
+   hours, so without this a fresh deploy serves stale JS/CSS.
+
+### Required CI configuration
+
+Cloudflare has no GitHub-OIDC trust, so the purge step uses a stored token,
+scoped as tightly as possible. Set these in **Settings → Secrets and variables →
+Actions**:
+
+| Name | Kind | Purpose |
+| --- | --- | --- |
+| `CLOUDFLARE_API_TOKEN` | Secret | API token scoped to **Cache Purge** on the `ericktakeshi.com.br` zone only |
+| `CLOUDFLARE_ZONE_ID` | Variable | Zone ID for `ericktakeshi.com.br` (an identifier, not sensitive) |
