@@ -52,10 +52,6 @@ img { max-width: 100%; }
 /* ---- Animations -------------------------------------------------------- */
 @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0.18; } }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 1px var(--bg), 0 24px 60px rgba(0, 0, 0, .55), inset 0 0 90px rgba(53, 214, 138, .05); }
-  50%      { box-shadow: 0 0 0 1px var(--bg), 0 24px 60px rgba(0, 0, 0, .55), inset 0 0 90px rgba(53, 214, 138, .11); }
-}
 @keyframes rayOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes rayFly {
   0%   { transform: rotate(0deg)    translateY(0); }
@@ -289,20 +285,14 @@ img { max-width: 100%; }
 
 /* ---- Featured 01 · cartridge ------------------------------------------- */
 .cartridge-card {
-  margin-top: 22px;
+  margin-top: 26px;
   display: flex;
   flex-wrap: wrap;
-  gap: 36px;
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  background: radial-gradient(ellipse 60% 80% at 18% 30%, rgba(53, 214, 138, 0.10), transparent 60%), var(--panel);
-  border: 1px solid var(--border);
-  animation: pulseGlow 5s ease-in-out infinite;
+  gap: 40px;
+  align-items: flex-start;
 }
-.cartridge-card__art { flex: 0 0 220px; display: flex; justify-content: center; align-items: center; }
-.cartridge-card__info { flex: 1; min-width: 300px; }
+.cartridge-card__art { flex: 0 0 200px; }
+.cartridge-card__info { flex: 1; min-width: 300px; border-left: 1px solid #1d3829; padding-left: 34px; }
 
 .cartridge {
   width: 200px;
@@ -348,18 +338,14 @@ img { max-width: 100%; }
   letter-spacing: 0.5px;
 }
 
-.tags { display: flex; flex-wrap: wrap; gap: 7px; }
-.tag { font-family: var(--pixel); font-size: 8px; border-radius: 3px; padding: 5px 7px; border: 1px solid; }
-.tag--green { color: var(--green); border-color: var(--green-deep); }
-.tag--red { color: var(--red); border-color: #6e2a22; }
-.tag--blue { color: var(--blue); border-color: #274a86; }
-.tag--lime { color: var(--lime); border-color: #4d5e16; }
+.lead { margin: 0; font-size: 14px; color: var(--text-soft); line-height: 1.65; }
 
-.lead { margin: 18px 0 0; font-size: 14px; color: var(--text-soft); line-height: 1.65; }
-
-.stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0; }
-.stat { flex: 1; min-width: 96px; border: 1px solid var(--border-soft); border-radius: 6px; padding: 13px; background: var(--panel-2); }
-.stat__value { font-family: var(--pixel); font-size: 19px; }
+.stats { display: flex; align-items: stretch; flex-wrap: wrap; margin: 26px 0; }
+.stat { padding: 0 24px; }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { padding-right: 0; }
+.stat + .stat { border-left: 1px solid var(--border-soft); }
+.stat__value { font-family: var(--pixel); font-size: 21px; }
 .stat__value--red { color: var(--red); }
 .stat__value--lime { color: var(--lime); }
 .stat__value--blue { color: var(--blue); }
@@ -367,7 +353,7 @@ img { max-width: 100%; }
   font-family: var(--mono);
   font-size: 10px;
   color: var(--muted-2);
-  margin-top: 6px;
+  margin-top: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -480,17 +466,18 @@ img { max-width: 100%; }
 .banner__caption-meta { font-family: var(--pixel); font-size: 7px; color: var(--green); letter-spacing: 0.5px; white-space: nowrap; }
 
 /* ---- About / driver profile -------------------------------------------- */
-.about { display: flex; flex-wrap: wrap; gap: 16px; }
+.about { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 34px; }
 .panel {
   flex: 1;
-  min-width: 300px;
-  background: var(--panel);
-  border: 1px solid var(--border-soft);
-  border-radius: 10px;
-  padding: 24px;
+  min-width: 280px;
 }
-.panel--save { position: relative; overflow: hidden; }
-.panel__head { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; }
+.about__divider {
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(180deg, transparent, var(--border-soft) 12%, var(--border-soft) 88%, transparent);
+}
+.panel--save { position: relative; }
+.panel__head { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
 .panel__head .dot--square { width: 11px; height: 11px; }
 .dot--lime { background: var(--lime); }
 .dot--red.dot--glow { box-shadow: 0 0 8px rgba(224, 69, 47, 0.5); }
@@ -499,10 +486,9 @@ img { max-width: 100%; }
 
 .ride {
   position: relative;
-  margin: 0 auto 20px;
+  margin: 0 0 18px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border);
   background: #ffffff;
 }
 .ride img { position: relative; display: block; width: 100%; image-rendering: pixelated; }
@@ -510,13 +496,14 @@ img { max-width: 100%; }
 .ride__tag--green { top: 9px; left: 10px; color: #08130d; background: var(--green); }
 .ride__tag--red { bottom: 9px; right: 10px; color: #fff; background: var(--red); }
 
-.spec-list { display: flex; flex-direction: column; gap: 12px; }
+.spec-list { display: flex; flex-direction: column; }
 .spec { display: flex; justify-content: space-between; align-items: center; }
-.spec--divider { border-bottom: 1px dashed var(--border-soft); padding-bottom: 10px; }
+.spec--divider { border-bottom: 1px dashed #18301f; padding-bottom: 12px; }
+.spec + .spec { padding-top: 12px; }
 .spec__label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
 .spec__value { font-size: 13px; color: var(--heading); font-weight: 700; }
 
-.panel__watermark { position: absolute; right: -30px; top: 30px; width: 170px; opacity: 0.18; pointer-events: none; }
+.panel__watermark { position: absolute; right: -30px; top: 36px; width: 170px; opacity: 0.16; pointer-events: none; }
 .save-list { display: flex; flex-direction: column; gap: 16px; position: relative; }
 .save-row__label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
 .save-row__value { font-size: 14px; color: var(--heading); font-weight: 700; margin-top: 4px; }
@@ -626,7 +613,6 @@ img { max-width: 100%; }
   *,
   .blink,
   .cartridge,
-  .cartridge-card,
   .dock__orbit,
   .dock__ray,
   .dock__btn,
