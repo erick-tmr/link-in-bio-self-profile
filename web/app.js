@@ -2,6 +2,10 @@
    Erick Takeshi — personal page
    Vanilla port of the prototype's DCLogic component: EN/PT i18n + a looping
    music dock (Littleroot Town lo-fi) driven by an HTMLAudioElement.
+
+   CI smoke test: cache-purge-test-2026-06-27 — verifies the deploy workflow
+   purges the Cloudflare cache so JS changes go live without a manual purge.
+   Safe to revert once confirmed.
    =========================================================================== */
 (function () {
   "use strict";
