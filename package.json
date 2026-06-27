@@ -1,0 +1,14 @@
+{
+  "name": "link-in-bio-self-profile",
+  "version": "1.0.0",
+  "description": "Personal Link in Bio profile — static site with a minify-only asset pipeline.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node build.mjs && npx -y serve dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}
