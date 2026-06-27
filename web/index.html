@@ -346,7 +346,8 @@
       </div>
     </div>
 
-    <audio id="track" src="https://www.ericktakeshi.com.br/assets/littleroot-town-lofi.mp3" loop preload="auto"></audio>
-    <script src="app.js"></script>
+    <!-- Track source + looping are owned by the player (web/js/player/). -->
+    <audio id="track" preload="none"></audio>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
