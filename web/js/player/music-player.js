@@ -23,11 +23,10 @@ export class MusicPlayer {
     this.enabled = true; // user intent; actual playback waits for a gesture
     this.listeners = new Set();
 
-    // When a track finishes, advance and keep playing (wrap = loop for 1 track).
-    this.engine.on("ended", () => {
-      this.playlist.next();
-      if (this.enabled) this._loadAndPlay();
-    });
+    // When a track finishes, advance to the next one. Delegating to next()
+    // (rather than inlining playlist.next() + load) keeps the UI in sync: it
+    // emits the change event so the dock re-renders the new title/artist.
+    this.engine.on("ended", () => this.next());
   }
 
   get currentTrack() {
