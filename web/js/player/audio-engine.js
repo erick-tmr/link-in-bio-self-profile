@@ -43,6 +43,21 @@ export class AudioEngine {
     return this.el.paused;
   }
 
+  /** Seconds played in the current source (0 before metadata loads). */
+  get currentTime() {
+    return this.el.currentTime || 0;
+  }
+
+  /** Length of the current source in seconds (NaN/0 until metadata loads). */
+  get duration() {
+    return this.el.duration || 0;
+  }
+
+  /** Jump to an absolute position (seconds) within the current source. */
+  seek(seconds) {
+    if (Number.isFinite(seconds)) this.el.currentTime = seconds;
+  }
+
   set volume(value) {
     this.el.volume = value;
   }

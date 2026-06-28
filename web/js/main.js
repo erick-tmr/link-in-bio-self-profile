@@ -16,7 +16,7 @@ const i18n = new I18n(DICT);
 
 const audioEl = document.getElementById("track");
 if (audioEl) {
-  const player = new MusicPlayer(new AudioEngine(audioEl), new Playlist(TRACKS));
+  const player = new MusicPlayer(new AudioEngine(audioEl), new Playlist(TRACKS, { shuffle: true }));
   new MusicDock({ player, i18n });
 }
 

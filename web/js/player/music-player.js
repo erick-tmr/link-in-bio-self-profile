@@ -42,6 +42,16 @@ export class MusicPlayer {
     return this.enabled;
   }
 
+  /** Position within the current track, in seconds. */
+  get currentTime() {
+    return this.engine.currentTime;
+  }
+
+  /** Length of the current track, in seconds (0 until metadata loads). */
+  get duration() {
+    return this.engine.duration;
+  }
+
   /** Begin (or resume) playback of the current track. */
   play() {
     this.enabled = true;
@@ -68,17 +78,47 @@ export class MusicPlayer {
     this._emit();
   }
 
-  /** Skip to the previous track. Plays it when enabled. (Ready for skip UI.) */
+  /**
+   * Skip to the previous track — but if we're more than 3s into the current
+   * one, "previous" restarts it (the familiar media-player behaviour) instead
+   * of jumping back. Plays it when enabled.
+   */
   prev() {
+    if (this.engine.currentTime > 3) {
+      this.engine.seek(0);
+      this._emit();
+      return;
+    }
     this.playlist.prev();
     if (this.enabled) this._loadAndPlay();
     this._emit();
+  }
+
+  /** Scrub to a fraction (0..1) of the current track's duration. */
+  seek(fraction) {
+    const d = this.engine.duration;
+    if (d > 0) this.engine.seek(Math.min(1, Math.max(0, fraction)) * d);
   }
 
   /** Subscribe to player state changes. Returns an unsubscribe function. */
   onChange(cb) {
     this.listeners.add(cb);
     return () => this.listeners.delete(cb);
+  }
+
+  /**
+   * Subscribe to playback-position updates (a high-frequency signal kept
+   * separate from onChange so the UI can cheaply redraw just the progress bar).
+   * The callback receives (currentTime, duration). Returns an unsubscribe fn.
+   */
+  onTime(cb) {
+    const emit = () => cb(this.engine.currentTime, this.engine.duration);
+    const offTime = this.engine.on("timeupdate", emit);
+    const offMeta = this.engine.on("loadedmetadata", emit);
+    return () => {
+      offTime();
+      offMeta();
+    };
   }
 
   _loadAndPlay() {
