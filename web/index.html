@@ -357,8 +357,13 @@
       <div class="player" id="player">
         <!-- Expanded panel -->
         <div class="player__panel">
-          <div class="player__scan" aria-hidden="true"></div>
-          <img class="player__bg-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" aria-hidden="true" />
+          <!-- decorative layers are clipped to the rounded panel; the panel
+               itself is overflow:visible so the orbiting Rayquaza can rise
+               above it instead of being clipped inside. -->
+          <div class="player__clip" aria-hidden="true">
+            <div class="player__scan"></div>
+            <img class="player__bg-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" />
+          </div>
 
           <div class="player__inner">
             <!-- header -->

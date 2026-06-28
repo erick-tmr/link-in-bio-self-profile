@@ -623,8 +623,16 @@ img { max-width: 100%; }
   border: 1px solid var(--green);
   background: linear-gradient(162deg, #11261b, #0a150f);
   box-shadow: 0 20px 48px rgba(0, 0, 0, .62), inset 0 0 0 1px var(--bg);
-  overflow: hidden;
+  overflow: visible; /* let the orbiting Rayquaza rise above the panel */
   transition: border-color .25s;
+}
+/* clips the decorative layers to the rounded panel without clipping the orbit */
+.player__clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  pointer-events: none;
 }
 .player__scan {
   position: absolute;
