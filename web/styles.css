@@ -404,23 +404,53 @@ img { max-width: 100%; }
   transition: all .15s;
 }
 .link-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .4); }
-.link-card--mail:hover { border-color: var(--red); }
+.link-card--alt:hover { border-color: var(--red); }
 .link-card__icon {
   flex: 0 0 42px;
   width: 42px;
   height: 42px;
+  position: relative;
   display: grid;
   place-items: center;
+  overflow: hidden;
   background: var(--panel-2);
   border: 1px solid var(--border);
   border-radius: 7px;
-  font-family: var(--pixel);
-  font-size: 11px;
 }
-.link-card__icon--sm { font-size: 9px; }
-.link-card__icon--lg { font-size: 14px; }
+.link-card__icon img {
+  max-width: 86%;
+  max-height: 86%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+/* per-brand icon tiles — pixel art on a brand-colored background */
+.link-card__icon--linkedin { background: #0a66c2; }
+.link-card__icon--linkedin img { max-width: 80%; max-height: 80%; }
+.link-card__icon--instagram { background: var(--lime); }
+.link-card__icon--instagram img { max-width: 80%; max-height: 80%; }
+.link-card__icon--mentoria { background: var(--blue); }
+.link-card__icon--mentoria img { max-width: 88%; max-height: 88%; }
+.link-card__icon--ama { background: #f4ecdc; }
+.link-card__icon--github { background: var(--heading); }
+.link-card__icon--github img { max-width: 90%; max-height: 90%; }
+.link-card__icon--email { background: var(--green); }
+.link-card__icon--email img { max-width: 78%; max-height: 78%; }
+.link-card__icon--x { background: var(--panel-2); color: var(--heading); }
+/* X — pixel-art glyph drawn from a 2px seed dot + box-shadow (no asset needed) */
+.x-pixel {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 6px 6px 0, 8px 6px 0, 10px 6px 0, 12px 6px 0, 14px 6px 0, 28px 6px 0, 30px 6px 0, 8px 8px 0, 10px 8px 0, 12px 8px 0, 14px 8px 0, 26px 8px 0, 28px 8px 0, 8px 10px 0, 10px 10px 0, 14px 10px 0, 16px 10px 0, 24px 10px 0, 26px 10px 0, 28px 10px 0, 10px 12px 0, 12px 12px 0, 16px 12px 0, 18px 12px 0, 24px 12px 0, 26px 12px 0, 12px 14px 0, 18px 14px 0, 20px 14px 0, 22px 14px 0, 24px 14px 0, 14px 16px 0, 18px 16px 0, 20px 16px 0, 22px 16px 0, 14px 18px 0, 16px 18px 0, 20px 18px 0, 22px 18px 0, 16px 20px 0, 18px 20px 0, 22px 20px 0, 24px 20px 0, 16px 22px 0, 18px 22px 0, 20px 22px 0, 24px 22px 0, 14px 24px 0, 16px 24px 0, 18px 24px 0, 20px 24px 0, 26px 24px 0, 12px 26px 0, 14px 26px 0, 20px 26px 0, 22px 26px 0, 26px 26px 0, 28px 26px 0, 10px 28px 0, 12px 28px 0, 22px 28px 0, 24px 28px 0, 28px 28px 0, 30px 28px 0, 8px 30px 0, 10px 30px 0, 24px 30px 0, 26px 30px 0, 28px 30px 0, 30px 30px 0, 6px 32px 0, 8px 32px 0, 24px 32px 0, 26px 32px 0, 28px 32px 0, 30px 32px 0, 32px 32px 0;
+}
 .link-card__text { flex: 1; }
 .link-card__title { display: block; font-size: 14px; font-weight: 700; color: var(--heading); }
+.link-card__title-soft { color: var(--muted-2); font-weight: 400; }
 .link-card__sub { display: block; font-size: 11px; color: var(--muted-2); margin-top: 2px; }
 .link-card__arrow { font-size: 14px; }
 
