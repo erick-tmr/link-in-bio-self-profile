@@ -322,29 +322,102 @@
         </footer>
       </div>
 
-      <!-- MUSIC DOCK -->
-      <div class="dock" id="dock">
-        <div class="dock__ring">
-          <div class="dock__orbit" aria-hidden="true">
-            <div class="dock__orbit-arm">
-              <img class="dock__ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" />
+      <!-- MUSIC PLAYER — expanded panel + collapsed puck. Behaviour lives in
+           web/js/player/ (music-dock.js wires this markup to the player). -->
+      <div class="player" id="player">
+        <!-- Expanded panel -->
+        <div class="player__panel">
+          <div class="player__scan" aria-hidden="true"></div>
+          <img class="player__bg-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" aria-hidden="true" />
+
+          <div class="player__inner">
+            <!-- header -->
+            <div class="player__header">
+              <span class="player__status-dot" aria-hidden="true"></span>
+              <span class="player__status" id="playerStatus"></span>
+              <span class="player__fm">SKY PILLAR · FM</span>
+              <button type="button" class="player__min" id="playerMin" aria-label="Minimize player">
+                <span class="player__min-bar" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <!-- art + meta -->
+            <div class="player__meta">
+              <div class="player__art">
+                <div class="player__art-scan" aria-hidden="true"></div>
+                <img class="player__art-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" aria-hidden="true" />
+              </div>
+              <div class="player__info">
+                <div class="player__title" id="playerTitle"></div>
+                <div class="player__artist" id="playerArtist"></div>
+                <span class="eq eq--meta" aria-hidden="true">
+                  <span class="eq__bar"></span>
+                  <span class="eq__bar"></span>
+                  <span class="eq__bar"></span>
+                  <span class="eq__bar"></span>
+                  <span class="eq__bar"></span>
+                </span>
+              </div>
+            </div>
+
+            <!-- progress -->
+            <div class="player__progress">
+              <div class="player__bar" id="playerBar">
+                <div class="player__fill" id="playerFill"></div>
+                <div class="player__handle" id="playerHandle"></div>
+              </div>
+              <div class="player__times">
+                <span id="playerNow">0:00</span>
+                <span id="playerTotal">--:--</span>
+              </div>
+            </div>
+
+            <!-- transport -->
+            <div class="player__transport">
+              <button type="button" class="player__btn" id="playerPrev" aria-label="Previous track">
+                <span class="ico-prev" aria-hidden="true"></span>
+              </button>
+
+              <div class="player__play-wrap">
+                <div class="player__orbit" aria-hidden="true">
+                  <div class="player__orbit-arm">
+                    <img class="player__orbit-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" />
+                  </div>
+                </div>
+                <button type="button" class="player__play" id="playerPlay" aria-label="Play or pause" aria-pressed="true">
+                  <span class="ico-pause" aria-hidden="true"><span></span><span></span></span>
+                  <span class="ico-play" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <button type="button" class="player__btn" id="playerNext" aria-label="Next track">
+                <span class="ico-next" aria-hidden="true"></span>
+              </button>
             </div>
           </div>
-          <button type="button" class="dock__btn" id="musicBtn" aria-label="Toggle music" aria-pressed="true">
-            <span class="eq" aria-hidden="true">
-              <span class="eq__bar"></span>
-              <span class="eq__bar"></span>
-              <span class="eq__bar"></span>
-              <span class="eq__bar"></span>
-            </span>
-          </button>
         </div>
-        <div class="dock__label" id="musicLabel"></div>
+
+        <!-- Collapsed puck -->
+        <button type="button" class="player__mini" id="playerMini" aria-label="Open music player">
+          <div class="player__orbit player__orbit--mini" aria-hidden="true">
+            <div class="player__orbit-arm player__orbit-arm--mini">
+              <img class="player__orbit-ray" src="https://www.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" />
+            </div>
+          </div>
+          <span class="eq" aria-hidden="true">
+            <span class="eq__bar"></span>
+            <span class="eq__bar"></span>
+            <span class="eq__bar"></span>
+            <span class="eq__bar"></span>
+          </span>
+          <span class="player__badge" aria-hidden="true">♪</span>
+        </button>
+
+        <!-- Track source + looping are owned by the player (web/js/player/). -->
+        <audio id="track" preload="none"></audio>
       </div>
     </div>
 
-    <!-- Track source + looping are owned by the player (web/js/player/). -->
-    <audio id="track" preload="none"></audio>
     <script type="module" src="js/main.js"></script>
   </body>
 </html>

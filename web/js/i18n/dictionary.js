@@ -1,7 +1,8 @@
 /* ===========================================================================
    i18n dictionary — translation data only, no logic.
    Keys are referenced from the DOM via [data-i18n="<key>"] and from the music
-   dock label (musicOn / musicOff). Add a language by adding a sibling object.
+   player status label (musicNowPlaying / musicPaused). Add a language by adding
+   a sibling object.
    =========================================================================== */
 
 export const DEFAULT_LANG = "en";
@@ -38,8 +39,8 @@ export const DICT = {
     lSide: "SIDE QUEST",
     lClass: "CLASS",
     footerNote: "Built with caffeine, Pokémon & boost.",
-    musicOn: "♪ MUSIC ON · TAP TO MUTE",
-    musicOff: "♪ MUSIC OFF · TAP TO PLAY"
+    musicNowPlaying: "NOW PLAYING",
+    musicPaused: "PAUSED"
   },
   pt: {
     bioRole: "Engenheiro de software · romhacker de Pokémon · entusiasta JDM",
@@ -72,7 +73,7 @@ export const DICT = {
     lSide: "MISSÃO PARALELA",
     lClass: "CLASSE",
     footerNote: "Feito com cafeína, Pokémon e turbo.",
-    musicOn: "♪ SOM LIGADO · TOQUE P/ MUTAR",
-    musicOff: "♪ SOM DESLIGADO · TOQUE"
+    musicNowPlaying: "TOCANDO AGORA",
+    musicPaused: "PAUSADO"
   }
 };

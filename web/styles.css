@@ -65,6 +65,8 @@ img { max-width: 100%; }
   50%      { box-shadow: 0 0 0 9px rgba(53, 214, 138, 0), 0 8px 22px rgba(0, 0, 0, .5); }
 }
 @keyframes eqBar { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+/* counter-rotates the sprite so it stays upright while the orbit arm spins */
+@keyframes rayUpright { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
 /* ---- Ambient background ------------------------------------------------ */
 .bg-scanlines,
@@ -528,48 +530,23 @@ img { max-width: 100%; }
 .site-footer__note { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 8px; }
 .site-footer__legal { font-family: var(--mono); font-size: 10px; color: var(--muted-3); text-align: right; max-width: 320px; line-height: 1.6; }
 
-/* ---- Music dock -------------------------------------------------------- */
-.dock {
+/* ---- Music player ------------------------------------------------------ */
+.player {
   position: fixed;
-  right: 58px;
-  bottom: 58px;
+  right: 34px;
+  bottom: 34px;
   z-index: 80;
+  width: 332px;
+  max-width: calc(100vw - 36px);
+  font-family: var(--mono);
+  pointer-events: none; /* only the panel/puck are interactive */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 9px;
+  align-items: flex-end;
 }
-.dock__ring { position: relative; width: 64px; height: 64px; }
-.dock__orbit {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  animation: rayOrbit 9s linear infinite;
-}
-.dock__orbit-arm { transform: translateX(50px); }
-.dock__ray {
-  width: 62px;
-  height: auto;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, .55));
-  animation: rayFly 9s linear infinite;
-}
-.dock__btn {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid var(--green);
-  background: radial-gradient(circle at 50% 38%, #163024, #0c1c14);
-  display: grid;
-  place-items: center;
-  transition: border-color .2s;
-  animation: mutePulse 1.8s ease-out infinite;
-}
-.eq { display: flex; align-items: flex-end; gap: 3px; height: 22px; }
+
+/* equalizer bars (shared by panel meta + collapsed puck) */
+.eq { display: flex; align-items: flex-end; gap: 3px; height: 20px; }
 .eq__bar {
   width: 4px;
   height: 100%;
@@ -581,31 +558,305 @@ img { max-width: 100%; }
 .eq__bar:nth-child(2) { animation-delay: .2s; }
 .eq__bar:nth-child(3) { animation-delay: .4s; }
 .eq__bar:nth-child(4) { animation-delay: .1s; }
-.dock__label {
-  font-family: var(--pixel);
-  font-size: 7px;
-  letter-spacing: 0.5px;
-  color: #9be8c2;
-  background: rgba(8, 18, 13, 0.85);
+.eq__bar:nth-child(5) { animation-delay: .3s; }
+.eq--meta { height: 13px; margin-top: 9px; }
+.eq--meta .eq__bar { width: 3px; }
+
+/* orbiting Rayquaza (panel play button + collapsed puck) */
+.player__orbit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 2;
+  animation: rayOrbit 7s linear infinite;
+}
+.player__orbit-arm { transform: translateX(42px); }
+.player__orbit-arm--mini { transform: translateX(40px); }
+.player__orbit-ray {
+  display: block;
+  width: 46px;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .6));
+  animation: rayUpright 7s linear infinite;
+}
+.player__orbit--mini .player__orbit-ray { width: 42px; }
+
+/* ---- Expanded panel ---------------------------------------------------- */
+.player__panel {
+  position: relative;
+  width: 100%;
+  pointer-events: auto;
+  border-radius: 14px;
   border: 1px solid var(--green);
-  border-radius: 4px;
-  padding: 4px 7px;
+  background: linear-gradient(162deg, #11261b, #0a150f);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .62), inset 0 0 0 1px var(--bg);
+  overflow: hidden;
+  transition: border-color .25s;
+}
+.player__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0px, rgba(0, 0, 0, 0.14) 1px, transparent 1px, transparent 3px);
+}
+.player__bg-ray {
+  position: absolute;
+  right: -30px;
+  top: -22px;
+  width: 128px;
+  opacity: 0.1;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+.player__inner { position: relative; padding: 14px 16px 16px; }
+
+/* header */
+.player__header { display: flex; align-items: center; gap: 8px; margin-bottom: 13px; }
+.player__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 1.6s steps(1) infinite;
+}
+.player__status { font-family: var(--pixel); font-size: 7px; color: var(--muted-2); letter-spacing: 1px; }
+.player__fm { margin-left: auto; font-family: var(--pixel); font-size: 7px; color: var(--green); letter-spacing: 1px; }
+.player__min {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted-2);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  transition: all .15s;
+}
+.player__min:hover { border-color: var(--green); color: var(--green); }
+.player__min-bar { width: 9px; height: 2px; background: currentColor; }
+
+/* art + meta */
+.player__meta { display: flex; align-items: center; gap: 14px; }
+.player__art {
+  position: relative;
+  flex: 0 0 66px;
+  width: 66px;
+  height: 66px;
+  border-radius: 12px;
+  border: 2px solid #08120d;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 35%, #1a4029, #0a150f);
+  box-shadow: inset 0 0 0 1px rgba(53, 214, 138, .25);
+}
+.player__art-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 3px);
+}
+.player__art-ray {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  image-rendering: pixelated;
+  opacity: .85;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .5));
+}
+.player__info { flex: 1; min-width: 0; }
+.player__title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.3px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.player__artist {
+  font-size: 11px;
+  color: var(--muted-2);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* muted state */
-.dock.is-muted .dock__orbit,
-.dock.is-muted .dock__ray,
-.dock.is-muted .eq__bar { animation-play-state: paused; }
-.dock.is-muted .dock__ray { opacity: 0.4; }
-.dock.is-muted .dock__btn { border-color: var(--border); animation: none; }
-.dock.is-muted .eq__bar { background: var(--muted-3); }
-.dock.is-muted .dock__label { color: var(--muted); border-color: var(--border); }
+/* progress */
+.player__progress { margin-top: 15px; }
+.player__bar {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  cursor: pointer;
+}
+.player__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--lime), var(--green));
+}
+.player__handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 12px;
+  height: 12px;
+  margin: -7px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--heading);
+  border: 2px solid var(--green);
+  box-shadow: 0 0 8px rgba(53, 214, 138, .6);
+}
+.player__times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: .5px;
+}
+
+/* transport */
+.player__transport { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 13px; }
+.player__btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-dim);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  transition: all .15s;
+}
+.player__btn:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+
+/* prev / next glyphs drawn from borders so no icon font is needed */
+.ico-prev, .ico-next { display: flex; align-items: center; gap: 2px; }
+.ico-prev::before, .ico-next::after {
+  content: "";
+  width: 2px;
+  height: 13px;
+  background: currentColor;
+}
+.ico-prev::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 9px solid currentColor;
+}
+.ico-next::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid currentColor;
+}
+
+.player__play-wrap { position: relative; width: 56px; height: 56px; }
+.player__play {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #08130d;
+  background: var(--green);
+  border: 2px solid #6df0b1;
+  box-shadow: 0 8px 22px rgba(53, 214, 138, .3);
+  transition: transform .15s;
+  animation: mutePulse 1.8s ease-out infinite;
+}
+.player__play:hover { transform: translateY(-2px); }
+.ico-pause { display: flex; gap: 5px; }
+.ico-pause span { width: 5px; height: 18px; background: currentColor; border-radius: 1px; }
+.ico-play {
+  display: none;
+  width: 0;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 17px solid currentColor;
+  margin-left: 4px;
+}
+
+/* ---- Collapsed puck ---------------------------------------------------- */
+.player__mini {
+  position: relative;
+  pointer-events: auto;
+  display: none; /* shown via .player.is-collapsed */
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--green);
+  border: 2px solid var(--green);
+  background: radial-gradient(circle at 50% 38%, #163024, #0c1c14);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .6);
+  transition: border-color .2s;
+  animation: mutePulse 1.8s ease-out infinite;
+}
+.player__mini .eq__bar { background: currentColor; }
+.player__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--green);
+  display: grid;
+  place-items: center;
+  font-family: var(--pixel);
+  font-size: 7px;
+  color: var(--green);
+}
+
+/* ---- Collapsed / expanded toggle --------------------------------------- */
+.player.is-collapsed .player__panel { display: none; }
+.player.is-collapsed .player__mini { display: grid; }
+
+/* ---- Muted (paused) state ---------------------------------------------- */
+.player.is-muted .player__orbit,
+.player.is-muted .player__orbit-ray,
+.player.is-muted .eq__bar { animation-play-state: paused; }
+.player.is-muted .player__orbit-ray { opacity: 0.4; }
+.player.is-muted .eq__bar { background: var(--muted-3); }
+.player.is-muted .player__mini .eq__bar { background: var(--muted-3); }
+.player.is-muted .player__panel { border-color: var(--border); }
+.player.is-muted .player__status-dot { background: var(--red); box-shadow: 0 0 8px var(--red); }
+.player.is-muted .player__play { animation: none; }
+.player.is-muted .player__mini { border-color: var(--border); color: var(--muted-3); animation: none; }
+.player.is-muted .player__badge { border-color: var(--border); color: var(--muted-2); }
+/* swap play/pause glyph when paused */
+.player.is-muted .ico-pause { display: none; }
+.player.is-muted .ico-play { display: block; }
 
 /* ---- Responsive -------------------------------------------------------- */
 @media (max-width: 600px) {
   .container { padding: 0 16px 80px; }
-  .dock { right: 16px; bottom: 16px; align-items: flex-end; }
+  .player { right: 16px; bottom: 16px; width: calc(100vw - 32px); }
 }
 
 /* ---- Reduced motion ---------------------------------------------------- */
@@ -613,9 +864,11 @@ img { max-width: 100%; }
   *,
   .blink,
   .cartridge,
-  .dock__orbit,
-  .dock__ray,
-  .dock__btn,
+  .player__orbit,
+  .player__orbit-ray,
+  .player__play,
+  .player__mini,
+  .player__status-dot,
   .eq__bar,
   .term-cursor {
     animation: none !important;
