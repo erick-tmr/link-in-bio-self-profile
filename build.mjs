@@ -8,6 +8,8 @@
               folder tree and the relative import paths (bundle: false).
      2. CSS — minify web/styles.css.
      3. HTML— copy web/index.html verbatim.
+     4. Root metadata — copy web/favicon.ico + web/site.webmanifest verbatim so
+              they are served from the site root (/favicon.ico, /site.webmanifest).
 
    web/assets/ is intentionally excluded: those images/audio live on S3/CDN and
    are published out-of-band via scripts/sync-assets.sh.
@@ -62,7 +64,15 @@ async function main() {
   // 3. index.html — copy verbatim.
   await cp(join(SRC, "index.html"), join(OUT, "index.html"));
 
-  console.log(`Build complete: ${entryPoints.length} JS modules + CSS + HTML -> dist/`);
+  // 4. Root metadata files (favicon + manifest) — copy verbatim to dist root.
+  //    The heavier PNG icons live on the CDN under /assets/ (synced separately).
+  for (const file of ["favicon.ico", "site.webmanifest"]) {
+    await cp(join(SRC, file), join(OUT, file));
+  }
+
+  console.log(
+    `Build complete: ${entryPoints.length} JS modules + CSS + HTML + favicon.ico + site.webmanifest -> dist/`
+  );
 }
 
 main().catch((err) => {

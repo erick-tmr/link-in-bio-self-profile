@@ -1,0 +1,29 @@
+{
+  "name": "Erick Takeshi",
+  "short_name": "Erick.TMR",
+  "description": "Erick Takeshi — link-in-bio / self profile.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a130e",
+  "theme_color": "#0a130e",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
