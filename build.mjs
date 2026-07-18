@@ -7,15 +7,17 @@
      1. JS  — minify every .js file under web/js individually, preserving the
               folder tree and the relative import paths (bundle: false).
      2. CSS — minify web/styles.css.
-     3. HTML— copy web/index.html verbatim.
+     3. HTML— copy web/index.html + web/404.html verbatim.
      4. Root metadata — copy web/favicon.ico + web/site.webmanifest verbatim so
               they are served from the site root (/favicon.ico, /site.webmanifest).
+     5. Fingerprint — rewrite logical cdn asset URLs to their content-hashed
+              names using asset-manifest.json (see scripts/publish-assets.mjs).
 
-   web/assets/ is intentionally excluded: those images/audio live on S3/CDN and
-   are published out-of-band via scripts/sync-assets.sh.
+   web/assets/ is intentionally excluded: those images/audio live on R2/CDN and
+   are published out-of-band via scripts/publish-assets.mjs.
    =========================================================================== */
 import { build } from "esbuild";
-import { rm, mkdir, cp, readdir } from "node:fs/promises";
+import { rm, mkdir, cp, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -61,8 +63,9 @@ async function main() {
     logLevel: "info"
   });
 
-  // 3. index.html — copy verbatim.
+  // 3. index.html + 404.html — copy verbatim.
   await cp(join(SRC, "index.html"), join(OUT, "index.html"));
+  await cp(join(SRC, "404.html"), join(OUT, "404.html"));
 
   // 4. Root metadata files (favicon + manifest) — copy verbatim to dist root.
   //    The heavier PNG icons live on the CDN under /assets/ (synced separately).
@@ -70,9 +73,73 @@ async function main() {
     await cp(join(SRC, file), join(OUT, file));
   }
 
+  // 5. Fingerprint — swap logical cdn asset URLs for their content-hashed names.
+  await fingerprintDist();
+
   console.log(
-    `Build complete: ${entryPoints.length} JS modules + CSS + HTML + favicon.ico + site.webmanifest -> dist/`
+    `Build complete: ${entryPoints.length} JS modules + CSS + HTML + 404 + favicon.ico + site.webmanifest -> dist/`
   );
+}
+
+// Logical asset URLs in source look like:
+//   https://cdn.ericktakeshi.com.br/assets/hoenn/01-opening-movie.mp3
+// The capture group is the manifest key (the path after /assets/).
+const CDN_ASSET_RE = /https:\/\/cdn\.ericktakeshi\.com\.br\/assets\/([^"')\s]+)/g;
+
+/**
+ * Rewrite every logical cdn asset URL in the built output to its hashed form,
+ * using asset-manifest.json. No manifest yet (or no cdn URLs in source) => no-op,
+ * so this is safe to run before the R2 migration is wired up. Any cdn asset URL
+ * with no manifest entry fails the build — that means an unpublished asset.
+ */
+async function fingerprintDist() {
+  let manifest;
+  try {
+    manifest = JSON.parse(await readFile(join(ROOT, "asset-manifest.json"), "utf8"));
+  } catch {
+    console.log("No asset-manifest.json — skipping fingerprint rewrite.");
+    return;
+  }
+
+  const targets = [
+    join(OUT, "index.html"),
+    join(OUT, "404.html"),
+    join(OUT, "styles.css"),
+    join(OUT, "site.webmanifest"),
+    ...(await jsEntryPoints(join(OUT, "js")))
+  ];
+
+  const missing = new Set();
+  let rewritten = 0;
+
+  for (const file of targets) {
+    let text;
+    try {
+      text = await readFile(file, "utf8");
+    } catch {
+      continue;
+    }
+    let changed = false;
+    const next = text.replace(CDN_ASSET_RE, (whole, logical) => {
+      const hashed = manifest[logical];
+      if (!hashed) {
+        missing.add(logical);
+        return whole;
+      }
+      changed = true;
+      rewritten++;
+      return `https://cdn.ericktakeshi.com.br/assets/${hashed}`;
+    });
+    if (changed) await writeFile(file, next);
+  }
+
+  if (missing.size) {
+    console.error("Assets referenced but absent from asset-manifest.json (run `npm run publish-assets`):");
+    for (const key of [...missing].sort()) console.error(`  - ${key}`);
+    process.exit(1);
+  }
+
+  console.log(`Fingerprint: rewrote ${rewritten} asset URL(s) from asset-manifest.json.`);
 }
 
 main().catch((err) => {

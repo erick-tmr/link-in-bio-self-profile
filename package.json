@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "serve": "node build.mjs && npx -y serve dist"
+    "serve": "node build.mjs && npx -y serve dist",
+    "publish-assets": "node scripts/publish-assets.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1"
