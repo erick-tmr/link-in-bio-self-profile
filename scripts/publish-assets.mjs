@@ -16,16 +16,17 @@
         content-addressed, so an existing key means identical bytes).
      4. Write asset-manifest.json (logical -> hashed) at the repo root. COMMIT it.
 
-   Config via env (the AWS CLI must be installed and an R2 profile configured):
-     R2_ACCOUNT_ID  (required)  Cloudflare account id -> R2 S3 API endpoint
-     R2_BUCKET      (default: ericktakeshi-cdn)
-     R2_PROFILE     (default: r2-cdn)   local `aws` profile holding the R2 keys
+   Config comes from the repo-root .env file (gitignored) or real env vars
+   (which take precedence). See .env.example. Required: R2_ACCOUNT_ID. Auth is
+   either R2_ACCESS_KEY_ID + R2_SECRET_ACCESS_KEY, or a local aws profile named
+   by R2_PROFILE (default: r2-cdn). The AWS CLI must be installed.
 
    Usage:
-     R2_ACCOUNT_ID=xxxx…  npm run publish-assets
+     npm run publish-assets            # reads .env
    =========================================================================== */
 import { createHash } from "node:crypto";
 import { readFile, writeFile, readdir } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { dirname, join, relative, extname } from "node:path";
@@ -37,8 +38,35 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ASSETS_DIR = join(ROOT, "web", "assets");
 const MANIFEST = join(ROOT, "asset-manifest.json");
 
+/** Load KEY=VALUE lines from a .env file into process.env (real env wins). */
+function loadEnv(path) {
+  let text;
+  try {
+    text = readFileSync(path, "utf8");
+  } catch {
+    return; // no .env — rely on real env vars
+  }
+  for (const line of text.split("\n")) {
+    const match = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
+    if (!match) continue; // blank lines and # comments
+    const key = match[1];
+    let value = match[2];
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    if (!(key in process.env)) process.env[key] = value;
+  }
+}
+
+loadEnv(join(ROOT, ".env"));
+
 const ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
 const BUCKET = process.env.R2_BUCKET || "ericktakeshi-cdn";
+const ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const PROFILE = process.env.R2_PROFILE || "r2-cdn";
 const PREFIX = "assets";
 const CACHE_CONTROL = "public, max-age=31536000, immutable";
@@ -58,17 +86,28 @@ const CONTENT_TYPES = {
 };
 
 if (!ACCOUNT_ID) {
-  console.error("Set R2_ACCOUNT_ID (your Cloudflare account id) before running.");
-  console.error("  e.g.  R2_ACCOUNT_ID=abc123…  npm run publish-assets");
+  console.error("Missing R2_ACCOUNT_ID (your Cloudflare account id).");
+  console.error("Set it in .env (copy .env.example) or the environment, then re-run.");
   process.exit(1);
 }
 
 const ENDPOINT = `https://${ACCOUNT_ID}.r2.cloudflarestorage.com`;
-const AWS_GLOBAL = [
-  "--endpoint-url", ENDPOINT,
-  "--profile", PROFILE,
-  "--region", "auto"
-];
+
+// Global aws flags + the env the aws child process runs with. Auth is either
+// explicit R2 keys (passed via env, no profile) or a named aws profile.
+const AWS_GLOBAL = ["--endpoint-url", ENDPOINT, "--region", "auto"];
+const AWS_ENV = { ...process.env };
+if (ACCESS_KEY_ID && SECRET_ACCESS_KEY) {
+  AWS_ENV.AWS_ACCESS_KEY_ID = ACCESS_KEY_ID;
+  AWS_ENV.AWS_SECRET_ACCESS_KEY = SECRET_ACCESS_KEY;
+  AWS_ENV.AWS_DEFAULT_REGION = "auto";
+  AWS_ENV.AWS_REGION = "auto";
+  delete AWS_ENV.AWS_PROFILE; // don't let a stray profile override the keys
+} else {
+  AWS_GLOBAL.push("--profile", PROFILE);
+}
+
+const runAws = (args) => execFileAsync("aws", [...args, ...AWS_GLOBAL], { env: AWS_ENV });
 
 /** Recursively collect every file under `dir` as an absolute path. */
 async function walk(dir) {
@@ -92,7 +131,7 @@ function hashedName(logical, hash) {
 /** True if the object key already exists in the bucket. */
 async function exists(key) {
   try {
-    await execFileAsync("aws", ["s3api", "head-object", "--bucket", BUCKET, "--key", key, ...AWS_GLOBAL]);
+    await runAws(["s3api", "head-object", "--bucket", BUCKET, "--key", key]);
     return true;
   } catch {
     return false;
@@ -134,9 +173,8 @@ async function main() {
       continue;
     }
 
-    await execFileAsync("aws", [
+    await runAws([
       "s3", "cp", abs, `s3://${BUCKET}/${key}`,
-      ...AWS_GLOBAL,
       "--cache-control", CACHE_CONTROL,
       "--content-type", contentType,
       "--only-show-errors"
