@@ -144,8 +144,8 @@ async function main() {
     absFiles = await walk(ASSETS_DIR);
   } catch {
     console.error(`No assets found at ${ASSETS_DIR}.`);
-    console.error("Reconcile the local tree from the current origin first, e.g.:");
-    console.error("  aws s3 sync s3://www.ericktakeshi.com.br/assets ./web/assets --profile self-site-assets --region sa-east-1");
+    console.error("Images/audio live on Cloudflare R2 (cdn.ericktakeshi.com.br) and are not in git —");
+    console.error("restore your local web/assets/ copy before publishing.");
     process.exit(1);
   }
 
