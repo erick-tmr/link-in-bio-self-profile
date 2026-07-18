@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 · Erick Takeshi</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="robots" content="noindex" />
+    <style>
+      :root { --bg: #0a130e; --green: #35d68a; --text: #d8e6dd; --muted: #6f8a7d; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh; display: grid; place-items: center;
+        background: var(--bg); color: var(--text); text-align: center; padding: 24px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        -webkit-font-smoothing: antialiased;
+      }
+      .code {
+        font-size: clamp(64px, 18vw, 140px); font-weight: 800;
+        color: var(--green); letter-spacing: -2px; line-height: 1;
+      }
+      .msg { margin: 14px 0 4px; font-size: 15px; }
+      .sub { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+      a {
+        display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+        color: #08130d; background: var(--green); font-weight: 700; font-size: 13px;
+        padding: 12px 18px; border-radius: 6px; transition: transform .15s;
+      }
+      a:hover { transform: translateY(-2px); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="code">404</div>
+      <p class="msg">This route isn't on the map.</p>
+      <p class="sub">Wild PAGE fled — nothing to see here.</p>
+      <a href="/">▶ Back to start</a>
+    </main>
+  </body>
+</html>
