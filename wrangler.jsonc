@@ -1,0 +1,13 @@
+{
+  // Cloudflare Workers static-assets config. The site is a plain static bundle:
+  // `npm run build` writes it to dist/, then `npx wrangler deploy` (run by
+  // Cloudflare Builds on every push to main) serves dist/ as static assets.
+  // No Worker script ("main") — this is an assets-only project.
+  "name": "ericktakeshi",
+  "compatibility_date": "2026-07-18",
+  "assets": {
+    "directory": "./dist",
+    // Serve the branded dist/404.html for any unmatched path.
+    "not_found_handling": "404-page"
+  }
+}
