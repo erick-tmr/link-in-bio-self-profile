@@ -5,6 +5,9 @@
    language on the .lang-btn switches, and notify subscribers when the language
    changes. It knows nothing about music or any other feature — interested
    parties (e.g. the music dock label) subscribe via onChange().
+
+   It does not decide *which* language a visitor gets, nor remember it: that
+   policy lives in js/site.js.
    =========================================================================== */
 
 export class I18n {
@@ -43,7 +46,12 @@ export class I18n {
 
     this.i18nNodes.forEach((node) => {
       const value = dict[node.getAttribute("data-i18n")];
-      if (value != null) node.textContent = value;
+      if (value == null) return;
+      // data-i18n-attr targets an attribute (alt, aria-label, title) instead
+      // of the node's text — accessible names need translating too.
+      const attr = node.getAttribute("data-i18n-attr");
+      if (attr) node.setAttribute(attr, value);
+      else node.textContent = value;
     });
 
     this.langButtons.forEach((btn) => {
