@@ -15,7 +15,8 @@
      [0]=used [1]=table [2:4]=addr LE [4:6]=size LE [6:8]=sum16 LE.
      Record at 0x110 describes the N64 transfer block (0x1800, 0x200 bytes,
      sum 0x01C9). Records from 0x3C0 carry non-checksum values: never touch.
-   - Block checksum = plain 16-bit byte sum, stored little-endian.
+   - Block checksum = plain 16-bit byte sum, stored little-endian. Each half
+     checksums its own copy of the data, so both halves must carry the block.
    - Canonical transfer block: ED D5 at +0x000, 07 at +0x159, rest zero.
    =========================================================================== */
 
@@ -59,7 +60,7 @@ export function sum16(bytes, start, length) {
   return sum;
 }
 
-/** The 0x200-byte N64 transfer block a real Transfer Pak session writes. */
+/** The 0x200-byte N64 transfer block, as found in unlocked cartridge saves. */
 export function canonicalTransferBlock() {
   const block = new Uint8Array(TRANSFER_SIZE);
   block[0x000] = 0xed;
@@ -204,19 +205,31 @@ function writeMarkers(out, base, on) {
 }
 
 /**
- * Unlock the N64 content: markers in both halves, canonical transfer block in
- * the primary half only (matching what the game itself writes). Idempotent.
- * Never touches save counters, profile blocks or records from 0x3C0.
+ * Unlock the N64 content: markers and the canonical transfer block in both
+ * halves. Idempotent. Never touches save counters, profile blocks or records
+ * from 0x3C0.
+ *
+ * The block goes in both halves because each half's directory record carries
+ * its own checksum for its own copy of the data. Writing the block to the
+ * primary alone leaves the backup record storing 0x01C9 for an area that is
+ * still zero — a half that fails its own checksum, and a state the game never
+ * produces: when its "erase N64 data" option clears the block it zeroes the
+ * checksum in both halves, keeping each record in step with its own data.
+ *
  * @returns {Uint8Array} a new array; the input is not mutated
  * @throws {PatchError} "badSave" | "transferDirty"
  */
 export function applyUnlock(bytes) {
   if (!validateSave(bytes).ok) throw new PatchError("badSave");
-  if (transferState(bytes, 0x0000) === "dirty") throw new PatchError("transferDirty");
+  // Both halves are written, so unexpected data in either one is a refusal.
+  for (const base of [0x0000, HALF]) {
+    if (transferState(bytes, base) === "dirty") throw new PatchError("transferDirty");
+  }
   const out = new Uint8Array(bytes);
-  writeMarkers(out, 0x0000, true);
-  writeMarkers(out, HALF, true);
-  out.set(canonicalTransferBlock(), OFFSETS.transferBlock);
+  for (const base of [0x0000, HALF]) {
+    writeMarkers(out, base, true);
+    out.set(canonicalTransferBlock(), base + OFFSETS.transferBlock);
+  }
   return out;
 }
 

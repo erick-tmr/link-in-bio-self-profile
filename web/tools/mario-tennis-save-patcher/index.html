@@ -104,8 +104,8 @@
             <h1 class="tool-hero__title">MARIO TENNIS<br /><span class="accent-lime">SAVE PATCHER</span></h1>
             <p class="tool-hero__lead" data-i18n="mtHeroLead">
               Mario Tennis (GBC, 2001) hides Yoshi, Wario, Waluigi, Bowser and four minigames behind a Transfer Pak
-              session with the N64 game. Nintendo never patched that out. This tool writes the exact same bytes that
-              session writes, straight into your save file.
+              session with the N64 game. Nintendo never patched that out. This tool writes those
+              unlock bytes straight into your save file, no N64 required.
             </p>
             <p class="privacy">
               <span class="privacy__badge" aria-hidden="true">!</span>
@@ -231,11 +231,6 @@
                         <tbody id="mtAuditBody"></tbody>
                       </table>
                     </div>
-                    <p class="audit__note" data-i18n="mtAuditNote">
-                      An unlocked save always shows one mismatch: record 0x110 in the backup half. The transfer block
-                      is written to the primary half only. That is what the game itself does, and every
-                      hardware-unlocked cartridge audits the same way.
-                    </p>
                   </div>
                 </div>
 
@@ -353,8 +348,8 @@
               <div class="step__num">03</div>
               <h3 class="step__title" data-i18n="mtStep3Title">Hit unlock</h3>
               <p class="step__body" data-i18n="mtStep3Body">
-                Thirteen bytes change, mirrored across the primary and backup halves, plus the 512-byte transfer block
-                the N64 side would have written. Save counters and profiles are untouched.
+                Sixteen bytes change: the unlock markers and the transfer block, mirrored across the primary and
+                backup halves so each one still passes its own checksum. Save counters and profiles are untouched.
               </p>
             </div>
             <div class="step">
@@ -384,9 +379,9 @@
               For most people the content is simply unreachable.
             </p>
             <p class="why__p why__p--soft" data-i18n="mtWhyP2">
-              So the save format got reverse-engineered, since it was documented nowhere, and the patch was verified
-              against three real cartridge dumps. The unlock output is byte-identical to a hardware Transfer Pak
-              session, and the removal restores the original byte for byte.
+              So the save format got reverse-engineered from real cartridge dumps, since it was documented nowhere.
+              The patch touches only the unlock markers and the transfer block, both halves of the save pass their own
+              checksums afterwards, and removing the unlock restores the original byte for byte.
             </p>
           </div>
 
@@ -432,8 +427,9 @@
               </table>
             </div>
             <p class="why__bytes-foot" data-i18n="mtBytesFoot">
-              Every marker is mirrored in the backup half at 0x2000. Save counters, profile blocks and the
-              non-checksum records from 0x3C0 are never written.
+              Every marker and the transfer block are mirrored in the backup half at 0x2000, because each half
+              checksums its own copy. Save counters, profile blocks and the non-checksum records from 0x3C0 are never
+              written.
             </p>
           </div>
         </section>
@@ -455,8 +451,9 @@
             <div class="faq__card">
               <h3 class="faq__q" data-i18n="mtFaq2Q">Does it work on a real cartridge?</h3>
               <p class="faq__a" data-i18n="mtFaq2A">
-                Yes. The output was verified byte-for-byte against a hardware Transfer Pak unlock. Write the patched
-                .sav back with your flasher.
+                It is built from real cartridge dumps and the patched save passes the game's own checksums, but it
+                has not been compared against a hardware Transfer Pak session. Keep your original before you write the
+                patched .sav back with your flasher.
               </p>
             </div>
             <div class="faq__card">

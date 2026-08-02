@@ -14,7 +14,7 @@ export const PATCHER_DICT = {
   en: {
     // hero
     mtHeroLead:
-      "Mario Tennis (GBC, 2001) hides Yoshi, Wario, Waluigi, Bowser and four minigames behind a Transfer Pak session with the N64 game. Nintendo never patched that out. This tool writes the exact same bytes that session writes, straight into your save file.",
+      "Mario Tennis (GBC, 2001) hides Yoshi, Wario, Waluigi, Bowser and four minigames behind a Transfer Pak session with the N64 game. Nintendo never patched that out. This tool writes those unlock bytes straight into your save file, no N64 required.",
     mtPrivacy: "Your save never leaves this tab. Everything runs in your browser, no upload, no server.",
 
     // dropzone
@@ -42,8 +42,6 @@ export const PATCHER_DICT = {
     mtAuditToggle: "Checksum audit: stored vs computed",
     mtAuditCount: "{audited} / {total}",
     mtAuditCaption: "Directory records in both save halves, with stored and recomputed checksums.",
-    mtAuditNote:
-      "An unlocked save always shows one mismatch: record 0x110 in the backup half. The transfer block is written to the primary half only. That is what the game itself does, and every hardware-unlocked cartridge audits the same way.",
     mtColHalf: "HALF",
     mtColRec: "REC",
     mtColAddr: "ADDR",
@@ -80,7 +78,7 @@ export const PATCHER_DICT = {
       "The file is read locally and checked: exact size, the Camelot header in both save halves, and a sane directory. If anything looks off, the tool refuses instead of guessing.",
     mtStep3Title: "Hit unlock",
     mtStep3Body:
-      "Thirteen bytes change, mirrored across the primary and backup halves, plus the 512-byte transfer block the N64 side would have written. Save counters and profiles are untouched.",
+      "Sixteen bytes change: the unlock markers and the transfer block, mirrored across the primary and backup halves so each one still passes its own checksum. Save counters and profiles are untouched.",
     mtStep4Title: "Put it back",
     mtStep4Body:
       "Download the patched file, keep your original as a backup, and replace it. Next boot, Yoshi, Wario, Waluigi and Bowser are on the character select, and the minigames are open.",
@@ -91,7 +89,7 @@ export const PATCHER_DICT = {
     mtWhyP1:
       "To unlock those four characters legitimately you need an N64, the N64 Mario Tennis cartridge, a Transfer Pak and the GBC cartridge. All four, at once. No cheat code exists, and the re-releases never fixed it. For most people the content is simply unreachable.",
     mtWhyP2:
-      "So the save format got reverse-engineered, since it was documented nowhere, and the patch was verified against three real cartridge dumps. The unlock output is byte-identical to a hardware Transfer Pak session, and the removal restores the original byte for byte.",
+      "So the save format got reverse-engineered from real cartridge dumps, since it was documented nowhere. The patch touches only the unlock markers and the transfer block, both halves of the save pass their own checksums afterwards, and removing the unlock restores the original byte for byte.",
 
     // under the hood
     mtBytesEyebrow: "UNDER THE HOOD",
@@ -105,7 +103,7 @@ export const PATCHER_DICT = {
     mtByte4: "record checksum",
     mtByte5: "transfer block (512 B)",
     mtBytesFoot:
-      "Every marker is mirrored in the backup half at 0x2000. Save counters, profile blocks and the non-checksum records from 0x3C0 are never written.",
+      "Every marker and the transfer block are mirrored in the backup half at 0x2000, because each half checksums its own copy. Save counters, profile blocks and the non-checksum records from 0x3C0 are never written.",
 
     // faq
     mtFaqEyebrow: "GOOD TO KNOW",
@@ -114,7 +112,7 @@ export const PATCHER_DICT = {
       'Yes. "Remove unlock" reverses the patch and produces a byte-identical pre-unlock save. It also repairs a half-applied "partial" state.',
     mtFaq2Q: "Does it work on a real cartridge?",
     mtFaq2A:
-      "Yes. The output was verified byte-for-byte against a hardware Transfer Pak unlock. Write the patched .sav back with your flasher.",
+      "It is built from real cartridge dumps and the patched save passes the game's own checksums, but it has not been compared against a hardware Transfer Pak session. Keep your original before you write the patched .sav back with your flasher.",
     mtFaq3Q: "Will it corrupt my progress?",
     mtFaq3A:
       "It only touches the N64 unlock markers and the transfer area. Still: keep a copy of the original file before you overwrite anything.",
@@ -155,7 +153,7 @@ export const PATCHER_DICT = {
   pt: {
     // hero
     mtHeroLead:
-      "Mario Tennis (GBC, 2001) esconde Yoshi, Wario, Waluigi, Bowser e quatro minigames atrás de uma sessão de Transfer Pak com o jogo de N64. A Nintendo nunca corrigiu isso. Esta ferramenta escreve exatamente os mesmos bytes daquela sessão, direto no seu save.",
+      "Mario Tennis (GBC, 2001) esconde Yoshi, Wario, Waluigi, Bowser e quatro minigames atrás de uma sessão de Transfer Pak com o jogo de N64. A Nintendo nunca corrigiu isso. Esta ferramenta escreve esses bytes de desbloqueio direto no seu save, sem precisar de N64.",
     mtPrivacy: "Seu save nunca sai desta aba. Tudo roda no seu navegador, sem upload, sem servidor.",
 
     // dropzone
@@ -183,8 +181,6 @@ export const PATCHER_DICT = {
     mtAuditToggle: "Auditoria de checksum: salvo vs calculado",
     mtAuditCount: "{audited} / {total}",
     mtAuditCaption: "Registros do diretório nas duas metades do save, com checksum salvo e recalculado.",
-    mtAuditNote:
-      "Um save liberado sempre mostra uma divergência: o registro 0x110 na metade de backup. O bloco de transferência é escrito só na metade primária. É o que o próprio jogo faz, e todo cartucho liberado por hardware audita igual.",
     mtColHalf: "METADE",
     mtColRec: "REG",
     mtColAddr: "ENDER",
@@ -221,7 +217,7 @@ export const PATCHER_DICT = {
       "O arquivo é lido localmente e verificado: tamanho exato, o cabeçalho Camelot nas duas metades e um diretório coerente. Se algo parecer errado, a ferramenta recusa em vez de adivinhar.",
     mtStep3Title: "Desbloqueie",
     mtStep3Body:
-      "Treze bytes mudam, espelhados na metade primária e na de backup, mais o bloco de transferência de 512 bytes que o lado do N64 escreveria. Contador de saves e perfis ficam intactos.",
+      "Dezesseis bytes mudam: os marcadores de desbloqueio e o bloco de transferência, espelhados na metade primária e na de backup para que cada uma continue passando no próprio checksum. Contador de saves e perfis ficam intactos.",
     mtStep4Title: "Devolva ao lugar",
     mtStep4Body:
       "Baixe o arquivo corrigido, guarde o original como backup e substitua. No próximo boot, Yoshi, Wario, Waluigi e Bowser aparecem na seleção, e os minigames estão liberados.",
@@ -232,7 +228,7 @@ export const PATCHER_DICT = {
     mtWhyP1:
       "Para desbloquear esses quatro personagens do jeito oficial você precisa de um N64, do cartucho de Mario Tennis de N64, de um Transfer Pak e do cartucho de GBC. Os quatro, ao mesmo tempo. Não existe código de cheat, e os relançamentos nunca corrigiram isso. Para quase todo mundo, o conteúdo é inalcançável.",
     mtWhyP2:
-      "Então o formato do save foi reverso, já que não havia documentação em lugar nenhum, e o patch foi verificado contra três dumps de cartuchos reais. A saída do desbloqueio é byte a byte idêntica à de uma sessão real de Transfer Pak, e a remoção restaura o original byte a byte.",
+      "Então o formato do save foi reverso a partir de dumps de cartuchos reais, já que não havia documentação em lugar nenhum. O patch mexe só nos marcadores de desbloqueio e no bloco de transferência, as duas metades do save continuam passando nos próprios checksums, e remover o desbloqueio restaura o original byte a byte.",
 
     // under the hood
     mtBytesEyebrow: "POR DENTRO",
@@ -246,7 +242,7 @@ export const PATCHER_DICT = {
     mtByte4: "checksum do registro",
     mtByte5: "bloco de transferência (512 B)",
     mtBytesFoot:
-      "Cada marcador é espelhado na metade de backup em 0x2000. Contadores de save, blocos de perfil e os registros sem checksum a partir de 0x3C0 nunca são escritos.",
+      "Cada marcador e o bloco de transferência são espelhados na metade de backup em 0x2000, porque cada metade tem o checksum da sua própria cópia. Contadores de save, blocos de perfil e os registros sem checksum a partir de 0x3C0 nunca são escritos.",
 
     // faq
     mtFaqEyebrow: "BOM SABER",
@@ -255,7 +251,7 @@ export const PATCHER_DICT = {
       'Sim. "Remover desbloqueio" reverte o patch e gera um save idêntico ao anterior, byte a byte. Também repara um estado "parcial" aplicado pela metade.',
     mtFaq2Q: "Funciona em cartucho real?",
     mtFaq2A:
-      "Sim. A saída foi verificada byte a byte contra um desbloqueio real via Transfer Pak. Grave o .sav corrigido de volta com seu flasher.",
+      "Ela foi construída a partir de dumps de cartuchos reais e o save corrigido passa nos checksums do próprio jogo, mas não foi comparada com uma sessão real de Transfer Pak. Guarde o original antes de gravar o .sav corrigido com seu flasher.",
     mtFaq3Q: "Vai corromper meu progresso?",
     mtFaq3A:
       "Ele só mexe nos marcadores de desbloqueio do N64 e na área de transferência. Mesmo assim: guarde uma cópia do arquivo original antes de sobrescrever.",

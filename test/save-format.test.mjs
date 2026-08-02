@@ -172,26 +172,62 @@ describe("readRecords", () => {
   });
 });
 
+/* Real cartridge dumps.
+
+   Only files dumped straight off a cartridge belong here. An earlier version
+   of this suite also compared applyUnlock(original) against a saved copy of
+   applyUnlock(original) and called the result "hardware-validated" — it was
+   comparing the lib against itself and could never fail. Saves downloaded from
+   the internet do not count either: the one we used as a reference turned out
+   to be someone else's patched save, and it carried the very asymmetry this
+   suite now rejects. */
 const fixturesDir = process.env.MT_FIXTURES_DIR;
 const realFiles = fixturesDir && {
-  original: join(fixturesDir, "Mario Tennis (USA)_2026-08-01_19-27-36.sav"),
-  unlocked: join(fixturesDir, "Mario Tennis (USA)_N64_unlocked.sav"),
+  // dumped before touching anything
+  locked: join(fixturesDir, "Mario Tennis (USA)_2026-08-01_19-27-36.sav"),
+  // dumped after using the game's own "erase N64 data" option
   postErase: join(fixturesDir, "Mario Tennis (USA)_2026-08-01_19-47-38.sav")
 };
 const haveReal = realFiles && Object.values(realFiles).every((path) => existsSync(path));
 
 describe("real cartridge dumps", { skip: !haveReal && "set MT_FIXTURES_DIR to run" }, () => {
-  it("matches hardware-validated behavior byte for byte", () => {
-    const load = (path) => new Uint8Array(readFileSync(path));
-    const original = load(realFiles.original);
-    const unlocked = load(realFiles.unlocked);
-    const postErase = load(realFiles.postErase);
+  const load = (path) => new Uint8Array(readFileSync(path));
 
-    assert.equal(detectUnlockState(original), "locked");
-    assert.equal(detectUnlockState(unlocked), "unlocked");
+  it("reads a real locked cartridge", () => {
+    const locked = load(realFiles.locked);
+    assert.equal(validateSave(locked).ok, true);
+    assert.equal(detectUnlockState(locked), "locked");
+  });
+
+  it("round-trips a real save byte for byte", () => {
+    const locked = load(realFiles.locked);
+    assert.ok(bytesEqual(removeUnlock(applyUnlock(locked)), locked));
+  });
+
+  it("leaves both halves of a real save passing their own checksums", () => {
+    // The reason the transfer block is written to both halves. Before that,
+    // patching this very dump produced a save whose backup record stored
+    // 0x01C9 over an empty area, and the tool flagged its own output as bad.
+    const unlocked = applyUnlock(load(realFiles.locked));
+    for (const base of [0x0000, HALF]) {
+      const record = readRecords(unlocked, base).find((r) => r.offset === OFFSETS.n64Record);
+      assert.equal(record.storedSum, TRANSFER_SUM);
+      assert.equal(record.computedSum, TRANSFER_SUM);
+      assert.equal(record.ok, true);
+    }
+  });
+
+  it("recognises the state the game leaves after erasing N64 data", () => {
+    // The game keeps the character markers but clears the block and zeroes the
+    // checksum in both halves — which is why a half must never store a
+    // checksum for data it does not hold.
+    const postErase = load(realFiles.postErase);
     assert.equal(detectUnlockState(postErase), "partial");
-    assert.ok(bytesEqual(applyUnlock(original), unlocked));
-    assert.ok(bytesEqual(removeUnlock(unlocked), original));
+    for (const base of [0x0000, HALF]) {
+      const record = readRecords(postErase, base).find((r) => r.offset === OFFSETS.n64Record);
+      assert.equal(record.storedSum, 0, "the game zeroes the checksum it can no longer back");
+      assert.equal(record.computedSum, 0);
+    }
     assert.equal(detectUnlockState(removeUnlock(postErase)), "locked");
   });
 });

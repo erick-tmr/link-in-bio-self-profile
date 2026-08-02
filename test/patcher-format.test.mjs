@@ -96,21 +96,20 @@ test("auditSummary", async (t) => {
     );
   });
 
-  await t.test("an unlocked save legitimately shows one mismatch in the backup half", () => {
-    // Not a defect and not something this tool introduces: the unlock writes
-    // the 0x200 transfer block into the primary half only, which is what the
-    // game (and a real Transfer Pak session) does. The backup half still gets
-    // the record marked used with the canonical 0x01C9 checksum, so its stored
-    // sum describes data that only exists in the primary half. Every genuinely
-    // unlocked cartridge audits exactly this way, so the panel says so.
+  await t.test("an unlocked save audits clean in both halves", () => {
+    // Regression: the unlock used to write the transfer block into the primary
+    // half only, leaving the backup record storing 0x01C9 for an area that was
+    // still zero. That half failed its own checksum, and the tool reported a
+    // "1 BAD" on saves it had just written. Both halves now carry the block.
     const rows = auditRows(inspectSave(buildUnlockedSave()));
-    assert.deepEqual(auditSummary(rows), { total: 6, audited: 6, bad: 1 });
+    assert.deepEqual(auditSummary(rows), { total: 6, audited: 6, bad: 0 });
 
-    const mismatch = rows.find((r) => r.flag === "bad");
-    assert.equal(mismatch.half, "BAK");
-    assert.equal(mismatch.rec, "0x110");
-    assert.equal(mismatch.stored, "0x01C9");
-    assert.equal(mismatch.computed, "0x0000");
+    for (const half of ["PRI", "BAK"]) {
+      const transfer = rows.find((r) => r.half === half && r.rec === "0x110");
+      assert.equal(transfer.stored, "0x01C9", `${half} stored`);
+      assert.equal(transfer.computed, "0x01C9", `${half} computed`);
+      assert.equal(transfer.flag, "ok");
+    }
   });
 });
 

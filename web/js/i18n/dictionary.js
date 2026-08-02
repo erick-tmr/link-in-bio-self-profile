@@ -39,7 +39,7 @@ export const DICT = {
     toolsBadgeLocal: "Runs in your browser",
     toolsBadgeFree: "Free · no sign-up",
     toolsCardLead:
-      "Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64 cartridge and a Transfer Pak. This patcher writes the exact same bytes a real Transfer Pak session writes, verified on a real cartridge, so you can unlock them from your save file alone.",
+      "Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64 cartridge and a Transfer Pak. This patcher writes the unlock bytes straight into your save file, so you can have them without any of that hardware.",
     toolsUnlocksLabel: "UNLOCKS",
     toolsChipMinigames: "+ 4 minigames",
     toolsStatBytes: "bytes changed",
@@ -97,7 +97,7 @@ export const DICT = {
     toolsBadgeLocal: "Roda no seu navegador",
     toolsBadgeFree: "Grátis · sem cadastro",
     toolsCardLead:
-      "Mario Tennis de Game Boy Color tranca quatro personagens e quatro minigames atrás de um N64, o cartucho de N64 e um Transfer Pak. Este patcher escreve exatamente os mesmos bytes que uma sessão real de Transfer Pak escreve. Foi verificado em cartucho real, então você desbloqueia tudo só com o seu save.",
+      "Mario Tennis de Game Boy Color tranca quatro personagens e quatro minigames atrás de um N64, o cartucho de N64 e um Transfer Pak. Este patcher escreve os bytes de desbloqueio direto no seu save, então você libera tudo sem nada desse hardware.",
     toolsUnlocksLabel: "DESBLOQUEIA",
     toolsChipMinigames: "+ 4 minigames",
     toolsStatBytes: "bytes alterados",
