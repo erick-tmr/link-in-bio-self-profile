@@ -8,7 +8,8 @@
   --green: #35d68a;
   --green-deep: #2a6f63;
   --red: #e0452f;
-  --blue: #3f8cff;
+  --red-soft: #f2603f;
+  --blue: #5aa2f5;
   --blue-deep: #2e6fdb;
   --lime: #9bbc0f;
   --lime-soft: #dceac0;
@@ -26,13 +27,20 @@
   --muted: #6f8a7d;
   --muted-2: #7e9a8c;
   --muted-3: #4d6557;
+  --muted-4: #8fa79a;
 
   --panel: #0f1c16;
   --panel-2: #0c1812;
   --panel-3: #13261c;
+  --panel-hero: #0b1710;
   --border: #2a5340;
   --border-soft: #21402f;
   --hairline: #1a3325;
+  --hairline-2: #1f3a2b;
+
+  /* Neutral backing that lets a pixel-art tile read as its own artwork rather
+     than sitting on a brand colour. */
+  --icon-backing: #2f3b33;
 
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --pixel: 'Press Start 2P', var(--mono);
@@ -95,6 +103,8 @@ img { max-width: 100%; }
   50%      { box-shadow: 0 0 0 9px rgba(53, 214, 138, 0), 0 8px 22px rgba(0, 0, 0, .5); }
 }
 @keyframes eqBar { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+/* scrolls a doubled digit column down by half its height, so the seam never shows */
+@keyframes matrixfall { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 /* counter-rotates the sprite so it stays upright while the orbit arm spins */
 @keyframes rayUpright { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
@@ -115,8 +125,9 @@ img { max-width: 100%; }
 .bg-glow {
   z-index: 1;
   background:
-    radial-gradient(ellipse 90% 60% at 50% -5%, rgba(53, 214, 138, 0.10), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 50% 110%, rgba(224, 69, 47, 0.07), transparent 60%);
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(53, 214, 138, 0.11), transparent 62%),
+    radial-gradient(ellipse 60% 45% at 2% 100%, rgba(224, 69, 47, 0.11), transparent 62%),
+    radial-gradient(ellipse 60% 45% at 98% 100%, rgba(46, 111, 219, 0.12), transparent 62%);
 }
 .bg-grid {
   z-index: 0;
@@ -158,7 +169,14 @@ img { max-width: 100%; }
 }
 .site-header__left { display: flex; align-items: center; gap: 22px; }
 .brand { display: flex; align-items: center; gap: 11px; }
-.brand .dot { width: 8px; height: 8px; background: var(--green); box-shadow: 0 0 10px var(--green); }
+
+/* Three power LEDs in the console palette. Only the green one blinks, so the
+   header reads as "on" without three competing pulses. */
+.brand__leds { display: flex; align-items: center; gap: 3px; }
+.brand__led { width: 6px; height: 6px; border-radius: 1px; }
+.brand__led--red { background: var(--red); box-shadow: 0 0 7px rgba(224, 69, 47, .85); }
+.brand__led--blue { background: var(--blue-deep); box-shadow: 0 0 7px rgba(46, 111, 219, .85); }
+.brand__led--green { background: var(--green); box-shadow: 0 0 7px rgba(53, 214, 138, .85); }
 .brand__name { font-family: var(--pixel); font-size: 12px; color: var(--heading); letter-spacing: 1px; }
 .brand__dot { color: var(--red); }
 
@@ -540,7 +558,7 @@ img { max-width: 100%; }
 }
 .link-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .4); }
 .link-card--alt:hover { border-color: var(--red); }
-.link-card--tools:hover { border-color: var(--lime); }
+.link-card--blue:hover { border-color: var(--blue); }
 .link-card__icon {
   flex: 0 0 42px;
   width: 42px;
@@ -562,19 +580,19 @@ img { max-width: 100%; }
   image-rendering: pixelated;
 }
 /* per-brand icon tiles — pixel art on a brand-colored background */
-.link-card__icon--linkedin { background: #0a66c2; }
+.link-card__icon--linkedin { background: var(--blue-deep); }
 .link-card__icon--linkedin img { max-width: 80%; max-height: 80%; }
-.link-card__icon--instagram { background: var(--lime); }
+.link-card__icon--instagram { background: #b8452a; }
 .link-card__icon--instagram img { max-width: 80%; max-height: 80%; }
-.link-card__icon--mentoria { background: var(--blue); }
+.link-card__icon--mentoria { background: var(--blue-deep); }
 .link-card__icon--mentoria img { max-width: 88%; max-height: 88%; }
 .link-card__icon--ama { background: #f4ecdc; }
 .link-card__icon--github { background: var(--heading); }
 .link-card__icon--github img { max-width: 90%; max-height: 90%; }
 .link-card__icon--email { background: var(--green); }
 .link-card__icon--email img { max-width: 78%; max-height: 78%; }
-.link-card__icon--tools { background: var(--gb-screen); }
-.link-card__icon--tools img { width: 100%; height: 100%; object-fit: cover; }
+.link-card__icon--tools { background: var(--icon-backing); }
+.link-card__icon--tools img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
 .link-card__icon--x { background: var(--panel-2); color: var(--heading); }
 /* X — pixel-art glyph drawn from a 2px seed dot + box-shadow (no asset needed) */
 .x-pixel {
@@ -651,7 +669,7 @@ img { max-width: 100%; }
 .panel__head .dot--square { width: 11px; height: 11px; }
 .dot--lime { background: var(--lime); }
 .dot--blue { background: var(--blue); }
-.dot--blue.dot--glow { box-shadow: 0 0 8px rgba(63, 140, 255, 0.5); }
+.dot--blue.dot--glow { box-shadow: 0 0 8px rgba(90, 162, 245, 0.5); }
 .dot--red.dot--glow { box-shadow: 0 0 8px rgba(224, 69, 47, 0.5); }
 .dot--lime.dot--glow { box-shadow: 0 0 8px rgba(155, 188, 15, 0.5); }
 .panel__title { font-family: var(--pixel); font-size: 10px; color: var(--heading); letter-spacing: 1px; }
@@ -701,33 +719,118 @@ img { max-width: 100%; }
 .site-footer__legal { font-family: var(--mono); font-size: 10px; color: var(--muted-3); text-align: right; max-width: 320px; line-height: 1.6; }
 
 /* ---- Cool Tools hub (/tools/) ------------------------------------------ */
-.tools-hero { margin-top: 56px; max-width: 660px; }
-.tools-hero__title {
+/* The hero is a terminal panel: digits rain down the right-hand side, a wash
+   fades them out under the copy so nothing competes with the text. */
+.hero-panel {
+  position: relative;
+  margin-top: 34px;
+  overflow: hidden;
+  background: var(--panel-hero);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--bg), 0 16px 40px rgba(0, 0, 0, .45);
+}
+.hero-panel__rain,
+.hero-panel__wash,
+.hero-panel__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-panel__rain {
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.3;
+  user-select: none;
+  /* keeps the digits faint over the copy and full-strength off to the right */
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, .14) 0%, rgba(0, 0, 0, .25) 55%, rgba(0, 0, 0, .75) 74%, #000 84%, #000 100%);
+}
+.hero-panel__col {
+  position: absolute;
+  top: 0;
+  left: var(--rain-left);
+  width: 1ch;
+  word-break: break-all;
+  color: var(--rain-color);
+  opacity: var(--rain-opacity);
+  animation: matrixfall var(--rain-dur) linear infinite;
+  animation-delay: var(--rain-delay);
+}
+.hero-panel__wash {
+  background: linear-gradient(90deg, rgba(10, 19, 14, 0.94) 0%, rgba(10, 19, 14, 0.92) 52%, rgba(10, 19, 14, 0.72) 68%, rgba(10, 19, 14, 0.18) 80%, rgba(10, 19, 14, 0.12) 100%);
+}
+.hero-panel__scan {
+  opacity: .5;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 1px, transparent 1px, transparent 3px);
+}
+.hero-panel__inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 38px 34px 34px;
+}
+.hero-panel__body { flex: 1 1 420px; min-width: 260px; max-width: 500px; }
+
+.hero-badge {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  overflow: hidden;
+  background: var(--icon-backing);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .55);
+}
+.hero-badge img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+
+.hero-prompt { font-family: var(--mono); font-size: 12px; color: var(--green); letter-spacing: 1px; }
+.hero-prompt__cmd { color: var(--heading); }
+.hero-prompt__caret {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  margin-left: 4px;
+  vertical-align: -2px;
+  background: var(--green);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+.hero-panel__title {
   font-family: var(--mono);
   font-weight: 800;
   font-size: clamp(34px, 6vw, 54px);
   line-height: 1;
-  margin: 14px 0 0;
+  margin: 16px 0 0;
   color: var(--heading);
   letter-spacing: -1.5px;
+  text-shadow: 0 0 26px rgba(53, 214, 138, 0.30);
 }
-.tools-hero__lead { margin: 18px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.7; text-wrap: pretty; }
-.tools-badges { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-tagline { margin-top: 14px; font-family: var(--pixel); font-size: 10px; color: var(--blue); letter-spacing: 1.5px; }
+.hero-tagline__sep { color: var(--muted); }
+.hero-panel__lead { margin: 16px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.7; text-wrap: pretty; }
 
-.badge {
-  display: inline-flex;
+.hero-meta {
+  margin-top: 24px;
+  padding-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 0 18px;
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-dim);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 6px 11px;
+  font-size: 11.5px;
+  letter-spacing: 0.5px;
+  color: var(--muted-4);
+  border-top: 1px solid var(--hairline-2);
 }
-.badge--lime { font-weight: 700; color: var(--lime); background: rgba(155, 188, 15, 0.08); border-color: rgba(155, 188, 15, 0.45); }
-.badge--lime .dot { width: 7px; height: 7px; background: var(--lime); }
+.hero-meta__live { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; color: var(--green); }
+/* .dot only carries the shape — every use supplies its own size and colour. */
+.hero-meta__live .dot { width: 6px; height: 6px; background: var(--green); box-shadow: 0 0 8px var(--green); }
+.hero-meta__sep { color: var(--border); }
 
 .tool-card {
   display: flex;
@@ -1499,6 +1602,12 @@ img { max-width: 100%; }
   /* The cartridge is decorative; let it centre rather than crowd the copy. */
   .tool-hero__art,
   .tool-card__art { flex: 1 0 100%; display: flex; justify-content: center; }
+
+  /* The rain's wash fades left-to-right, which only keeps the copy clear while
+     the panel is wide. Once the text spans the full width it runs straight into
+     the digits, so drop them and keep the plain panel. */
+  .hero-panel__rain { display: none; }
+  .hero-panel__inner { padding: 26px 20px 24px; gap: 20px; }
   .why__bytes { border-left: 0; padding-left: 0; }
   .machine__body { padding: 16px; }
   .audit__toggle { font-size: 11.5px; }

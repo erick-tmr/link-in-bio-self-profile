@@ -13,6 +13,7 @@
    =========================================================================== */
 import { I18n } from "./i18n/i18n.js";
 import { mountDock } from "./player/dock-markup.js";
+import { mountBinaryRain } from "./ui/binary-rain.js";
 import { TRACKS, Playlist } from "./player/playlist.js";
 import { AudioEngine } from "./player/audio-engine.js";
 import { MusicPlayer } from "./player/music-player.js";
@@ -49,6 +50,7 @@ function rememberLang(lang) {
  */
 export function bootSite({ dict, defaultLang, root = document }) {
   mountDock(root); // before MusicDock — it resolves the dock's IDs in its constructor
+  mountBinaryRain(root); // decorative; no-ops on pages without [data-binary-rain]
 
   const i18n = new I18n(dict, { root });
 

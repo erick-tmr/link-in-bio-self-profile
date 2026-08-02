@@ -65,7 +65,11 @@
         <div class="site-header__inner">
           <div class="site-header__left">
             <a class="brand" href="/">
-              <span class="dot dot--green blink" aria-hidden="true"></span>
+              <span class="brand__leds" aria-hidden="true">
+                <span class="brand__led brand__led--red"></span>
+                <span class="brand__led brand__led--blue"></span>
+                <span class="brand__led brand__led--green blink"></span>
+              </span>
               <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
             </a>
             <nav class="site-nav" aria-label="Sections">
@@ -85,20 +89,37 @@
 
       <div class="container">
         <!-- HERO -->
-        <section class="tools-hero">
-          <div class="eyebrow eyebrow--lime">● SELECT A TOOL</div>
-          <h1 class="tools-hero__title">COOL <span class="accent-green">TOOLS</span></h1>
-          <p class="tools-hero__lead" data-i18n="toolsLead">
-            Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They
-            run entirely in your browser. No accounts, no uploads, no server.
-          </p>
-          <div class="tools-badges">
-            <span class="badge badge--lime">
-              <span class="dot" aria-hidden="true"></span>
-              <span data-i18n="toolsBadgeLocal">Runs in your browser</span>
+        <section class="hero-panel">
+          <!-- Columns are appended by js/ui/binary-rain.js; decorative only. -->
+          <div class="hero-panel__rain" data-binary-rain aria-hidden="true"></div>
+          <div class="hero-panel__wash" aria-hidden="true"></div>
+          <div class="hero-panel__scan" aria-hidden="true"></div>
+          <div class="hero-panel__inner">
+            <span class="hero-badge">
+              <img src="https://cdn.ericktakeshi.com.br/assets/cool-tools-icon.png" alt="" />
             </span>
-            <span class="badge" data-i18n="toolsBadgeFree">Free · no sign-up</span>
-            <span class="badge">EN / PT</span>
+            <div class="hero-panel__body">
+              <div class="hero-prompt">
+                erick@tmr:~$ <span class="hero-prompt__cmd">./cool_tools --run</span
+                ><span class="hero-prompt__caret" aria-hidden="true"></span>
+              </div>
+              <h1 class="hero-panel__title">COOL <span class="accent-green">TOOLS</span></h1>
+              <div class="hero-tagline">SMALL HACKS <span class="hero-tagline__sep">·</span> BIG WINS</div>
+              <p class="hero-panel__lead" data-i18n="toolsLead">
+                Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They
+                run entirely in your browser. No accounts, no uploads, no server.
+              </p>
+              <div class="hero-meta">
+                <span class="hero-meta__live">
+                  <span class="dot blink blink--slow" aria-hidden="true"></span>
+                  <span data-i18n="toolsBadgeLocal">Runs in your browser</span>
+                </span>
+                <span class="hero-meta__sep" aria-hidden="true">/</span>
+                <span data-i18n="toolsBadgeFree">Free · no sign-up</span>
+                <span class="hero-meta__sep" aria-hidden="true">/</span>
+                <span>EN · PT</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -107,7 +128,7 @@
           <div class="section__head">
             <span class="eyebrow eyebrow--green">TOOL ▸ 01 · GAME BOY COLOR</span>
             <span class="rule"></span>
-            <span class="eyebrow eyebrow--lime">● LIVE</span>
+            <span class="eyebrow eyebrow--green">● LIVE</span>
           </div>
 
           <a class="tool-card" href="/tools/mario-tennis-save-patcher/">
@@ -126,8 +147,8 @@
               <h2 class="tool-card__title">Mario Tennis <span class="accent-lime">Save Patcher</span></h2>
               <p class="tool-card__lead" data-i18n="toolsCardLead">
                 Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64
-                cartridge and a Transfer Pak. This patcher writes the unlock bytes straight into your save file, so you
-                can have them without any of that hardware.
+                cartridge and a Transfer Pak. This patcher writes the exact same bytes a real Transfer Pak session
+                writes, verified on a real cartridge, so you can unlock them from your save file alone.
               </p>
 
               <div class="tool-card__unlocks">
@@ -155,7 +176,7 @@
                   <div class="stat__label" data-i18n="toolsStatBytes">bytes changed</div>
                 </div>
                 <div class="stat">
-                  <div class="stat__value accent-lime">0</div>
+                  <div class="stat__value accent-red">0</div>
                   <div class="stat__label" data-i18n="toolsStatUploads">uploads</div>
                 </div>
                 <div class="stat">
