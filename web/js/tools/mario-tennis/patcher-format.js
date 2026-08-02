@@ -4,7 +4,7 @@
    Responsibility (SRP): turn what save-format.js reports into the exact shapes
    the page renders — hex cells, audit rows, tone names and dictionary keys.
    Everything here is deterministic and dependency-free, which is the point:
-   hex padding, the em-dash for records that cannot be audited, the badSave
+   hex padding, the placeholder for records that cannot be audited, the badSave
    alias and filename derivation are all fiddly enough to deserve tests rather
    than a squint at the browser.
 
@@ -12,7 +12,7 @@
    the page can switch language without recomputing any of this.
    =========================================================================== */
 
-const EM_DASH = "—";
+const NO_VALUE = "-";
 
 /**
  * "0x" + uppercase hex, zero-padded to `digits`.
@@ -25,8 +25,8 @@ export function hex(value, digits) {
 
 /**
  * Flatten both halves of a report into renderable audit rows, primary first.
- * Records the lib could not audit (computedSum === null) render as em dashes
- * with a neutral flag rather than a misleading "BAD".
+ * Records the lib could not audit (computedSum === null) render as a dash with
+ * a neutral flag rather than a misleading "BAD".
  *
  * @param {object|null} report  the object from inspectSave()
  * @returns {Array<{half: string, rec: string, addr: string, size: string,
@@ -43,7 +43,7 @@ export function auditRows(report) {
         addr: hex(r.addr, 4),
         size: hex(r.size, 3),
         stored: hex(r.storedSum, 4),
-        computed: r.computedSum === null ? EM_DASH : hex(r.computedSum, 4),
+        computed: r.computedSum === null ? NO_VALUE : hex(r.computedSum, 4),
         flag: r.ok === null ? "none" : r.ok ? "ok" : "bad"
       });
     }
@@ -71,7 +71,7 @@ export function auditSummary(rows) {
  * @param {ReturnType<typeof auditSummary>} summary
  */
 export function checksumLabel(summary) {
-  if (!summary.audited) return { key: null, text: EM_DASH, vars: {}, tone: "muted" };
+  if (!summary.audited) return { key: null, text: NO_VALUE, vars: {}, tone: "muted" };
   return summary.bad
     ? { key: "mtChkBad", vars: { n: summary.bad }, tone: "red" }
     : { key: "mtChkAllOk", vars: {}, tone: "green" };
@@ -162,5 +162,5 @@ export function interpolate(template, vars) {
 /** Profile names for the inspector, blanks dropped. */
 export function playerLabel(report) {
   const names = (report && report.playerNames ? report.playerNames : []).filter(Boolean);
-  return names.length ? names.join(" · ") : EM_DASH;
+  return names.length ? names.join(" · ") : NO_VALUE;
 }

@@ -21,7 +21,7 @@
     <link rel="canonical" href="https://www.ericktakeshi.com.br/tools/mario-tennis-save-patcher/" />
     <meta
       name="description"
-      content="Unlock Yoshi, Wario, Waluigi, Bowser and the four N64 minigames in Mario Tennis (Game Boy Color) by patching your .sav file. Runs entirely in your browser — nothing is uploaded."
+      content="Unlock Yoshi, Wario, Waluigi, Bowser and the four N64 minigames in Mario Tennis (Game Boy Color) by patching your .sav file. Runs entirely in your browser. Nothing is uploaded."
     />
 
     <!-- Open Graph -->
@@ -36,7 +36,7 @@
     <meta property="og:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Erick Takeshi — Mario Tennis save patcher" />
+    <meta property="og:image:alt" content="Erick Takeshi, Mario Tennis save patcher" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -105,7 +105,7 @@
             <p class="tool-hero__lead" data-i18n="mtHeroLead">
               Mario Tennis (GBC, 2001) hides Yoshi, Wario, Waluigi, Bowser and four minigames behind a Transfer Pak
               session with the N64 game. Nintendo never patched that out. This tool writes the exact same bytes that
-              session writes — straight into your save file.
+              session writes, straight into your save file.
             </p>
             <p class="privacy">
               <span class="privacy__badge" aria-hidden="true">!</span>
@@ -176,15 +176,15 @@
                   <div class="readout__cells">
                     <div class="cell">
                       <div class="cell__label" data-i18n="mtPlayersLabel">PROFILES</div>
-                      <div class="cell__value accent-lime" id="mtPlayers">—</div>
+                      <div class="cell__value accent-lime" id="mtPlayers">-</div>
                     </div>
                     <div class="cell">
                       <div class="cell__label" data-i18n="mtCounterLabel">SAVE COUNT</div>
-                      <div class="cell__value" id="mtCounter">—</div>
+                      <div class="cell__value" id="mtCounter">-</div>
                     </div>
                     <div class="cell">
                       <div class="cell__label" data-i18n="mtChecksumLabel">CHECKSUMS</div>
-                      <div class="cell__value" id="mtChecksum">—</div>
+                      <div class="cell__value" id="mtChecksum">-</div>
                     </div>
                   </div>
                 </div>
@@ -199,7 +199,7 @@
                     aria-controls="mtAuditPanel"
                   >
                     <span class="audit__caret" id="mtAuditCaret" aria-hidden="true">▸</span>
-                    <span data-i18n="mtAuditToggle">Checksum audit — stored vs computed</span>
+                    <span data-i18n="mtAuditToggle">Checksum audit: stored vs computed</span>
                     <span class="audit__count" id="mtAuditCount"></span>
                   </button>
                   <div class="audit__panel" id="mtAuditPanel" hidden>
@@ -233,7 +233,7 @@
                     </div>
                     <p class="audit__note" data-i18n="mtAuditNote">
                       An unlocked save always shows one mismatch: record 0x110 in the backup half. The transfer block
-                      is written to the primary half only — that is what the game itself does, and every
+                      is written to the primary half only. That is what the game itself does, and every
                       hardware-unlocked cartridge audits the same way.
                     </p>
                   </div>
@@ -338,7 +338,7 @@
               <h3 class="step__title" data-i18n="mtStep1Title">Get your save file</h3>
               <p class="step__body" data-i18n="mtStep1Body">
                 On an emulator, the .sav sits next to your ROM (mGBA, BGB, SameBoy). On a real cartridge, dump it with
-                a GB Operator, GBxCart RW or similar — the "backup save" option.
+                a GB Operator, GBxCart RW or similar, using the "backup save" option.
               </p>
             </div>
             <div class="step">
@@ -362,7 +362,7 @@
               <h3 class="step__title" data-i18n="mtStep4Title">Put it back</h3>
               <p class="step__body" data-i18n="mtStep4Body">
                 Download the patched file, keep your original as a backup, and replace it. Next boot, Yoshi, Wario,
-                Waluigi and Bowser are on the character select — and the minigames are open.
+                Waluigi and Bowser are on the character select, and the minigames are open.
               </p>
             </div>
           </div>
@@ -380,11 +380,11 @@
             </h2>
             <p class="why__p" data-i18n="mtWhyP1">
               To unlock those four characters legitimately you need an N64, the N64 Mario Tennis cartridge, a Transfer
-              Pak and the GBC cartridge — all four, at once. No cheat code exists, and the re-releases never fixed it.
+              Pak and the GBC cartridge. All four, at once. No cheat code exists, and the re-releases never fixed it.
               For most people the content is simply unreachable.
             </p>
             <p class="why__p why__p--soft" data-i18n="mtWhyP2">
-              So the save format got reverse-engineered — it was documented nowhere — and the patch was verified
+              So the save format got reverse-engineered, since it was documented nowhere, and the patch was verified
               against three real cartridge dumps. The unlock output is byte-identical to a hardware Transfer Pak
               session, and the removal restores the original byte for byte.
             </p>
@@ -392,7 +392,7 @@
 
           <div class="why__bytes">
             <div class="eyebrow eyebrow--blue" data-i18n="mtBytesEyebrow">UNDER THE HOOD</div>
-            <p class="why__bytes-lead" data-i18n="mtBytesLead">For the technically curious — this is the whole diff:</p>
+            <p class="why__bytes-lead" data-i18n="mtBytesLead">For the technically curious, this is the whole diff:</p>
             <div class="bytes">
               <table class="bytes__table">
                 <thead>
@@ -455,7 +455,7 @@
             <div class="faq__card">
               <h3 class="faq__q" data-i18n="mtFaq2Q">Does it work on a real cartridge?</h3>
               <p class="faq__a" data-i18n="mtFaq2A">
-                Yes — the output was verified byte-for-byte against a hardware Transfer Pak unlock. Write the patched
+                Yes. The output was verified byte-for-byte against a hardware Transfer Pak unlock. Write the patched
                 .sav back with your flasher.
               </p>
             </div>
@@ -476,7 +476,7 @@
             <div class="site-footer__note">© 2026 Erick Takeshi</div>
           </div>
           <div class="site-footer__legal site-footer__legal--wide" data-i18n="mtFooterLegal">
-            Fan tool · Mario Tennis © Nintendo/Camelot. Not affiliated. Runs entirely in your browser — no file is
+            Fan tool · Mario Tennis © Nintendo/Camelot. Not affiliated. Runs entirely in your browser. No file is
             uploaded.
           </div>
         </footer>

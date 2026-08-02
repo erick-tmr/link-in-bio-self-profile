@@ -35,11 +35,11 @@ export const DICT = {
 
     // Cool Tools hub (/tools/)
     toolsLead:
-      "Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They run entirely in your browser — no accounts, no uploads, no server.",
+      "Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They run entirely in your browser. No accounts, no uploads, no server.",
     toolsBadgeLocal: "Runs in your browser",
     toolsBadgeFree: "Free · no sign-up",
     toolsCardLead:
-      "Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64 cartridge and a Transfer Pak. This patcher writes the exact same bytes a real Transfer Pak session writes — verified on a real cartridge — so you can unlock them from your save file alone.",
+      "Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64 cartridge and a Transfer Pak. This patcher writes the exact same bytes a real Transfer Pak session writes, verified on a real cartridge, so you can unlock them from your save file alone.",
     toolsUnlocksLabel: "UNLOCKS",
     toolsChipMinigames: "+ 4 minigames",
     toolsStatBytes: "bytes changed",
@@ -49,7 +49,7 @@ export const DICT = {
     toolsCardHint: "accepts a 32 KiB .sav (USA)",
     toolsRequestEyebrow: "REQUESTS",
     toolsRequestLead:
-      "Know some retro content locked behind hardware nobody owns anymore? Tell me — reverse-engineering save formats is my kind of weekend.",
+      "Know some retro content locked behind hardware nobody owns anymore? Tell me. Reverse-engineering save formats is my kind of weekend.",
     toolsCtaEmail: "Email me",
     toolsFooterLegal:
       "Fan tools. Trademarks belong to their owners. Not affiliated. Everything runs locally in your browser.",
@@ -93,11 +93,11 @@ export const DICT = {
 
     // Cool Tools hub (/tools/)
     toolsLead:
-      "Utilitários pequenos e de propósito único que eu criei porque algo me incomodava e ninguém tinha resolvido. Rodam inteiramente no seu navegador — sem conta, sem upload, sem servidor.",
+      "Utilitários pequenos e de propósito único que eu criei porque algo me incomodava e ninguém tinha resolvido. Rodam inteiramente no seu navegador. Sem conta, sem upload, sem servidor.",
     toolsBadgeLocal: "Roda no seu navegador",
     toolsBadgeFree: "Grátis · sem cadastro",
     toolsCardLead:
-      "Mario Tennis de Game Boy Color tranca quatro personagens e quatro minigames atrás de um N64, o cartucho de N64 e um Transfer Pak. Este patcher escreve exatamente os mesmos bytes que uma sessão real de Transfer Pak escreve — verificado em cartucho real — então você desbloqueia tudo só com o seu save.",
+      "Mario Tennis de Game Boy Color tranca quatro personagens e quatro minigames atrás de um N64, o cartucho de N64 e um Transfer Pak. Este patcher escreve exatamente os mesmos bytes que uma sessão real de Transfer Pak escreve. Foi verificado em cartucho real, então você desbloqueia tudo só com o seu save.",
     toolsUnlocksLabel: "DESBLOQUEIA",
     toolsChipMinigames: "+ 4 minigames",
     toolsStatBytes: "bytes alterados",
@@ -107,7 +107,7 @@ export const DICT = {
     toolsCardHint: "aceita um .sav de 32 KiB (USA)",
     toolsRequestEyebrow: "PEDIDOS",
     toolsRequestLead:
-      "Conhece algum conteúdo retrô trancado atrás de hardware que ninguém mais tem? Me conta — engenharia reversa de save é meu tipo de fim de semana.",
+      "Conhece algum conteúdo retrô trancado atrás de hardware que ninguém mais tem? Me conta. Engenharia reversa de save é meu tipo de fim de semana.",
     toolsCtaEmail: "Me manda um email",
     toolsFooterLegal:
       "Ferramentas de fã. Marcas pertencem aos seus donos. Sem afiliação. Tudo roda localmente no seu navegador.",

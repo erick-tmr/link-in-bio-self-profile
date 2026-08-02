@@ -259,7 +259,7 @@ export class PatcherUI {
       const flag = document.createElement("td");
       flag.className = "audit__flag";
       flag.dataset.tone = row.flag;
-      flag.textContent = row.flag === "none" ? "—" : row.flag === "ok" ? "OK" : "BAD";
+      flag.textContent = row.flag === "none" ? "-" : row.flag === "ok" ? "OK" : "BAD";
       tr.appendChild(flag);
       frag.appendChild(tr);
     }

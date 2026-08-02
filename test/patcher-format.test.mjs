@@ -2,7 +2,7 @@
    Presentation helpers for the Mario Tennis save patcher.
 
    These are the parts a browser makes expensive to check: hex column padding,
-   the em dash for records that cannot be audited, the badSave alias, and
+   the placeholder for records that cannot be audited, the badSave alias, and
    filename derivation. Fed with real inspectSave() output so the row shapes
    are the ones the page will actually render.
    =========================================================================== */
@@ -25,7 +25,7 @@ import {
 import { inspectSave } from "../web/js/tools/mario-tennis/save-format.js";
 import { buildLockedSave, buildUnlockedSave } from "./helpers/build-save.mjs";
 
-const EM_DASH = "—";
+const NO_VALUE = "-";
 
 test("hex", async (t) => {
   await t.test("pads to the requested width and uppercases", () => {
@@ -65,11 +65,11 @@ test("auditRows", async (t) => {
     assert.match(row.computed, /^0x[0-9A-F]{4}$/);
   });
 
-  await t.test("renders unauditable records as an em dash, not a failure", () => {
+  await t.test("renders unauditable records as a dash, not a failure", () => {
     // The locked fixture's 0x110 record is unused, so the lib reports ok: null.
     const unauditable = auditRows(locked).filter((r) => r.flag === "none");
     assert.ok(unauditable.length > 0, "expected at least one unauditable record");
-    for (const row of unauditable) assert.equal(row.computed, EM_DASH);
+    for (const row of unauditable) assert.equal(row.computed, NO_VALUE);
   });
 
   await t.test("flags a record whose stored checksum no longer matches", () => {
@@ -134,7 +134,7 @@ test("checksumLabel", async (t) => {
   await t.test("falls back to a dash when nothing could be audited", () => {
     const label = checksumLabel({ total: 2, audited: 0, bad: 0 });
     assert.equal(label.key, null);
-    assert.equal(label.text, EM_DASH);
+    assert.equal(label.text, NO_VALUE);
     assert.equal(label.tone, "muted");
   });
 });
@@ -241,7 +241,7 @@ test("playerLabel", async (t) => {
   });
 
   await t.test("falls back to a dash with no names at all", () => {
-    assert.equal(playerLabel(inspectSave(buildLockedSave({ names: ["", ""] }))), EM_DASH);
-    assert.equal(playerLabel(null), EM_DASH);
+    assert.equal(playerLabel(inspectSave(buildLockedSave({ names: ["", ""] }))), NO_VALUE);
+    assert.equal(playerLabel(null), NO_VALUE);
   });
 });
