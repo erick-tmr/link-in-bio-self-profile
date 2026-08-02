@@ -47,7 +47,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
   </head>
 
   <body>
@@ -60,9 +60,15 @@
       <!-- HEADER -->
       <header class="site-header">
         <div class="site-header__inner">
-          <div class="brand">
-            <span class="dot dot--green blink" aria-hidden="true"></span>
-            <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+          <div class="site-header__left">
+            <a class="brand" href="/">
+              <span class="dot dot--green blink" aria-hidden="true"></span>
+              <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+            </a>
+            <nav class="site-nav" aria-label="Sections">
+              <a class="site-nav__link is-active" href="/" aria-current="page">HOME</a>
+              <a class="site-nav__link" href="/tools/">COOL TOOLS</a>
+            </nav>
           </div>
           <div class="site-header__right">
             <span class="tz">BR · GMT-3</span>
@@ -247,6 +253,16 @@
               </span>
               <span class="link-card__arrow accent-green">↗</span>
             </a>
+            <a class="link-card link-card--tools" href="/tools/">
+              <span class="link-card__icon link-card__icon--tools">
+                <img src="https://cdn.ericktakeshi.com.br/assets/mario-tennis-cover.png" alt="Cool Tools" />
+              </span>
+              <span class="link-card__text">
+                <span class="link-card__title">Cool Tools</span>
+                <span class="link-card__sub" data-i18n="toolsSub">Mario Tennis save patcher &amp; more</span>
+              </span>
+              <span class="link-card__arrow accent-lime">▸</span>
+            </a>
             <a class="link-card" href="https://github.com/erick-tmr" target="_blank" rel="noopener">
               <span class="link-card__icon link-card__icon--github">
                 <img src="https://cdn.ericktakeshi.com.br/assets/github-pixel.png" alt="GitHub" />
@@ -378,107 +394,10 @@
         </footer>
       </div>
 
-      <!-- MUSIC PLAYER — expanded panel + collapsed puck. Behaviour lives in
-           web/js/player/ (music-dock.js wires this markup to the player). -->
-      <div class="player" id="player">
-        <!-- Expanded panel -->
-        <div class="player__panel">
-          <!-- decorative layers are clipped to the rounded panel; the panel
-               itself is overflow:visible so the orbiting Rayquaza can rise
-               above it instead of being clipped inside. -->
-          <div class="player__clip" aria-hidden="true">
-            <div class="player__scan"></div>
-            <img class="player__bg-ray" src="https://cdn.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" />
-          </div>
-
-          <div class="player__inner">
-            <!-- header -->
-            <div class="player__header">
-              <span class="player__status-dot" aria-hidden="true"></span>
-              <span class="player__status" id="playerStatus"></span>
-              <span class="player__fm">SKY PILLAR · FM</span>
-              <button type="button" class="player__min" id="playerMin" aria-label="Minimize player">
-                <span class="player__min-bar" aria-hidden="true"></span>
-              </button>
-            </div>
-
-            <!-- art + meta -->
-            <div class="player__meta">
-              <div class="player__art">
-                <div class="player__art-scan" aria-hidden="true"></div>
-                <img class="player__art-ray" src="https://cdn.ericktakeshi.com.br/assets/rayquaza-shiny.png" alt="" aria-hidden="true" />
-              </div>
-              <div class="player__info">
-                <div class="player__title" id="playerTitle"></div>
-                <div class="player__artist" id="playerArtist"></div>
-                <span class="eq eq--meta" aria-hidden="true">
-                  <span class="eq__bar"></span>
-                  <span class="eq__bar"></span>
-                  <span class="eq__bar"></span>
-                  <span class="eq__bar"></span>
-                  <span class="eq__bar"></span>
-                </span>
-              </div>
-            </div>
-
-            <!-- progress -->
-            <div class="player__progress">
-              <div class="player__bar" id="playerBar">
-                <div class="player__fill" id="playerFill"></div>
-                <div class="player__handle" id="playerHandle"></div>
-              </div>
-              <div class="player__times">
-                <span id="playerNow">0:00</span>
-                <span id="playerTotal">--:--</span>
-              </div>
-            </div>
-
-            <!-- transport -->
-            <div class="player__transport">
-              <button type="button" class="player__btn" id="playerPrev" aria-label="Previous track">
-                <span class="ico-prev" aria-hidden="true"></span>
-              </button>
-
-              <div class="player__play-wrap">
-                <div class="player__orbit" aria-hidden="true">
-                  <div class="player__orbit-arm">
-                    <img class="player__orbit-ray" src="https://cdn.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" />
-                  </div>
-                </div>
-                <button type="button" class="player__play" id="playerPlay" aria-label="Play or pause" aria-pressed="true">
-                  <span class="ico-pause" aria-hidden="true"><span></span><span></span></span>
-                  <span class="ico-play" aria-hidden="true"></span>
-                </button>
-              </div>
-
-              <button type="button" class="player__btn" id="playerNext" aria-label="Next track">
-                <span class="ico-next" aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Collapsed puck -->
-        <button type="button" class="player__mini" id="playerMini" aria-label="Open music player">
-          <div class="player__orbit player__orbit--mini" aria-hidden="true">
-            <div class="player__orbit-arm player__orbit-arm--mini">
-              <img class="player__orbit-ray" src="https://cdn.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" />
-            </div>
-          </div>
-          <span class="eq" aria-hidden="true">
-            <span class="eq__bar"></span>
-            <span class="eq__bar"></span>
-            <span class="eq__bar"></span>
-            <span class="eq__bar"></span>
-          </span>
-          <span class="player__badge" aria-hidden="true">♪</span>
-        </button>
-
-        <!-- Track source + looping are owned by the player (web/js/player/). -->
-        <audio id="track" preload="none"></audio>
-      </div>
+      <!-- The music dock is appended here at runtime by js/player/dock-markup.js
+           (shared by every page; it is inert chrome, not content). -->
     </div>
 
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="/js/main.js"></script>
   </body>
 </html>

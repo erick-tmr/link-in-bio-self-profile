@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mario Tennis Save Patcher · Erick Takeshi</title>
+
+    <!-- Icons & PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.ericktakeshi.com.br/assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.ericktakeshi.com.br/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="https://cdn.ericktakeshi.com.br/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.ericktakeshi.com.br/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" content="#0a130e" />
+    <meta name="msapplication-TileColor" content="#0a130e" />
+    <meta name="msapplication-TileImage" content="https://cdn.ericktakeshi.com.br/assets/icon-192.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://www.ericktakeshi.com.br/tools/mario-tennis-save-patcher/" />
+    <meta
+      name="description"
+      content="Unlock Yoshi, Wario, Waluigi, Bowser and the four N64 minigames in Mario Tennis (Game Boy Color) by patching your .sav file. Runs entirely in your browser — nothing is uploaded."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mario Tennis Save Patcher · Erick Takeshi" />
+    <meta property="og:site_name" content="Erick Takeshi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ericktakeshi.com.br/tools/mario-tennis-save-patcher/" />
+    <meta
+      property="og:description"
+      content="Unlock the N64 Transfer Pak content in Mario Tennis (GBC) from your save file alone. No upload, no server."
+    />
+    <meta property="og:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Erick Takeshi — Mario Tennis save patcher" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mario Tennis Save Patcher · Erick Takeshi" />
+    <meta
+      name="twitter:description"
+      content="Unlock the N64 Transfer Pak content in Mario Tennis (GBC) from your save file alone. No upload, no server."
+    />
+    <meta name="twitter:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta name="twitter:creator" content="@erick_tmr" />
+
+    <link rel="preconnect" href="https://cdn.ericktakeshi.com.br" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- Ambient background layers -->
+    <div class="bg-scanlines" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-header__left">
+            <a class="brand" href="/">
+              <span class="dot dot--green blink" aria-hidden="true"></span>
+              <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+            </a>
+            <nav class="site-nav" aria-label="Sections">
+              <a class="site-nav__link" href="/">HOME</a>
+              <a class="site-nav__link is-active" href="/tools/" aria-current="true">COOL TOOLS</a>
+            </nav>
+          </div>
+          <div class="site-header__right">
+            <span class="tz">BR · GMT-3</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- BREADCRUMB -->
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/tools/">cool tools</a>
+          <span aria-hidden="true">/</span>
+          <span class="crumbs__here" aria-current="page">mario-tennis-save-patcher</span>
+        </nav>
+
+        <!-- HERO -->
+        <section class="tool-hero">
+          <div class="tool-hero__info">
+            <div class="eyebrow eyebrow--lime">● TOOL 01 · GAME BOY COLOR</div>
+            <h1 class="tool-hero__title">MARIO TENNIS<br /><span class="accent-lime">SAVE PATCHER</span></h1>
+            <p class="tool-hero__lead" data-i18n="mtHeroLead">
+              Mario Tennis (GBC, 2001) hides Yoshi, Wario, Waluigi, Bowser and four minigames behind a Transfer Pak
+              session with the N64 game. Nintendo never patched that out. This tool writes the exact same bytes that
+              session writes — straight into your save file.
+            </p>
+            <p class="privacy">
+              <span class="privacy__badge" aria-hidden="true">!</span>
+              <span data-i18n="mtPrivacy">
+                Your save never leaves this tab. Everything runs in your browser, no upload, no server.
+              </span>
+            </p>
+          </div>
+          <div class="tool-hero__art">
+            <div class="cartridge cartridge--tennis" aria-hidden="true">
+              <div class="cartridge__notch"></div>
+              <div class="cartridge__screen">
+                <img src="https://cdn.ericktakeshi.com.br/assets/mario-tennis-cover.png" alt="" />
+                <div class="cartridge__scan"></div>
+              </div>
+              <div class="cartridge__label">CGB-BM8E-USA</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PATCHER MACHINE -->
+        <section class="machine-row">
+          <div class="machine">
+            <div class="machine__head">
+              <span class="machine__led" id="mtLed" aria-hidden="true"></span>
+              <span class="machine__name">SAVE PATCHER</span>
+              <span class="machine__status" id="mtStatus">WAITING FOR FILE</span>
+            </div>
+
+            <div class="machine__body">
+              <!-- Live regions: present from first paint and empty, so a screen
+                   reader announces content the moment it is inserted. -->
+              <div id="mtAlert" role="alert"></div>
+              <div id="mtSuccess" role="status"></div>
+
+              <!-- DROPZONE -->
+              <div id="mtEmpty">
+                <label class="sr-only" for="mtFile" data-i18n="mtDropLabel">
+                  Choose a Mario Tennis save file, or drop one here
+                </label>
+                <input class="sr-only" type="file" id="mtFile" accept=".sav" />
+                <button type="button" class="dropzone" id="mtDropzone">
+                  <span class="dropzone__cart" aria-hidden="true"><span class="dropzone__cart-screen"></span></span>
+                  <span class="dropzone__title" data-i18n="mtDropTitle">DROP YOUR .SAV HERE</span>
+                  <span class="dropzone__hint" data-i18n="mtDropHint">
+                    A raw 32,768-byte SRAM dump from Mario Tennis (USA). Nothing is uploaded.
+                  </span>
+                  <span class="dropzone__cta" data-i18n="mtDropButton">Choose a file</span>
+                </button>
+              </div>
+
+              <!-- INSPECTOR -->
+              <div id="mtLoaded" hidden>
+                <div class="inspector__head">
+                  <h2 class="inspector__title" data-i18n="mtInspector">SAVE INSPECTOR</h2>
+                  <span class="inspector__spacer"></span>
+                  <span class="inspector__file" id="mtFileName"></span>
+                  <span class="inspector__size">32 KiB</span>
+                </div>
+
+                <div class="readout">
+                  <div class="readout__state">
+                    <span class="readout__label" data-i18n="mtStateLabel">STATE</span>
+                    <span class="readout__pill" id="mtStateText"></span>
+                    <span class="readout__note" id="mtStateNote"></span>
+                  </div>
+
+                  <div class="readout__cells">
+                    <div class="cell">
+                      <div class="cell__label" data-i18n="mtPlayersLabel">PROFILES</div>
+                      <div class="cell__value accent-lime" id="mtPlayers">—</div>
+                    </div>
+                    <div class="cell">
+                      <div class="cell__label" data-i18n="mtCounterLabel">SAVE COUNT</div>
+                      <div class="cell__value" id="mtCounter">—</div>
+                    </div>
+                    <div class="cell">
+                      <div class="cell__label" data-i18n="mtChecksumLabel">CHECKSUMS</div>
+                      <div class="cell__value" id="mtChecksum">—</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CHECKSUM AUDIT -->
+                <div class="audit">
+                  <button
+                    type="button"
+                    class="audit__toggle"
+                    id="mtAuditToggle"
+                    aria-expanded="false"
+                    aria-controls="mtAuditPanel"
+                  >
+                    <span class="audit__caret" id="mtAuditCaret" aria-hidden="true">▸</span>
+                    <span data-i18n="mtAuditToggle">Checksum audit — stored vs computed</span>
+                    <span class="audit__count" id="mtAuditCount"></span>
+                  </button>
+                  <div class="audit__panel" id="mtAuditPanel" hidden>
+                    <div class="audit__scroll">
+                      <table class="audit__table">
+                        <caption class="sr-only" data-i18n="mtAuditCaption">
+                          Directory records in both save halves, with stored and recomputed checksums.
+                        </caption>
+                        <colgroup>
+                          <col style="width: 58px" />
+                          <col style="width: 62px" />
+                          <col style="width: 62px" />
+                          <col style="width: 62px" />
+                          <col style="width: 74px" />
+                          <col style="width: 74px" />
+                          <col style="width: 44px" />
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col" data-i18n="mtColHalf">HALF</th>
+                            <th scope="col" data-i18n="mtColRec">REC</th>
+                            <th scope="col" data-i18n="mtColAddr">ADDR</th>
+                            <th scope="col" data-i18n="mtColSize">SIZE</th>
+                            <th scope="col" data-i18n="mtColStored">STORED</th>
+                            <th scope="col" data-i18n="mtColComputed">COMPUTED</th>
+                            <th scope="col" data-i18n="mtColOk">OK</th>
+                          </tr>
+                        </thead>
+                        <tbody id="mtAuditBody"></tbody>
+                      </table>
+                    </div>
+                    <p class="audit__note" data-i18n="mtAuditNote">
+                      An unlocked save always shows one mismatch: record 0x110 in the backup half. The transfer block
+                      is written to the primary half only — that is what the game itself does, and every
+                      hardware-unlocked cartridge audits the same way.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="actions">
+                  <button type="button" class="btn btn--green" id="mtUnlock">
+                    ▶ <span data-i18n="mtBtnUnlock">UNLOCK N64 CONTENT</span>
+                  </button>
+                  <button type="button" class="btn btn--outline-red" id="mtRemove" data-i18n="mtBtnRemove">
+                    Remove unlock
+                  </button>
+                  <span class="actions__spacer"></span>
+                  <button type="button" class="btn btn--quiet" id="mtReset" data-i18n="mtBtnReset">Reset</button>
+                </div>
+                <p class="actions__hint" id="mtActionHint"></p>
+
+                <div class="download" id="mtDownloadRow" hidden>
+                  <button type="button" class="btn btn--green btn--lift" id="mtDownload">
+                    ↓ <span data-i18n="mtBtnDownload">Download patched save</span>
+                  </button>
+                  <span class="download__name" id="mtOutName"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIDE COLUMN -->
+          <div class="machine-side">
+            <div class="panel">
+              <div class="panel__head">
+                <span class="dot dot--square dot--lime dot--glow" aria-hidden="true"></span>
+                <h2 class="panel__title" data-i18n="mtUnlocksTitle">WHAT YOU UNLOCK</h2>
+              </div>
+              <div class="roster-list">
+                <div class="roster-list__row">
+                  <span class="roster-list__frame">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/body-yoshi.png" alt="Yoshi" />
+                  </span>
+                  <span class="roster-list__name">YOSHI</span>
+                </div>
+                <div class="roster-list__row">
+                  <span class="roster-list__frame">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/body-wario.png" alt="Wario" />
+                  </span>
+                  <span class="roster-list__name">WARIO</span>
+                </div>
+                <div class="roster-list__row">
+                  <span class="roster-list__frame">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/body-waluigi.png" alt="Waluigi" />
+                  </span>
+                  <span class="roster-list__name">WALUIGI</span>
+                </div>
+                <div class="roster-list__row">
+                  <span class="roster-list__frame">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/body-bowser.png" alt="Bowser" />
+                  </span>
+                  <span class="roster-list__name">BOWSER</span>
+                </div>
+                <div class="roster-list__row roster-list__row--dashed">
+                  <span class="dot dot--square dot--blue" aria-hidden="true"></span>
+                  <span class="roster-list__extra" data-i18n="mtUnlocksMinigames">4 N64 minigames</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__head">
+                <span class="dot dot--square dot--blue dot--glow" aria-hidden="true"></span>
+                <h2 class="panel__title" data-i18n="mtReqTitle">REQUIREMENTS</h2>
+              </div>
+              <ul class="reqs">
+                <li class="reqs__item">
+                  <span class="accent-green" aria-hidden="true">✓</span>
+                  <span data-i18n="mtReq1">Mario Tennis (USA) for Game Boy Color</span>
+                </li>
+                <li class="reqs__item">
+                  <span class="accent-green" aria-hidden="true">✓</span>
+                  <span data-i18n="mtReq2">A raw .sav file of exactly 32,768 bytes</span>
+                </li>
+                <li class="reqs__item reqs__item--no">
+                  <span class="accent-red" aria-hidden="true">×</span>
+                  <span data-i18n="mtReq3">Not supported: EUR/JPN carts, save states (.st, .sgm), archives</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW TO USE -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green" data-i18n="mtHowEyebrow">HOW TO USE ▸ 4 STEPS</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title" data-i18n="mtHowTitle">From save file to unlocked roster</h2>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step__num">01</div>
+              <h3 class="step__title" data-i18n="mtStep1Title">Get your save file</h3>
+              <p class="step__body" data-i18n="mtStep1Body">
+                On an emulator, the .sav sits next to your ROM (mGBA, BGB, SameBoy). On a real cartridge, dump it with
+                a GB Operator, GBxCart RW or similar — the "backup save" option.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step__num">02</div>
+              <h3 class="step__title" data-i18n="mtStep2Title">Drop it in</h3>
+              <p class="step__body" data-i18n="mtStep2Body">
+                The file is read locally and checked: exact size, the Camelot header in both save halves, and a sane
+                directory. If anything looks off, the tool refuses instead of guessing.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step__num">03</div>
+              <h3 class="step__title" data-i18n="mtStep3Title">Hit unlock</h3>
+              <p class="step__body" data-i18n="mtStep3Body">
+                Thirteen bytes change, mirrored across the primary and backup halves, plus the 512-byte transfer block
+                the N64 side would have written. Save counters and profiles are untouched.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step__num">04</div>
+              <h3 class="step__title" data-i18n="mtStep4Title">Put it back</h3>
+              <p class="step__body" data-i18n="mtStep4Body">
+                Download the patched file, keep your original as a backup, and replace it. Next boot, Yoshi, Wario,
+                Waluigi and Bowser are on the character select — and the minigames are open.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- WHY / UNDER THE HOOD -->
+        <section class="section why">
+          <div class="why__prose">
+            <div class="section__head">
+              <span class="eyebrow eyebrow--red" data-i18n="mtWhyEyebrow">WHY THIS EXISTS</span>
+              <span class="rule"></span>
+            </div>
+            <h2 class="section__title section__title--sm" data-i18n="mtWhyTitle">
+              Content locked behind hardware nobody has
+            </h2>
+            <p class="why__p" data-i18n="mtWhyP1">
+              To unlock those four characters legitimately you need an N64, the N64 Mario Tennis cartridge, a Transfer
+              Pak and the GBC cartridge — all four, at once. No cheat code exists, and the re-releases never fixed it.
+              For most people the content is simply unreachable.
+            </p>
+            <p class="why__p why__p--soft" data-i18n="mtWhyP2">
+              So the save format got reverse-engineered — it was documented nowhere — and the patch was verified
+              against three real cartridge dumps. The unlock output is byte-identical to a hardware Transfer Pak
+              session, and the removal restores the original byte for byte.
+            </p>
+          </div>
+
+          <div class="why__bytes">
+            <div class="eyebrow eyebrow--blue" data-i18n="mtBytesEyebrow">UNDER THE HOOD</div>
+            <p class="why__bytes-lead" data-i18n="mtBytesLead">For the technically curious — this is the whole diff:</p>
+            <div class="bytes">
+              <table class="bytes__table">
+                <thead>
+                  <tr>
+                    <th scope="col" data-i18n="mtBytesOffset">OFFSET</th>
+                    <th scope="col" data-i18n="mtBytesWhat">WHAT IT IS</th>
+                    <th scope="col" class="bytes__val" data-i18n="mtBytesValue">VALUE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="accent-lime">0x0041</td>
+                    <td data-i18n="mtByte1">N64 character bitmask</td>
+                    <td class="bytes__val accent-green">00→3C</td>
+                  </tr>
+                  <tr>
+                    <td class="accent-lime">0x0047</td>
+                    <td data-i18n="mtByte2">transfer-done flag</td>
+                    <td class="bytes__val accent-green">00→02</td>
+                  </tr>
+                  <tr>
+                    <td class="accent-lime">0x0110</td>
+                    <td data-i18n="mtByte3">directory record in use</td>
+                    <td class="bytes__val accent-green">00→01</td>
+                  </tr>
+                  <tr>
+                    <td class="accent-lime">0x0116</td>
+                    <td data-i18n="mtByte4">record checksum</td>
+                    <td class="bytes__val accent-green">→01C9</td>
+                  </tr>
+                  <tr>
+                    <td class="accent-lime">0x1800</td>
+                    <td data-i18n="mtByte5">transfer block (512 B)</td>
+                    <td class="bytes__val accent-green">ED D5 … 07</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="why__bytes-foot" data-i18n="mtBytesFoot">
+              Every marker is mirrored in the backup half at 0x2000. Save counters, profile blocks and the
+              non-checksum records from 0x3C0 are never written.
+            </p>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--lime" data-i18n="mtFaqEyebrow">GOOD TO KNOW</span>
+            <span class="rule"></span>
+          </div>
+          <div class="faq">
+            <div class="faq__card">
+              <h3 class="faq__q" data-i18n="mtFaq1Q">Can I undo it?</h3>
+              <p class="faq__a" data-i18n="mtFaq1A">
+                Yes. "Remove unlock" reverses the patch and produces a byte-identical pre-unlock save. It also repairs
+                a half-applied "partial" state.
+              </p>
+            </div>
+            <div class="faq__card">
+              <h3 class="faq__q" data-i18n="mtFaq2Q">Does it work on a real cartridge?</h3>
+              <p class="faq__a" data-i18n="mtFaq2A">
+                Yes — the output was verified byte-for-byte against a hardware Transfer Pak unlock. Write the patched
+                .sav back with your flasher.
+              </p>
+            </div>
+            <div class="faq__card">
+              <h3 class="faq__q" data-i18n="mtFaq3Q">Will it corrupt my progress?</h3>
+              <p class="faq__a" data-i18n="mtFaq3A">
+                It only touches the N64 unlock markers and the transfer area. Still: keep a copy of the original file
+                before you overwrite anything.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+          <div>
+            <a class="site-footer__brand" href="/tools/">← COOL TOOLS</a>
+            <div class="site-footer__note">© 2026 Erick Takeshi</div>
+          </div>
+          <div class="site-footer__legal site-footer__legal--wide" data-i18n="mtFooterLegal">
+            Fan tool · Mario Tennis © Nintendo/Camelot. Not affiliated. Runs entirely in your browser — no file is
+            uploaded.
+          </div>
+        </footer>
+      </div>
+
+      <!-- The music dock is appended here at runtime by js/player/dock-markup.js. -->
+    </div>
+
+    <!-- Filled by patcher-ui.js and inserted into the live regions above. -->
+    <template id="mtNoticeTpl">
+      <div class="notice">
+        <span class="notice__badge" aria-hidden="true"></span>
+        <span class="notice__text">
+          <span class="notice__title"></span>
+          <span class="notice__body"></span>
+          <span class="notice__roster" hidden>
+            <img src="https://cdn.ericktakeshi.com.br/assets/body-yoshi.png" alt="" aria-hidden="true" />
+            <img src="https://cdn.ericktakeshi.com.br/assets/body-wario.png" alt="" aria-hidden="true" />
+            <img src="https://cdn.ericktakeshi.com.br/assets/body-waluigi.png" alt="" aria-hidden="true" />
+            <img src="https://cdn.ericktakeshi.com.br/assets/body-bowser.png" alt="" aria-hidden="true" />
+          </span>
+        </span>
+      </div>
+    </template>
+
+    <script type="module" src="/js/tools/mario-tennis/page.js"></script>
+  </body>
+</html>
