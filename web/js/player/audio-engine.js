@@ -21,18 +21,31 @@ export class AudioEngine {
     this.el.volume = 1.0;
   }
 
-  /** Point the element at a source (no-op if unchanged) so playback streams it. */
+  /**
+   * Point the element at a source so playback streams it. A no-op when the
+   * source is unchanged, which matters: reassigning src restarts the resource
+   * and resets currentTime to 0, wiping out any position we just seeked to.
+   *
+   * The comparison resolves first, because the `src` getter always reports an
+   * absolute URL. Comparing it against a relative one never matches, so every
+   * load() would look like a track change and silently rewind the audio.
+   */
   load(src) {
-    if (this.el.src !== src) this.el.src = src;
+    const resolved = new URL(src, this.el.baseURI).href;
+    if (this.el.src !== resolved) this.el.src = resolved;
   }
 
   /**
    * Start playback. play() rejects until the page has had a user gesture
-   * (browser autoplay policy); swallow that so it isn't an unhandled rejection.
-   * @returns {Promise<void>}
+   * (browser autoplay policy); resolve false instead of throwing, so callers
+   * can tell "playing" from "asked to play and was refused".
+   * @returns {Promise<boolean>} whether playback actually started
    */
   play() {
-    return this.el.play().catch(() => {});
+    return this.el.play().then(
+      () => true,
+      () => false
+    );
   }
 
   pause() {

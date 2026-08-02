@@ -60,7 +60,12 @@ export function buildLockedSave({ names = ["ERICK", "TESTER"], counter = 0x3137 
   return bytes;
 }
 
-/** Locked base plus the exact unlock bytes, written from the spec by hand. */
+/**
+ * Locked base plus the exact unlock bytes, written from the spec by hand.
+ * The transfer block goes in both halves: each half's record checksums its
+ * own copy, so a block in the primary alone leaves the backup storing 0x01C9
+ * for an empty area.
+ */
 export function buildUnlockedSave(options) {
   const bytes = buildLockedSave(options);
   for (const base of [0x0000, HALF]) {
@@ -69,10 +74,10 @@ export function buildUnlockedSave(options) {
     bytes[base + 0x110] = 0x01;
     bytes[base + 0x116] = 0xc9;
     bytes[base + 0x117] = 0x01;
+    bytes[base + 0x1800] = 0xed;
+    bytes[base + 0x1801] = 0xd5;
+    bytes[base + 0x1959] = 0x07;
   }
-  bytes[0x1800] = 0xed;
-  bytes[0x1801] = 0xd5;
-  bytes[0x1959] = 0x07;
   return bytes;
 }
 

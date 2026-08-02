@@ -129,6 +129,38 @@ export class Playlist {
     return this.current;
   }
 
+  /**
+   * The cursor as plain data, so another page can pick the queue up where this
+   * one left it. The track id travels with it purely as a consistency check.
+   * @returns {{order: number[], index: number, id: string}}
+   */
+  snapshot() {
+    return { order: [...this.order], index: this.index, id: this.current.id };
+  }
+
+  /**
+   * Adopt a snapshot taken earlier. Anything that no longer describes this
+   * track list (a track added, removed or reordered since it was saved) is
+   * rejected outright, leaving the freshly built order untouched — a wrong
+   * queue is worse than a new one.
+   *
+   * @param {{order: number[], index: number, id: string}} snap
+   * @returns {boolean} whether it was applied
+   */
+  restore(snap) {
+    if (!snap || !Array.isArray(snap.order) || snap.order.length !== this.tracks.length) return false;
+    if (!Number.isInteger(snap.index) || snap.index < 0 || snap.index >= this.tracks.length) return false;
+
+    const inRange = (i) => Number.isInteger(i) && i >= 0 && i < this.tracks.length;
+    if (!snap.order.every(inRange)) return false;
+    if (new Set(snap.order).size !== this.tracks.length) return false; // must be a permutation
+    if (this.tracks[snap.order[snap.index]].id !== snap.id) return false;
+
+    this.order = [...snap.order];
+    this.index = snap.index;
+    return true;
+  }
+
   /** Re-lay the shuffled order, keeping the just-played track off the new top. */
   _reshuffle() {
     const last = this.order[this.index];

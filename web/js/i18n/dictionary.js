@@ -30,7 +30,29 @@ export const DICT = {
     mentoriaSub: "1:1 tech mentoring",
     amaSub: "ask me anything",
     githubSub: "code & ROM hacks",
+    toolsSub: "Mario Tennis save patcher & more",
     emailSub: "say hello",
+
+    // Cool Tools hub (/tools/)
+    toolsLead:
+      "Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They run entirely in your browser. No accounts, no uploads, no server.",
+    toolsBadgeLocal: "Runs in your browser",
+    toolsBadgeFree: "Free · no sign-up",
+    toolsCardLead:
+      "Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64 cartridge and a Transfer Pak. This patcher writes the unlock bytes straight into your save file, so you can have them without any of that hardware.",
+    toolsUnlocksLabel: "UNLOCKS",
+    toolsChipMinigames: "+ 4 minigames",
+    toolsStatBytes: "bytes changed",
+    toolsStatUploads: "uploads",
+    toolsStatReversible: "reversible",
+    toolsCtaOpen: "Open the patcher",
+    toolsCardHint: "accepts a 32 KiB .sav (USA)",
+    toolsRequestEyebrow: "REQUESTS",
+    toolsRequestLead:
+      "Know some retro content locked behind hardware nobody owns anymore? Tell me. Reverse-engineering save formats is my kind of weekend.",
+    toolsCtaEmail: "Email me",
+    toolsFooterLegal:
+      "Fan tools. Trademarks belong to their owners. Not affiliated. Everything runs locally in your browser.",
     aboutTitle: "Driver Profile",
     garageTitle: "GARAGE",
     bannerCaption: "Hoenn legends clash: rain vs drought.",
@@ -66,7 +88,29 @@ export const DICT = {
     mentoriaSub: "mentoria tech 1:1",
     amaSub: "pergunte qualquer coisa",
     githubSub: "código & ROM hacks",
+    toolsSub: "patcher de save do Mario Tennis & mais",
     emailSub: "manda um oi",
+
+    // Cool Tools hub (/tools/)
+    toolsLead:
+      "Utilitários pequenos e de propósito único que eu criei porque algo me incomodava e ninguém tinha resolvido. Rodam inteiramente no seu navegador. Sem conta, sem upload, sem servidor.",
+    toolsBadgeLocal: "Roda no seu navegador",
+    toolsBadgeFree: "Grátis · sem cadastro",
+    toolsCardLead:
+      "Mario Tennis de Game Boy Color tranca quatro personagens e quatro minigames atrás de um N64, o cartucho de N64 e um Transfer Pak. Este patcher escreve os bytes de desbloqueio direto no seu save, então você libera tudo sem nada desse hardware.",
+    toolsUnlocksLabel: "DESBLOQUEIA",
+    toolsChipMinigames: "+ 4 minigames",
+    toolsStatBytes: "bytes alterados",
+    toolsStatUploads: "uploads",
+    toolsStatReversible: "reversível",
+    toolsCtaOpen: "Abrir o patcher",
+    toolsCardHint: "aceita um .sav de 32 KiB (USA)",
+    toolsRequestEyebrow: "PEDIDOS",
+    toolsRequestLead:
+      "Conhece algum conteúdo retrô trancado atrás de hardware que ninguém mais tem? Me conta. Engenharia reversa de save é meu tipo de fim de semana.",
+    toolsCtaEmail: "Me manda um email",
+    toolsFooterLegal:
+      "Ferramentas de fã. Marcas pertencem aos seus donos. Sem afiliação. Tudo roda localmente no seu navegador.",
     aboutTitle: "Perfil do Piloto",
     garageTitle: "GARAGEM",
     bannerCaption: "Lendas de Hoenn em confronto: chuva vs seca.",

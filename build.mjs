@@ -7,7 +7,8 @@
      1. JS  — minify every .js file under web/js individually, preserving the
               folder tree and the relative import paths (bundle: false).
      2. CSS — minify web/styles.css.
-     3. HTML— copy web/index.html + web/404.html verbatim.
+     3. HTML— copy every .html page under web/ verbatim, preserving the folder
+              tree (web/tools/foo/index.html -> dist/tools/foo/index.html).
      4. Root metadata — copy web/favicon.ico + web/site.webmanifest verbatim so
               they are served from the site root (/favicon.ico, /site.webmanifest).
      5. Fingerprint — rewrite logical cdn asset URLs to their content-hashed
@@ -18,24 +19,31 @@
    =========================================================================== */
 import { build } from "esbuild";
 import { rm, mkdir, cp, readdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, "web");
 const OUT = join(ROOT, "dist");
 
-/** Recursively collect every .js file under `dir`. */
-async function jsEntryPoints(dir) {
+// web/assets/ holds the R2-hosted originals; it is never copied into dist/.
+const SKIP_DIRS = new Set(["assets"]);
+
+/** Recursively collect every file under `dir` whose basename satisfies `match`. */
+async function walk(dir, match, skip = new Set()) {
   const dirents = await readdir(dir, { withFileTypes: true });
   const files = [];
   for (const dirent of dirents) {
     const full = join(dir, dirent.name);
-    if (dirent.isDirectory()) files.push(...(await jsEntryPoints(full)));
-    else if (dirent.name.endsWith(".js")) files.push(full);
+    if (dirent.isDirectory()) {
+      if (!skip.has(dirent.name)) files.push(...(await walk(full, match, skip)));
+    } else if (match(dirent.name)) files.push(full);
   }
   return files;
 }
+
+/** Every .js file under `dir` — one esbuild entry point each. */
+const jsEntryPoints = (dir) => walk(dir, (name) => name.endsWith(".js"));
 
 async function main() {
   await rm(OUT, { recursive: true, force: true });
@@ -63,9 +71,14 @@ async function main() {
     logLevel: "info"
   });
 
-  // 3. index.html + 404.html — copy verbatim.
-  await cp(join(SRC, "index.html"), join(OUT, "index.html"));
-  await cp(join(SRC, "404.html"), join(OUT, "404.html"));
+  // 3. HTML pages — copy verbatim, mirroring the source tree so a page at
+  //    web/tools/<slug>/index.html is served from /tools/<slug>/.
+  const pages = await walk(SRC, (name) => name.endsWith(".html"), SKIP_DIRS);
+  for (const page of pages) {
+    const dest = join(OUT, relative(SRC, page));
+    await mkdir(dirname(dest), { recursive: true }); // cp does not create parents
+    await cp(page, dest);
+  }
 
   // 4. Root metadata files (favicon + manifest) — copy verbatim to dist root.
   //    The heavier PNG icons live on the CDN under /assets/ (synced separately).
@@ -77,7 +90,7 @@ async function main() {
   await fingerprintDist();
 
   console.log(
-    `Build complete: ${entryPoints.length} JS modules + CSS + HTML + 404 + favicon.ico + site.webmanifest -> dist/`
+    `Build complete: ${entryPoints.length} JS modules + CSS + ${pages.length} HTML pages + favicon.ico + site.webmanifest -> dist/`
   );
 }
 
@@ -101,13 +114,9 @@ async function fingerprintDist() {
     return;
   }
 
-  const targets = [
-    join(OUT, "index.html"),
-    join(OUT, "404.html"),
-    join(OUT, "styles.css"),
-    join(OUT, "site.webmanifest"),
-    ...(await jsEntryPoints(join(OUT, "js")))
-  ];
+  // Everything text-shaped in dist/ — no filename stays hardcoded here, so new
+  // pages, stylesheets and modules are covered the moment they are added.
+  const targets = await walk(OUT, (name) => /\.(html|css|js|webmanifest)$/.test(name));
 
   const missing = new Set();
   let rewritten = 0;

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cool Tools · Erick Takeshi</title>
+
+    <!-- Icons & PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.ericktakeshi.com.br/assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.ericktakeshi.com.br/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="https://cdn.ericktakeshi.com.br/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.ericktakeshi.com.br/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" content="#0a130e" />
+    <meta name="msapplication-TileColor" content="#0a130e" />
+    <meta name="msapplication-TileImage" content="https://cdn.ericktakeshi.com.br/assets/icon-192.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://www.ericktakeshi.com.br/tools/" />
+    <meta
+      name="description"
+      content="Small, single-purpose retro utilities that run entirely in your browser. No accounts, no uploads. Starting with the Mario Tennis (GBC) save patcher."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cool Tools · Erick Takeshi" />
+    <meta property="og:site_name" content="Erick Takeshi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ericktakeshi.com.br/tools/" />
+    <meta property="og:description" content="Retro utilities that run entirely in your browser. No accounts, no uploads." />
+    <meta property="og:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Erick Takeshi, cool tools" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cool Tools · Erick Takeshi" />
+    <meta name="twitter:description" content="Retro utilities that run entirely in your browser. No accounts, no uploads." />
+    <meta name="twitter:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta name="twitter:creator" content="@erick_tmr" />
+
+    <link rel="preconnect" href="https://cdn.ericktakeshi.com.br" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- Ambient background layers -->
+    <div class="bg-scanlines" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-header__left">
+            <a class="brand" href="/">
+              <span class="dot dot--green blink" aria-hidden="true"></span>
+              <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+            </a>
+            <nav class="site-nav" aria-label="Sections">
+              <a class="site-nav__link" href="/">HOME</a>
+              <a class="site-nav__link is-active" href="/tools/" aria-current="page">COOL TOOLS</a>
+            </nav>
+          </div>
+          <div class="site-header__right">
+            <span class="tz">BR · GMT-3</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- HERO -->
+        <section class="tools-hero">
+          <div class="eyebrow eyebrow--lime">● SELECT A TOOL</div>
+          <h1 class="tools-hero__title">COOL <span class="accent-green">TOOLS</span></h1>
+          <p class="tools-hero__lead" data-i18n="toolsLead">
+            Small, single-purpose utilities I built because something annoyed me and nobody else had fixed it. They
+            run entirely in your browser. No accounts, no uploads, no server.
+          </p>
+          <div class="tools-badges">
+            <span class="badge badge--lime">
+              <span class="dot" aria-hidden="true"></span>
+              <span data-i18n="toolsBadgeLocal">Runs in your browser</span>
+            </span>
+            <span class="badge" data-i18n="toolsBadgeFree">Free · no sign-up</span>
+            <span class="badge">EN / PT</span>
+          </div>
+        </section>
+
+        <!-- TOOL 01 -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">TOOL ▸ 01 · GAME BOY COLOR</span>
+            <span class="rule"></span>
+            <span class="eyebrow eyebrow--lime">● LIVE</span>
+          </div>
+
+          <a class="tool-card" href="/tools/mario-tennis-save-patcher/">
+            <div class="tool-card__art">
+              <div class="cartridge cartridge--tennis cartridge--sm" aria-hidden="true">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen">
+                  <img src="https://cdn.ericktakeshi.com.br/assets/mario-tennis-cover.png" alt="" />
+                  <div class="cartridge__scan"></div>
+                </div>
+                <div class="cartridge__label">CGB-BM8E-USA</div>
+              </div>
+            </div>
+
+            <div class="tool-card__body">
+              <h2 class="tool-card__title">Mario Tennis <span class="accent-lime">Save Patcher</span></h2>
+              <p class="tool-card__lead" data-i18n="toolsCardLead">
+                Mario Tennis for Game Boy Color locks four characters and four minigames behind an N64, the N64
+                cartridge and a Transfer Pak. This patcher writes the unlock bytes straight into your save file, so you
+                can have them without any of that hardware.
+              </p>
+
+              <div class="tool-card__unlocks">
+                <div class="eyebrow" data-i18n="toolsUnlocksLabel">UNLOCKS</div>
+                <div class="roster">
+                  <span class="roster__chip">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/char-yoshi.png" alt="" />YOSHI
+                  </span>
+                  <span class="roster__chip">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/char-wario.png" alt="" />WARIO
+                  </span>
+                  <span class="roster__chip">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/char-waluigi.png" alt="" />WALUIGI
+                  </span>
+                  <span class="roster__chip">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/char-bowser.png" alt="" />BOWSER
+                  </span>
+                  <span class="roster__chip roster__chip--plain" data-i18n="toolsChipMinigames">+ 4 minigames</span>
+                </div>
+              </div>
+
+              <div class="stats tool-card__stats">
+                <div class="stat">
+                  <div class="stat__value accent-green">16</div>
+                  <div class="stat__label" data-i18n="toolsStatBytes">bytes changed</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value accent-lime">0</div>
+                  <div class="stat__label" data-i18n="toolsStatUploads">uploads</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value accent-blue">100%</div>
+                  <div class="stat__label" data-i18n="toolsStatReversible">reversible</div>
+                </div>
+              </div>
+
+              <div class="tool-card__cta">
+                <span class="btn btn--green"><span data-i18n="toolsCtaOpen">Open the patcher</span> ▸</span>
+                <span class="tool-card__hint" data-i18n="toolsCardHint">accepts a 32 KiB .sav (USA)</span>
+              </div>
+            </div>
+          </a>
+        </section>
+
+        <!-- REQUESTS -->
+        <section class="requests">
+          <div class="requests__text">
+            <div class="eyebrow eyebrow--red" data-i18n="toolsRequestEyebrow">REQUESTS</div>
+            <p class="requests__lead" data-i18n="toolsRequestLead">
+              Know some retro content locked behind hardware nobody owns anymore? Tell me. Reverse-engineering save
+              formats is my kind of weekend.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn btn--ghost btn--icon btn--email" href="mailto:erick.tmr@outlook.com">
+              <span class="btn__icon">
+                <img src="https://cdn.ericktakeshi.com.br/assets/email-pixel.png" alt="" />
+              </span>
+              <span data-i18n="toolsCtaEmail">Email me</span> ↗
+            </a>
+            <a class="btn btn--ghost btn--icon" href="https://github.com/erick-tmr" target="_blank" rel="noopener">
+              <span class="btn__icon btn__icon--light">
+                <img src="https://cdn.ericktakeshi.com.br/assets/github-pixel.png" alt="" />
+              </span>
+              GitHub ↗
+            </a>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+          <div>
+            <a class="site-footer__brand" href="/">ERICK<span class="brand__dot">.</span>TMR</a>
+            <div class="site-footer__note">© 2026 Erick Takeshi · <span data-i18n="footerNote">Built with caffeine, Pokémon &amp; boost.</span></div>
+          </div>
+          <div class="site-footer__legal" data-i18n="toolsFooterLegal">
+            Fan tools. Trademarks belong to their owners. Not affiliated. Everything runs locally in your browser.
+          </div>
+        </footer>
+      </div>
+
+      <!-- The music dock is appended here at runtime by js/player/dock-markup.js. -->
+    </div>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>
