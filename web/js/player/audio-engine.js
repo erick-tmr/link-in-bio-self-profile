@@ -21,9 +21,18 @@ export class AudioEngine {
     this.el.volume = 1.0;
   }
 
-  /** Point the element at a source (no-op if unchanged) so playback streams it. */
+  /**
+   * Point the element at a source so playback streams it. A no-op when the
+   * source is unchanged, which matters: reassigning src restarts the resource
+   * and resets currentTime to 0, wiping out any position we just seeked to.
+   *
+   * The comparison resolves first, because the `src` getter always reports an
+   * absolute URL. Comparing it against a relative one never matches, so every
+   * load() would look like a track change and silently rewind the audio.
+   */
   load(src) {
-    if (this.el.src !== src) this.el.src = src;
+    const resolved = new URL(src, this.el.baseURI).href;
+    if (this.el.src !== resolved) this.el.src = resolved;
   }
 
   /**

@@ -45,6 +45,11 @@ export class PlaybackMemory {
     this.playlist = playlist;
     this.storage = storage;
     this.key = key;
+
+    // The position we handed to the player, held until the media reports a
+    // real one of its own. See save().
+    this._resumeAt = 0;
+    this._resumeId = null;
   }
 
   /**
@@ -59,19 +64,45 @@ export class PlaybackMemory {
     if (!saved) return false;
     if (!this.playlist.restore(saved.queue)) return false;
 
+    this._resumeAt = saved.position;
+    this._resumeId = saved.queue.id;
     this.player.resumeFrom(saved.position, saved.playing);
     return true;
   }
 
-  /** Snapshot the current position. Safe to call at any time. */
+  /**
+   * Snapshot the current position. Safe to call at any time.
+   *
+   * The subtlety is the window right after a resume. An element that has been
+   * given a source but has not loaded it yet reports currentTime 0: the
+   * position we asked for is held as the default playback start position and
+   * only becomes visible once the media loads. If autoplay was refused, that
+   * can take until the visitor's first keypress or click. Saving during that
+   * window would overwrite a perfectly good position with the start of the
+   * track, and the next page would resume from zero.
+   *
+   * So until the player reports a position of its own, keep reporting the one
+   * we resumed from. Once it does, the media is live and is trusted from then
+   * on, including a deliberate seek back to the very beginning.
+   */
   save() {
     if (!this.storage) return;
+
+    const live = Math.max(0, Math.floor(this.player.currentTime));
+    if (live > 0) {
+      this._resumeAt = 0;
+      this._resumeId = null;
+    }
+
+    const stillOnResumedTrack = this._resumeId !== null && this.playlist.current.id === this._resumeId;
+    const position = live > 0 ? live : stillOnResumedTrack ? this._resumeAt : 0;
+
     try {
       this.storage.setItem(
         this.key,
         JSON.stringify({
           queue: this.playlist.snapshot(),
-          position: Math.max(0, Math.floor(this.player.currentTime)),
+          position,
           playing: this.player.isEnabled
         })
       );
