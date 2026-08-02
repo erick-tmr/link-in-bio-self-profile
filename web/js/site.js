@@ -17,6 +17,7 @@ import { TRACKS, Playlist } from "./player/playlist.js";
 import { AudioEngine } from "./player/audio-engine.js";
 import { MusicPlayer } from "./player/music-player.js";
 import { MusicDock } from "./player/music-dock.js";
+import { PlaybackMemory } from "./player/playback-memory.js";
 
 const LANG_KEY = "et.lang";
 
@@ -53,7 +54,16 @@ export function bootSite({ dict, defaultLang, root = document }) {
 
   const audioEl = root.getElementById("track");
   if (audioEl) {
-    const player = new MusicPlayer(new AudioEngine(audioEl), new Playlist(TRACKS, { shuffle: true }));
+    const playlist = new Playlist(TRACKS, { shuffle: true });
+    const player = new MusicPlayer(new AudioEngine(audioEl), playlist);
+
+    // Pick the music up where the previous page left it, before the dock is
+    // built, so its first paint shows the resumed track rather than flashing
+    // a different one.
+    const memory = new PlaybackMemory({ player, playlist });
+    memory.restore();
+    memory.watch();
+
     new MusicDock({ player, i18n });
   }
 

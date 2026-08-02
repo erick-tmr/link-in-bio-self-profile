@@ -93,6 +93,26 @@ export class MusicPlayer {
     this._emit();
   }
 
+  /**
+   * Pick playback back up where another page left it: same track, same second.
+   *
+   * Load before seeking — assigning a source resets currentTime, so the other
+   * order silently starts from zero. If the browser refuses to autoplay (this
+   * document has had no user gesture yet), the position stays parked on the
+   * element and MusicDock's first-gesture handler starts it from there.
+   *
+   * @param {number} seconds
+   * @param {boolean} playing  whether the previous page was playing
+   * @returns {Promise<boolean>} whether audio is actually running now
+   */
+  async resumeFrom(seconds, playing) {
+    this.engine.load(this.currentTrack.src);
+    if (seconds > 0) this.engine.seek(seconds);
+    this.enabled = playing;
+    this._emit();
+    return playing ? this.engine.play() : false;
+  }
+
   /** Scrub to a fraction (0..1) of the current track's duration. */
   seek(fraction) {
     const d = this.engine.duration;

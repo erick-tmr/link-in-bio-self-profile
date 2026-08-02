@@ -28,11 +28,15 @@ export class AudioEngine {
 
   /**
    * Start playback. play() rejects until the page has had a user gesture
-   * (browser autoplay policy); swallow that so it isn't an unhandled rejection.
-   * @returns {Promise<void>}
+   * (browser autoplay policy); resolve false instead of throwing, so callers
+   * can tell "playing" from "asked to play and was refused".
+   * @returns {Promise<boolean>} whether playback actually started
    */
   play() {
-    return this.el.play().catch(() => {});
+    return this.el.play().then(
+      () => true,
+      () => false
+    );
   }
 
   pause() {
