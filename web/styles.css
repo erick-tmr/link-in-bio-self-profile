@@ -90,6 +90,25 @@ img { max-width: 100%; }
   0%, 100% { box-shadow: 0 0 0 0 rgba(53, 214, 138, .5); }
   50% { box-shadow: 0 0 0 8px rgba(53, 214, 138, 0); }
 }
+/* A strike is mostly darkness: the bolt fires, gutters, re-fires and is gone
+   inside the first fifth of the cycle, then waits out the rest. `flash` is the
+   sky lighting up around it, running on the same clock a beat earlier. */
+@keyframes strike {
+  0%, 6% { opacity: 0; }
+  7% { opacity: 1; }
+  9% { opacity: .15; }
+  11% { opacity: .95; }
+  14% { opacity: .35; }
+  17% { opacity: .8; }
+  22%, 100% { opacity: 0; }
+}
+@keyframes flash {
+  0%, 5% { opacity: 0; }
+  7% { opacity: .5; }
+  10% { opacity: .08; }
+  12% { opacity: .34; }
+  18%, 100% { opacity: 0; }
+}
 @keyframes rayOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes rayFly {
   0%   { transform: rotate(0deg)    translateY(0); }
@@ -1318,19 +1337,93 @@ a.tool-card:hover {
 .site-footer__legal--wide { max-width: 400px; }
 
 /* ---- Games hub (/games/) ----------------------------------------------- */
-/* The hero prints its own table of contents beside the title: the list is
-   short enough that showing it is faster than making you scroll for it. */
-.games-hero {
-  margin-top: 44px;
+/* The hero is a banner panel with a thunderstorm behind it: the console art
+   sits in its own lit frame on the right, the copy stays on the left, and the
+   Game Boy Color spectrum rules the bottom edge of both. */
+.games-banner {
+  /* the five-colour GBC spectrum, stated once and reused by the rule and pips */
+  --gbc-1: #7a5fc4;
+  --gbc-2: #5aa2f5;
+  --gbc-3: #2fb8a5;
+  --gbc-4: #f5d33f;
+  --gbc-5: #e0452f;
+
+  position: relative;
+  margin-top: 32px;
+  overflow: hidden;
+  background: #0d1a13;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  box-shadow: 0 20px 46px rgba(0, 0, 0, .5);
+}
+
+/* Four bolts on deliberately co-prime periods, so they never fall into a
+   repeating pattern the eye can follow. Negative delays start them mid-cycle
+   rather than firing all four the moment the page loads. */
+.games-banner__storm { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.games-banner__bolt {
+  position: absolute;
+  top: -6px;
+  left: var(--bolt-x);
+  width: var(--bolt-w);
+  height: var(--bolt-h);
+  transform: rotate(var(--bolt-tilt));
+  background: linear-gradient(180deg, var(--bolt-ink), rgba(255, 255, 255, 0.95) 45%, var(--bolt-ink));
+  filter: drop-shadow(0 0 7px var(--bolt-ink)) drop-shadow(0 0 16px rgba(245, 211, 63, 0.55));
+  clip-path: polygon(46% 0, 100% 34%, 62% 40%, 92% 62%, 54% 68%, 74% 100%, 18% 58%, 48% 52%, 8% 30%, 40% 26%, 0 8%);
+  opacity: 0;
+  animation: strike var(--bolt-dur) linear infinite;
+  animation-delay: var(--bolt-delay);
+}
+.games-banner__bolt:nth-child(1) { --bolt-x: 18%; --bolt-w: 54px; --bolt-h: 210px; --bolt-tilt: -6deg; --bolt-ink: #f5d33f; --bolt-dur: 7.5s; --bolt-delay: -1.2s; }
+.games-banner__bolt:nth-child(2) { --bolt-x: 44%; --bolt-w: 40px; --bolt-h: 165px; --bolt-tilt: 5deg; --bolt-ink: #ffe98a; --bolt-dur: 9.2s; --bolt-delay: -5.1s; }
+.games-banner__bolt:nth-child(3) { --bolt-x: 70%; --bolt-w: 62px; --bolt-h: 240px; --bolt-tilt: -3deg; --bolt-ink: #f5d33f; --bolt-dur: 11.4s; --bolt-delay: -8.3s; }
+.games-banner__bolt:nth-child(4) { --bolt-x: 88%; --bolt-w: 34px; --bolt-h: 140px; --bolt-tilt: 7deg; --bolt-ink: #ffe98a; --bolt-dur: 8.6s; --bolt-delay: -3.4s; }
+
+/* Each wash shares its clock with the bolt it belongs to, so the sky lights up
+   with that strike instead of on a timer of its own. */
+.games-banner__flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: flash var(--flash-dur) linear infinite;
+  animation-delay: var(--flash-delay);
+}
+.games-banner__flash--overhead {
+  --flash-dur: 7.5s;
+  --flash-delay: -1.2s;
+  background: radial-gradient(ellipse 120% 90% at 50% -10%, rgba(245, 211, 63, 0.5), rgba(245, 211, 63, 0.08) 55%, transparent 78%);
+}
+.games-banner__flash--right {
+  --flash-dur: 11.4s;
+  --flash-delay: -8.3s;
+  background: radial-gradient(ellipse 90% 80% at 78% 40%, rgba(245, 211, 63, 0.4), transparent 70%);
+}
+
+.gbc-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  pointer-events: none;
+  opacity: .55;
+  background: linear-gradient(90deg, var(--gbc-1) 0 20%, var(--gbc-2) 20% 40%, var(--gbc-3) 40% 60%, var(--gbc-4) 60% 80%, var(--gbc-5) 80% 100%);
+}
+/* on the art frame it is a bezel detail rather than a page edge, so it reads full */
+.gbc-rule--strong { opacity: .85; }
+
+.games-banner__inner {
+  position: relative;
+  padding: 34px;
   display: flex;
   flex-wrap: wrap;
-  gap: 36px;
-  align-items: flex-end;
-  padding-bottom: 30px;
-  border-bottom: 1px solid var(--border-soft);
+  gap: 30px;
+  align-items: center;
 }
-.games-hero__main { flex: 1 1 480px; min-width: 300px; }
-.games-hero__title {
+.games-banner__body { flex: 1 1 380px; min-width: 270px; max-width: 470px; }
+.games-banner__title {
   font-family: var(--mono);
   font-weight: 800;
   font-size: clamp(36px, 6.4vw, 58px);
@@ -1340,27 +1433,68 @@ a.tool-card:hover {
   letter-spacing: -1.5px;
   text-shadow: 0 0 26px rgba(53, 214, 138, 0.28);
 }
-.games-hero__lead { margin: 16px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.75; max-width: 560px; text-wrap: pretty; }
+.games-banner__lead { margin: 16px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.75; text-wrap: pretty; }
 
-.games-index { flex: 0 1 300px; min-width: 250px; }
+.games-banner__art { flex: 0 1 300px; min-width: 210px; }
+.games-banner__frame {
+  position: relative;
+  overflow: hidden;
+  background: #100f0a;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(245, 211, 63, 0.12);
+}
+.games-banner__frame img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.games-banner__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0px, rgba(0, 0, 0, 0.20) 1px, transparent 1px, transparent 3px);
+}
+/* pulls the bright pixel art back down into the page's darkness at its corners */
+.games-banner__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 90% at 50% 42%, transparent 55%, rgba(10, 19, 14, 0.55) 100%);
+}
+.games-banner__caption { margin-top: 11px; display: flex; align-items: center; gap: 9px; }
+.games-banner__pips { display: flex; gap: 3px; }
+.games-banner__pip { width: 5px; height: 5px; border-radius: 1px; }
+.games-banner__pip:nth-child(1) { background: var(--gbc-1); }
+.games-banner__pip:nth-child(2) { background: var(--gbc-2); }
+.games-banner__pip:nth-child(3) { background: var(--gbc-3); }
+.games-banner__pip:nth-child(4) { background: var(--gbc-4); }
+.games-banner__pip:nth-child(5) { background: var(--gbc-5); }
+.games-banner__label { font-family: var(--pixel); font-size: 7px; color: var(--muted); letter-spacing: 1px; }
+
+/* The index is its own band under the banner now, ruled top and bottom, and it
+   lays the entries out across the width instead of stacking them in a column. */
+.games-index {
+  margin-top: 26px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  max-width: calc(100% - 40px);
+}
 .games-index__head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding-bottom: 9px;
-  border-bottom: 1px solid var(--border-soft);
+  padding: 12px 0 10px;
+  border-bottom: 1px dashed #18301f;
 }
 .games-index__count { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+.games-index__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0 28px; }
 .games-index__row {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  padding: 11px 0;
+  padding: 12px 0;
   border-bottom: 1px dashed #18301f;
   transition: opacity .15s;
 }
-.games-index__row:last-child { border-bottom: 0; }
 a.games-index__row:hover { opacity: .75; }
 .games-index__num { font-family: var(--pixel); font-size: 9px; }
 .games-index__name { flex: 1; font-size: 13px; font-weight: 700; color: var(--heading); }
@@ -1899,6 +2033,8 @@ a.games-index__row:hover { opacity: .75; }
      the digits, so drop them and keep the plain panel. */
   .hero-panel__rain { display: none; }
   .hero-panel__inner { padding: 26px 20px 24px; gap: 20px; }
+  .games-banner__inner { padding: 24px 20px; gap: 22px; }
+  .games-index { max-width: none; }
   .why__bytes { border-left: 0; padding-left: 0; }
   .machine__body { padding: 16px; }
   .audit__toggle { font-size: 11.5px; }
@@ -1910,6 +2046,8 @@ a.games-index__row:hover { opacity: .75; }
   *,
   .blink,
   .cartridge,
+  .games-banner__bolt,
+  .games-banner__flash,
   .machine__led,
   .player__orbit,
   .player__orbit-ray,

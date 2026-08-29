@@ -61,6 +61,7 @@ export const DICT = {
     // Games hub (/games/)
     gamesLead:
       "Every game I have built or patched, gathered in one place: what each one changes, why it exists, and how to get your hands on it.",
+    gamesBannerAlt: "Pixel art of a Game Boy Color with Pikachu and Pichu",
     gamesIndexTitle: "INDEX",
     gamesIndexCount: "2 entries",
     gamesIndexNext: "next build in progress",
@@ -189,6 +190,7 @@ export const DICT = {
     // Games hub (/games/)
     gamesLead:
       "Todos os jogos que eu construí ou modifiquei, reunidos num só lugar: o que cada um muda, por que existe e como colocar a mão nele.",
+    gamesBannerAlt: "Pixel art de um Game Boy Color com Pikachu e Pichu",
     gamesIndexTitle: "ÍNDICE",
     gamesIndexCount: "2 entradas",
     gamesIndexNext: "próxima build em andamento",

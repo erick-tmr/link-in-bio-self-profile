@@ -89,25 +89,65 @@
       </header>
 
       <div class="container">
-        <!-- HERO -->
-        <section class="games-hero">
-          <div class="games-hero__main">
-            <div class="hero-prompt">
-              erick@tmr:~$ <span class="hero-prompt__cmd">ls ./games</span
-              ><span class="hero-prompt__caret" aria-hidden="true"></span>
-            </div>
-            <h1 class="games-hero__title">GAMES</h1>
-            <p class="games-hero__lead" data-i18n="gamesLead">
-              Every game I have built or patched, gathered in one place: what each one changes, why it exists, and how
-              to get your hands on it.
-            </p>
+        <!-- HERO BANNER -->
+        <section class="games-banner">
+          <!-- Decorative storm: four bolts and the two washes that light with them. -->
+          <div class="games-banner__storm" aria-hidden="true">
+            <span class="games-banner__bolt"></span>
+            <span class="games-banner__bolt"></span>
+            <span class="games-banner__bolt"></span>
+            <span class="games-banner__bolt"></span>
           </div>
+          <div class="games-banner__flash games-banner__flash--overhead" aria-hidden="true"></div>
+          <div class="games-banner__flash games-banner__flash--right" aria-hidden="true"></div>
+          <div class="gbc-rule" aria-hidden="true"></div>
 
-          <nav class="games-index" aria-label="Games index">
-            <div class="games-index__head">
-              <span class="eyebrow eyebrow--green" data-i18n="gamesIndexTitle">INDEX</span>
-              <span class="games-index__count" data-i18n="gamesIndexCount">2 entries</span>
+          <div class="games-banner__inner">
+            <div class="games-banner__body">
+              <div class="hero-prompt">
+                erick@tmr:~$ <span class="hero-prompt__cmd">ls ./games</span
+                ><span class="hero-prompt__caret" aria-hidden="true"></span>
+              </div>
+              <h1 class="games-banner__title">GAMES</h1>
+              <p class="games-banner__lead" data-i18n="gamesLead">
+                Every game I have built or patched, gathered in one place: what each one changes, why it exists, and
+                how to get your hands on it.
+              </p>
             </div>
+
+            <div class="games-banner__art">
+              <div class="games-banner__frame">
+                <img
+                  src="https://cdn.ericktakeshi.com.br/assets/games-banner.png"
+                  data-i18n="gamesBannerAlt"
+                  data-i18n-attr="alt"
+                  alt="Pixel art of a Game Boy Color with Pikachu and Pichu"
+                />
+                <div class="games-banner__scan" aria-hidden="true"></div>
+                <div class="games-banner__vignette" aria-hidden="true"></div>
+                <div class="gbc-rule gbc-rule--strong" aria-hidden="true"></div>
+              </div>
+              <div class="games-banner__caption">
+                <span class="games-banner__pips" aria-hidden="true">
+                  <span class="games-banner__pip"></span>
+                  <span class="games-banner__pip"></span>
+                  <span class="games-banner__pip"></span>
+                  <span class="games-banner__pip"></span>
+                  <span class="games-banner__pip"></span>
+                </span>
+                <span class="games-banner__label">GAME BOY COLOR</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- INDEX -->
+        <nav class="games-index" aria-label="Games index">
+          <div class="games-index__head">
+            <span class="eyebrow eyebrow--green" data-i18n="gamesIndexTitle">INDEX</span>
+            <span class="games-index__count" data-i18n="gamesIndexCount">2 entries</span>
+          </div>
+          <div class="games-index__list">
             <a class="games-index__row" href="#game01">
               <span class="games-index__num accent-blue">01</span>
               <span class="games-index__name">Pokémon Gen 2: Timeless</span>
@@ -123,8 +163,8 @@
               <span class="games-index__name" data-i18n="gamesIndexNext">next build in progress</span>
               <span class="games-index__meta">WIP</span>
             </div>
-          </nav>
-        </section>
+          </div>
+        </nav>
 
         <!-- GAME 01 -->
         <section class="section section--anchor" id="game01">
