@@ -186,7 +186,7 @@ img { max-width: 100%; }
   gap: 16px;
   flex-wrap: wrap;
 }
-.site-header__left { display: flex; align-items: center; gap: 22px; }
+.site-header__left { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 11px; }
 
 /* Three power LEDs in the console palette. Only the green one blinks, so the
@@ -205,6 +205,7 @@ img { max-width: 100%; }
   font-size: 8px;
   letter-spacing: 1px;
   color: var(--muted);
+  white-space: nowrap;
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
   transition: color .15s;
@@ -1508,7 +1509,18 @@ a.games-index__row:hover { opacity: .75; }
    bobs as one piece rather than three drifting independently. */
 .tool-card--game { margin-top: 24px; }
 .tool-card--game .tool-card__art { flex: 0 0 248px; max-width: 100%; }
-.game-stack { display: flex; flex-direction: column; gap: 14px; animation: bob 7s ease-in-out infinite; }
+/* The shelf states its own width. Below 600px the art slot turns into a
+   centring flex container, and a stack that only had a width by way of that
+   slot would collapse onto its widest child - the lead cartridge - squeezing
+   the pair underneath it to half the size they should be. */
+.game-stack {
+  width: 248px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: bob 7s ease-in-out infinite;
+}
 .game-stack__lead { display: flex; justify-content: center; }
 .game-stack__lead .game-cart { flex: 0 0 138px; max-width: 138px; }
 .game-stack__pair { display: flex; gap: 12px; }
@@ -2036,6 +2048,24 @@ a.games-index__row:hover { opacity: .75; }
   .games-banner__inner { padding: 24px 20px; gap: 22px; }
   .games-index { max-width: none; }
   .why__bytes { border-left: 0; padding-left: 0; }
+
+  /* These two carry their own art width, which outranks the rule above, so they
+     have to be told to take the whole row themselves - otherwise the art and the
+     copy stay side by side and both end up too narrow to read. */
+  .tool-card--game .tool-card__art,
+  .tool-card--legacy .tool-card__art { flex: 1 0 100%; }
+
+  /* Column min-widths hold these side by side on a wide screen. Once the row has
+     wrapped they are the only thing still pushing content past the edge, and
+     with the art claiming a full row above, nothing needs them to force it.
+     .tool-card__body was already doing this to /tools/ at <=320px before the
+     games pages existed. */
+  .tool-card__body,
+  .games-banner__body,
+  .build__body,
+  .related__body,
+  .clock__lead,
+  .clock__list { min-width: 0; }
   .machine__body { padding: 16px; }
   .audit__toggle { font-size: 11.5px; }
   .actions__spacer { display: none; }
