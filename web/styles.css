@@ -214,6 +214,8 @@ img { max-width: 100%; }
 
 .section { margin-top: 64px; }
 .hero + .section { margin-top: 72px; }
+/* the header is sticky, so a jump link has to stop clear of it */
+.section--anchor { scroll-margin-top: 90px; }
 
 .section__head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .rule { flex: 1; height: 1px; min-width: 40px; background: linear-gradient(90deg, var(--border), transparent); }
@@ -260,9 +262,13 @@ img { max-width: 100%; }
    carries the blue, and a second glow would double up on it. */
 .btn--blue { color: var(--ink); background: var(--blue); }
 .btn--blue:hover { transform: translateY(-2px); }
+.btn--lime { color: var(--ink); background: var(--lime); }
+.btn--lime:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(155, 188, 15, 0.32); }
 .btn--ghost { color: var(--text-soft); background: transparent; border: 1px solid var(--border); }
 .btn--ghost:hover { border-color: var(--green); color: var(--green); }
 .btn--ghost-blue:hover { border-color: var(--blue); color: var(--blue); }
+.btn--ghost-lime:hover { border-color: var(--lime); color: var(--lime); }
+.btn--ghost-red:hover,
 .btn--email:hover { border-color: var(--red); color: var(--red); }
 .btn[disabled] { opacity: .34; cursor: not-allowed; transform: none; box-shadow: none; }
 
@@ -324,6 +330,10 @@ img { max-width: 100%; }
 /* Tinted chips: the accent washed back far enough to stay a label, not a badge. */
 .chip--blue { color: #a9c9f5; background: rgba(46, 111, 219, 0.10); border-color: rgba(46, 111, 219, 0.5); }
 .chip--green { color: #a5e8c6; background: rgba(53, 214, 138, 0.09); border-color: rgba(53, 214, 138, 0.45); }
+.chip--sky { color: #cfe0f5; background: rgba(90, 162, 245, 0.14); border-color: rgba(90, 162, 245, 0.5); font-weight: 700; }
+.chip--lime { color: var(--lime-soft); background: rgba(155, 188, 15, 0.14); border-color: #4d7a1a; font-weight: 700; }
+/* the unaccented chip, one shade up from the panel it sits on */
+.chip--plain { background: var(--panel-3); }
 
 /* ---- Game Boy Camera card ---------------------------------------------- */
 .gbcam {
@@ -387,9 +397,25 @@ img { max-width: 100%; }
 .cartridge-card__art { flex: 0 0 200px; }
 .cartridge-card__info { flex: 1; min-width: 300px; border-left: 1px solid #1d3829; padding-left: 34px; }
 
+/* The shell is one shape drawn from custom properties, because the site now
+   renders it at seven sizes: every variant restates the geometry it needs and
+   inherits the rest. The defaults below are the home page's hero cartridge. */
 .cartridge {
-  width: 200px;
-  height: 312px;
+  --cart-w: 200px;
+  --cart-h: 312px;
+  --cart-inset: 14px;
+  --cart-notch-left: var(--cart-inset);
+  --cart-notch-top: 10px;
+  --cart-notch-w: 60px;
+  --cart-notch-h: 18px;
+  --cart-screen-top: 38px;
+  --cart-screen-bottom: 32px;
+  --cart-screen-radius: 5px;
+  --cart-label-bottom: 8px;
+  --cart-label-size: 6px;
+
+  width: var(--cart-w);
+  height: var(--cart-h);
   position: relative;
   border-radius: 12px 12px 16px 16px;
   background: linear-gradient(155deg, rgba(53, 214, 138, 0.22), rgba(31, 111, 102, 0.28));
@@ -400,20 +426,20 @@ img { max-width: 100%; }
 }
 .cartridge__notch {
   position: absolute;
-  top: 10px;
-  left: 14px;
-  width: 60px;
-  height: 18px;
+  top: var(--cart-notch-top);
+  left: var(--cart-notch-left);
+  width: var(--cart-notch-w);
+  height: var(--cart-notch-h);
   border-radius: 3px;
   background: repeating-linear-gradient(90deg, rgba(8, 19, 13, 0.55) 0px, rgba(8, 19, 13, 0.55) 3px, transparent 3px, transparent 6px);
 }
 .cartridge__screen {
   position: absolute;
-  top: 38px;
-  left: 14px;
-  right: 14px;
-  bottom: 32px;
-  border-radius: 5px;
+  top: var(--cart-screen-top);
+  left: var(--cart-inset);
+  right: var(--cart-inset);
+  bottom: var(--cart-screen-bottom);
+  border-radius: var(--cart-screen-radius);
   overflow: hidden;
   border: 2px solid #08120d;
   background: var(--panel-2) url('https://cdn.ericktakeshi.com.br/assets/celebi-suicune-card.png') center / cover no-repeat;
@@ -421,19 +447,18 @@ img { max-width: 100%; }
 }
 .cartridge__label {
   position: absolute;
-  bottom: 8px;
+  bottom: var(--cart-label-bottom);
   left: 0;
   right: 0;
   text-align: center;
   font-family: var(--pixel);
-  font-size: 6px;
+  font-size: var(--cart-label-size);
   color: var(--text-dim);
   letter-spacing: 0.5px;
 }
 
 /* Mario Tennis variant: lime shell, box art in the screen, and no bob (it
-   appears twice on the same page, so a floating animation would be noise).
-   Geometry is parameterised because the hub card renders it smaller. */
+   appears twice on the same page, so a floating animation would be noise). */
 .cartridge--tennis {
   --cart-w: 216px;
   --cart-h: 264px;
@@ -443,17 +468,17 @@ img { max-width: 100%; }
   --cart-notch-h: 20px;
   --cart-screen-top: 43px;
   --cart-screen-bottom: 36px;
+  --cart-screen-radius: 4px;
   --cart-label-bottom: 9px;
   --cart-label-size: 7px;
 
-  width: var(--cart-w);
-  height: var(--cart-h);
   border-radius: 9px 9px 12px 12px;
   border-color: var(--lime);
   background: linear-gradient(155deg, rgba(155, 188, 15, 0.26), rgba(31, 111, 102, 0.28));
   box-shadow: 0 16px 34px rgba(0, 0, 0, .5), inset 0 2px 12px rgba(255, 255, 255, 0.10);
   animation: none;
 }
+/* the hub card renders the same cartridge smaller */
 .cartridge--sm {
   --cart-w: 176px;
   --cart-h: 214px;
@@ -467,26 +492,33 @@ img { max-width: 100%; }
   --cart-label-size: 6px;
   border-radius: 10px 10px 14px 14px;
 }
-.cartridge--tennis .cartridge__notch {
-  top: var(--cart-notch-top);
-  left: var(--cart-inset);
-  width: var(--cart-notch-w);
-  height: var(--cart-notch-h);
+.cartridge--tennis .cartridge__screen { background: var(--gb-screen); box-shadow: none; }
+.cartridge--tennis .cartridge__label { color: var(--lime-soft); }
+
+/* Box-art shells: a coloured frame around a real cover scan. The tint, the
+   border and the ink on the label all come from one .shell--* class, so the
+   caption printed *under* a cartridge can share it by sitting in the same
+   subtree (the games hub does exactly that). */
+.shell--crystal { --shell: var(--blue); --shell-tint: rgba(90, 162, 245, 0.24); --shell-tint-2: rgba(31, 78, 140, 0.30); --shell-ink: #cfe0f5; }
+.shell--gold { --shell: #d4a830; --shell-tint: rgba(212, 168, 48, 0.26); --shell-tint-2: rgba(120, 96, 26, 0.30); --shell-ink: #f0dca8; }
+.shell--silver { --shell: #b2c0c9; --shell-tint: rgba(178, 192, 201, 0.26); --shell-tint-2: rgba(96, 110, 120, 0.30); --shell-ink: #e6eef3; }
+
+.cartridge--box {
+  --cart-screen-radius: 4px;
+  border-color: var(--shell);
+  background: linear-gradient(155deg, var(--shell-tint), var(--shell-tint-2));
 }
-.cartridge--tennis .cartridge__screen {
-  top: var(--cart-screen-top);
-  left: var(--cart-inset);
-  right: var(--cart-inset);
-  bottom: var(--cart-screen-bottom);
-  border-radius: 4px;
-  background: var(--gb-screen);
-  box-shadow: none;
+.cartridge--box .cartridge__screen { background: var(--panel-2); box-shadow: none; }
+.cartridge--box .cartridge__label { color: var(--shell-ink); }
+/* cover art fills the window from the title band down, pulled back a touch so
+   a glossy 2001 box scan sits under the page's scanlines instead of on top */
+.cartridge--box .cartridge__screen img {
+  object-fit: cover;
+  object-position: 50% 24%;
+  background: none;
+  filter: saturate(0.82) contrast(1.04) brightness(0.95);
 }
-.cartridge--tennis .cartridge__label {
-  bottom: var(--cart-label-bottom);
-  font-size: var(--cart-label-size);
-  color: var(--lime-soft);
-}
+
 .cartridge__screen img {
   position: absolute;
   inset: 0;
@@ -502,6 +534,8 @@ img { max-width: 100%; }
 }
 
 .lead { margin: 0; font-size: 14px; color: var(--text-soft); line-height: 1.65; }
+/* the aside that trails a call to action: the caveat, not the invitation */
+.hint { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
 .stats { display: flex; align-items: stretch; flex-wrap: wrap; margin: 26px 0; }
 .stat { padding: 0 24px; }
@@ -598,7 +632,19 @@ img { max-width: 100%; }
 .link-card__icon--email img { max-width: 78%; max-height: 78%; }
 .link-card__icon--tools { background: var(--icon-backing); }
 .link-card__icon--tools img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
+.link-card__icon--games { background: var(--panel-3); }
 .link-card__icon--x { background: var(--panel-2); color: var(--heading); }
+/* the games tile has no pixel tile of its own, so the cartridge is drawn:
+   the same notched silhouette as the real ones, at icon scale */
+.cart-pip {
+  display: block;
+  width: 20px;
+  height: 26px;
+  border-radius: 3px 3px 4px 4px;
+  background: linear-gradient(155deg, rgba(90, 162, 245, 0.55), rgba(155, 188, 15, 0.55));
+  border: 1px solid var(--blue);
+  clip-path: polygon(0 0, 68% 0, 80% 8%, 100% 8%, 100% 100%, 0 100%);
+}
 /* X — pixel-art glyph drawn from a 2px seed dot + box-shadow (no asset needed) */
 .x-pixel {
   position: absolute;
@@ -854,7 +900,7 @@ img { max-width: 100%; }
   box-shadow: inset 0 0 0 1px var(--bg), 0 14px 36px rgba(0, 0, 0, .45);
   transition: border-color .18s, transform .18s, box-shadow .18s;
 }
-.tool-card:hover {
+a.tool-card:hover {
   border-color: var(--green);
   transform: translateY(-3px);
   box-shadow: inset 0 0 0 1px var(--bg), 0 20px 44px rgba(0, 0, 0, .55);
@@ -876,7 +922,6 @@ img { max-width: 100%; }
 .tool-card__stats .stat { padding: 0 20px; }
 .tool-card__stats .stat__value { font-size: 15px; }
 .tool-card__cta { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.tool-card__hint { font-family: var(--mono); font-size: 11px; color: var(--muted); }
 
 .roster { display: flex; flex-wrap: wrap; gap: 7px; }
 .roster__chip {
@@ -1234,7 +1279,7 @@ img { max-width: 100%; }
 /* -- how to use -- */
 .steps { margin-top: 26px; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
 .step { padding: 20px; background: var(--panel); border: 1px solid var(--border-soft); border-radius: 10px; }
-.step__num { font-family: var(--pixel); font-size: 16px; color: var(--lime); }
+.step__num { font-family: var(--pixel); font-size: 16px; }
 .step__title { margin: 14px 0 0; font-size: 13.5px; font-weight: 700; color: var(--heading); }
 .step__body { margin: 9px 0 0; font-size: 12.5px; color: var(--tone-soft); line-height: 1.7; text-wrap: pretty; }
 
@@ -1271,6 +1316,241 @@ img { max-width: 100%; }
 .faq__a { margin: 9px 0 0; font-size: 12.5px; color: var(--tone-soft); line-height: 1.7; text-wrap: pretty; }
 
 .site-footer__legal--wide { max-width: 400px; }
+
+/* ---- Games hub (/games/) ----------------------------------------------- */
+/* The hero prints its own table of contents beside the title: the list is
+   short enough that showing it is faster than making you scroll for it. */
+.games-hero {
+  margin-top: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+  align-items: flex-end;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.games-hero__main { flex: 1 1 480px; min-width: 300px; }
+.games-hero__title {
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: clamp(36px, 6.4vw, 58px);
+  line-height: 1;
+  margin: 16px 0 0;
+  color: var(--heading);
+  letter-spacing: -1.5px;
+  text-shadow: 0 0 26px rgba(53, 214, 138, 0.28);
+}
+.games-hero__lead { margin: 16px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.75; max-width: 560px; text-wrap: pretty; }
+
+.games-index { flex: 0 1 300px; min-width: 250px; }
+.games-index__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.games-index__count { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+.games-index__row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px dashed #18301f;
+  transition: opacity .15s;
+}
+.games-index__row:last-child { border-bottom: 0; }
+a.games-index__row:hover { opacity: .75; }
+.games-index__num { font-family: var(--pixel); font-size: 9px; }
+.games-index__name { flex: 1; font-size: 13px; font-weight: 700; color: var(--heading); }
+.games-index__meta { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+/* the slot held open for the build that is not out yet */
+.games-index__row--wip .games-index__num { color: var(--border); }
+.games-index__row--wip .games-index__name { color: #5c766a; font-weight: 400; font-style: italic; }
+.games-index__row--wip .games-index__meta { color: var(--muted-3); }
+
+/* Gen 2 ships as three cartridges, so the card's art is a shelf of them that
+   bobs as one piece rather than three drifting independently. */
+.tool-card--game { margin-top: 24px; }
+.tool-card--game .tool-card__art { flex: 0 0 248px; max-width: 100%; }
+.game-stack { display: flex; flex-direction: column; gap: 14px; animation: bob 7s ease-in-out infinite; }
+.game-stack__lead { display: flex; justify-content: center; }
+.game-stack__lead .game-cart { flex: 0 0 138px; max-width: 138px; }
+.game-stack__pair { display: flex; gap: 12px; }
+.game-stack__pair .game-cart { flex: 1; min-width: 0; }
+.game-stack .cartridge {
+  --cart-w: 100%;
+  --cart-h: 196px;
+  --cart-inset: 9px;
+  --cart-notch-left: 10px;
+  --cart-notch-top: 8px;
+  --cart-notch-w: 36px;
+  --cart-notch-h: 11px;
+  --cart-screen-top: 25px;
+  --cart-screen-bottom: 11px;
+  border-radius: 9px 9px 13px 13px;
+  clip-path: polygon(0 0, 64% 0, 77% 7%, 100% 7%, 100% 100%, 0 100%);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5), inset 0 2px 10px rgba(255, 255, 255, 0.10);
+  animation: none;
+}
+.game-stack__pair .cartridge { --cart-h: 154px; }
+/* the shelf labels the boxes underneath, where a real shelf would */
+.game-cart__caption { margin-top: 10px; text-align: center; font-family: var(--pixel); font-size: 7px; letter-spacing: 0.5px; color: var(--shell-ink); }
+
+/* Crystal Legacy lives on its own site, so its entry is a panel you read and
+   leave from, not a card you click through. */
+.tool-card--legacy { margin-top: 24px; }
+.tool-card--legacy .tool-card__art { flex: 0 0 170px; }
+.tool-card--legacy .btn-row { margin-top: 22px; }
+.tool-card--legacy .cartridge {
+  --cart-w: 170px;
+  --cart-h: 264px;
+  --cart-inset: 12px;
+  --cart-notch-top: 9px;
+  --cart-notch-w: 52px;
+  --cart-notch-h: 15px;
+  --cart-screen-top: 32px;
+  --cart-screen-bottom: 27px;
+  --cart-screen-radius: 4px;
+  --cart-label-bottom: 7px;
+  border-radius: 11px 11px 15px 15px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .5), inset 0 2px 12px rgba(255, 255, 255, 0.12);
+  animation: bob 7s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+
+/* Dotted leader rows: a spec sheet line, key left, value right, the gap between
+   them ruled the way a printed manual does it. Shared with the game page. */
+.leaders { margin-top: 22px; border-top: 1px solid var(--border-soft); }
+.leader { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px dashed #18301f; }
+.leader:last-child { border-bottom: 1px solid var(--border-soft); }
+.leader__key { font-family: var(--pixel); font-size: 8px; color: var(--muted); letter-spacing: 0.5px; }
+.leader__dots { flex: 1; margin: 0 12px; border-bottom: 1px dotted var(--border); transform: translateY(-3px); }
+.leader__value { font-size: 13px; font-weight: 700; color: var(--heading); text-align: right; }
+
+/* ---- Game · Pokémon Gen 2: Timeless ------------------------------------ */
+/* a deeper page opens with its trail, clear of the sticky header */
+.crumbs--spaced { margin-top: 26px; }
+
+.game-hero { margin-top: 20px; max-width: 660px; }
+.game-hero__title {
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: clamp(32px, 5.6vw, 52px);
+  line-height: 1.02;
+  margin: 16px 0 0;
+  color: var(--heading);
+  letter-spacing: -1.5px;
+}
+/* three titles on one line, so the line box is opened up to carry them */
+.game-hero .hero-tagline { margin-top: 12px; line-height: 1.9; }
+.game-hero__lead { margin: 18px 0 0; font-size: 14px; color: var(--text-dim); line-height: 1.75; max-width: 560px; text-wrap: pretty; }
+.game-hero .btn-row { margin-top: 22px; }
+
+.build__row { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 38px; align-items: flex-start; }
+.build__body { flex: 1; min-width: 300px; }
+.build__body .btn-row { margin-top: 22px; }
+.build__title {
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: clamp(22px, 3.2vw, 30px);
+  margin: 0;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+}
+/* when the title opens a section instead of a column, it needs its eyebrow's air */
+.build__title--spaced { margin-top: 12px; }
+.build__lead { margin: 12px 0 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.75; text-wrap: pretty; }
+.build__lead--wide { max-width: 640px; }
+
+.build__art { flex: 0 0 190px; }
+.build__art .cartridge {
+  --cart-w: 190px;
+  --cart-h: 296px;
+  --cart-inset: 13px;
+  --cart-notch-left: 14px;
+  --cart-notch-w: 58px;
+  --cart-notch-h: 17px;
+  --cart-screen-top: 36px;
+  --cart-screen-bottom: 30px;
+  --cart-screen-radius: 5px;
+  animation: bob 7s ease-in-out infinite;
+}
+/* Crystal alone gets the ring: it is the build the page is about */
+.build__art .cartridge__screen { box-shadow: inset 0 0 0 1px rgba(90, 162, 245, 0.3); }
+
+.build__pair { flex: 0 0 300px; display: flex; gap: 14px; }
+.build__pair .cartridge {
+  flex: 1;
+  min-width: 0;
+  --cart-w: 100%;
+  --cart-h: 206px;
+  --cart-inset: 9px;
+  --cart-notch-left: 11px;
+  --cart-notch-top: 9px;
+  --cart-notch-w: 38px;
+  --cart-notch-h: 14px;
+  --cart-screen-top: 28px;
+  --cart-screen-bottom: 24px;
+  --cart-label-bottom: 7px;
+  border-radius: 10px 10px 14px 14px;
+  clip-path: polygon(0 0, 66% 0, 78% 6%, 100% 6%, 100% 100%, 0 100%);
+  animation: bob 7s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+/* the game page words its steps as one block of prose rather than a heading
+   plus a body, so it needs the one line the patcher's version does not have */
+.step__text { margin-top: 12px; font-size: 13px; color: var(--text-soft); line-height: 1.7; }
+/* the caveat rides alongside the CTA, so the row centres rather than stretches */
+.steps__cta { margin-top: 18px; align-items: center; }
+
+/* The argument for cutting the clock: the prose on the left, and what it cost
+   in changes on the right, ruled like a changelog. */
+.clock { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+.clock__lead { flex: 1 1 420px; min-width: 300px; margin: 0; font-size: 15px; color: var(--text-soft); line-height: 1.8; text-wrap: pretty; }
+.clock__list { flex: 1 1 340px; min-width: 280px; display: flex; flex-direction: column; gap: 2px; }
+.clock__row { display: flex; gap: 14px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--border-soft); }
+.clock__row:last-child { border-bottom: 1px solid var(--border-soft); }
+.clock__key { flex: 0 0 100px; font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }
+.clock__val { flex: 1; font-size: 13px; color: var(--muted-4); line-height: 1.6; }
+
+.related {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  align-items: center;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--bg), 0 14px 36px rgba(0, 0, 0, .45);
+}
+.related__art { flex: 0 0 120px; }
+.related__art .cartridge {
+  --cart-w: 120px;
+  --cart-h: 188px;
+  --cart-inset: 9px;
+  --cart-notch-top: 7px;
+  --cart-notch-w: 38px;
+  --cart-notch-h: 11px;
+  --cart-screen-top: 24px;
+  --cart-screen-bottom: 20px;
+  --cart-screen-radius: 4px;
+  --cart-label-bottom: 5px;
+  --cart-label-size: 5px;
+  border-radius: 9px 9px 12px 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5), inset 0 2px 10px rgba(255, 255, 255, 0.12);
+  animation: none;
+}
+.related__art .cartridge__screen { box-shadow: none; }
+.related__body { flex: 1; min-width: 280px; }
+.related__title { font-family: var(--mono); font-weight: 800; font-size: 22px; margin: 0; color: var(--heading); letter-spacing: -0.5px; }
+.related__lead { margin: 10px 0 0; font-size: 13px; color: var(--text-dim); line-height: 1.7; text-wrap: pretty; }
+.related .btn-row { margin-top: 18px; }
+.related .btn { padding: 11px 17px; }
 
 /* ---- Music player ------------------------------------------------------ */
 .player {
@@ -1610,7 +1890,9 @@ img { max-width: 100%; }
 
   /* The cartridge is decorative; let it centre rather than crowd the copy. */
   .tool-hero__art,
+  .build__art,
   .tool-card__art { flex: 1 0 100%; display: flex; justify-content: center; }
+  .build__pair { flex: 1 0 100%; max-width: 320px; margin-inline: auto; }
 
   /* The rain's wash fades left-to-right, which only keeps the copy clear while
      the panel is wide. Once the text spans the full width it runs straight into

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Gen 2: Timeless · Erick Takeshi</title>
+
+    <!-- Icons & PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.ericktakeshi.com.br/assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.ericktakeshi.com.br/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="https://cdn.ericktakeshi.com.br/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.ericktakeshi.com.br/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" content="#0a130e" />
+    <meta name="msapplication-TileColor" content="#0a130e" />
+    <meta name="msapplication-TileImage" content="https://cdn.ericktakeshi.com.br/assets/icon-192.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://www.ericktakeshi.com.br/games/pokemon-gen-2-timeless/" />
+    <meta
+      name="description"
+      content="Pokémon Gold, Silver and Crystal rebuilt so the clock answers to you: no RTC, time set from the Pokégear, daily events repeatable, same save format. Bring your own ROM."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pokémon Gen 2: Timeless · Erick Takeshi" />
+    <meta property="og:site_name" content="Erick Takeshi" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.ericktakeshi.com.br/games/pokemon-gen-2-timeless/" />
+    <meta
+      property="og:description"
+      content="Gold, Silver and Crystal with the cartridge clock handed over to the player. No RTC, same save format."
+    />
+    <meta property="og:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pokémon Gen 2: Timeless" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pokémon Gen 2: Timeless · Erick Takeshi" />
+    <meta
+      name="twitter:description"
+      content="Gold, Silver and Crystal with the cartridge clock handed over to the player. No RTC, same save format."
+    />
+    <meta name="twitter:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta name="twitter:creator" content="@erick_tmr" />
+
+    <link rel="preconnect" href="https://cdn.ericktakeshi.com.br" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- Ambient background layers -->
+    <div class="bg-scanlines" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-header__left">
+            <a class="brand" href="/">
+              <span class="brand__leds" aria-hidden="true">
+                <span class="brand__led brand__led--red"></span>
+                <span class="brand__led brand__led--blue"></span>
+                <span class="brand__led brand__led--green blink"></span>
+              </span>
+              <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+            </a>
+            <nav class="site-nav" aria-label="Sections">
+              <a class="site-nav__link" href="/">HOME</a>
+              <a class="site-nav__link is-active" href="/games/" aria-current="true">GAMES</a>
+              <a class="site-nav__link" href="/tools/">COOL TOOLS</a>
+            </nav>
+          </div>
+          <div class="site-header__right">
+            <span class="tz">BR · GMT-3</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- BREADCRUMB -->
+        <nav class="crumbs crumbs--spaced" aria-label="Breadcrumb">
+          <a href="/games/">GAMES</a>
+          <span aria-hidden="true">/</span>
+          <span class="crumbs__here" aria-current="page">GEN 2 · TIMELESS</span>
+        </nav>
+
+        <!-- HERO -->
+        <section class="game-hero">
+          <div class="eyebrow eyebrow--green">GAME ▸ 01 · GAME BOY COLOR</div>
+          <h1 class="game-hero__title">Pokémon Gen 2: <span class="accent-green">Timeless</span></h1>
+          <div class="hero-tagline">
+            GOLD <span class="hero-tagline__sep">·</span> SILVER <span class="hero-tagline__sep">·</span> CRYSTAL
+          </div>
+          <p class="game-hero__lead" data-i18n="gen2HeroLead">
+            Gold, Silver and Crystal, rebuilt so the clock answers to you instead of to the calendar. Everything else is
+            the game you remember, for the player who now gets an hour on a weeknight instead of a whole summer.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--green" href="#builds"><span data-i18n="gen2CtaBuilds">See the builds</span> ▾</a>
+            <a class="btn btn--ghost" href="#getit" data-i18n="gen2CtaHow">How to get it</a>
+          </div>
+        </section>
+
+        <!-- BUILD 01 · CRYSTAL -->
+        <section class="section section--anchor" id="builds">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--blue">BUILD ▸ 01 · VANILLA CRYSTAL</span>
+            <span class="rule"></span>
+          </div>
+
+          <div class="build__row">
+            <div class="build__art">
+              <div class="cartridge cartridge--box shell--crystal" aria-hidden="true">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen">
+                  <img src="https://cdn.ericktakeshi.com.br/assets/box-crystal.png" alt="" />
+                  <div class="cartridge__scan"></div>
+                </div>
+                <div class="cartridge__label">MBC5 · NO RTC</div>
+              </div>
+            </div>
+
+            <div class="build__body">
+              <h2 class="build__title">Crystal <span class="accent-blue">Timeless</span></h2>
+              <p class="build__lead" data-i18n="gen2CrystalLead">
+                Vanilla Crystal with the clock in your hands: open the Pokégear, set the day or the hour, and the events
+                that used to cost you a real day happen now. Berries, haircuts, the Trainer House and the bargain shop
+                stay repeatable. Same 32 KB save, byte-for-byte compatible both ways, and the dormant GS Ball / Celebi
+                event is switched on, matching the Virtual Console release.
+              </p>
+
+              <div class="leaders">
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowBase">BASE ROM</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value">Pokémon Crystal (UE)</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowClock">CLOCK</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value accent-green" data-i18n="gen2RowClockVal">Frozen · Pokégear</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowExtra">EXTRA</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value accent-red">GS Ball · Celebi</span>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <a class="btn btn--blue" href="https://github.com/erick-tmr/pokecrystal" target="_blank" rel="noopener"
+                  ><span data-i18n="ctaSource">Source</span> ⌥</a
+                >
+                <a
+                  class="btn btn--ghost btn--ghost-blue"
+                  href="https://github.com/erick-tmr/pokecrystal/blob/master/TIMELESS.md"
+                  target="_blank"
+                  rel="noopener"
+                  >TIMELESS.md ↗</a
+                >
+                <a
+                  class="btn btn--ghost btn--ghost-red"
+                  href="https://github.com/erick-tmr/pokecrystal/blob/master/GS_BALL.md"
+                  target="_blank"
+                  rel="noopener"
+                  >GS_BALL.md ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BUILD 02 · GOLD / SILVER -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--lime">BUILD ▸ 02 · GOLD &amp; SILVER</span>
+            <span class="rule"></span>
+          </div>
+
+          <div class="build__row">
+            <div class="build__pair" aria-hidden="true">
+              <div class="cartridge cartridge--box shell--gold">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen">
+                  <img src="https://cdn.ericktakeshi.com.br/assets/box-gold.png" alt="" />
+                  <div class="cartridge__scan"></div>
+                </div>
+                <div class="cartridge__label">GOLD</div>
+              </div>
+              <div class="cartridge cartridge--box shell--silver">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen">
+                  <img src="https://cdn.ericktakeshi.com.br/assets/box-silver.png" alt="" />
+                  <div class="cartridge__scan"></div>
+                </div>
+                <div class="cartridge__label">SILVER</div>
+              </div>
+            </div>
+
+            <div class="build__body">
+              <h2 class="build__title">Gold &amp; Silver <span class="accent-lime">Timeless</span></h2>
+              <p class="build__lead" data-i18n="gen2GoldLead">
+                The Gold and Silver counterpart of the same work: a clock you set instead of one that sets you, and the
+                daily freebies made repeatable so nothing is gated behind sleeping on it. Weekday and hour gates are
+                kept, so the events still feel like themselves. Player-facing guide included in Portuguese.
+              </p>
+
+              <div class="leaders">
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowBase">BASE ROM</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value">Gold &amp; Silver (UE)</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowClock">CLOCK</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value accent-green" data-i18n="gen2RowClockVal">Frozen · Pokégear</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowFreebies">FREEBIES</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value accent-lime" data-i18n="gen2RowFreebiesVal">Always available</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gen2RowDocs">DOCS</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value">EN + PT</span>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <a class="btn btn--lime" href="https://github.com/erick-tmr/pokegold" target="_blank" rel="noopener"
+                  ><span data-i18n="ctaSource">Source</span> ⌥</a
+                >
+                <a
+                  class="btn btn--ghost btn--ghost-lime"
+                  href="https://github.com/erick-tmr/pokegold/blob/master/TIMELESS.md"
+                  target="_blank"
+                  rel="noopener"
+                  >TIMELESS.md ↗</a
+                >
+                <a
+                  class="btn btn--ghost btn--ghost-lime"
+                  href="https://github.com/erick-tmr/pokegold/blob/master/MUDANCAS.md"
+                  target="_blank"
+                  rel="noopener"
+                  >MUDANCAS.md 🇧🇷 ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW TO GET IT -->
+        <section class="section section--anchor" id="getit">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--red" data-i18n="gen2GetEyebrow">HOW TO GET IT</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="build__title build__title--spaced" data-i18n="gen2GetTitle">Bring your own ROM</h2>
+          <p class="build__lead build__lead--wide" data-i18n="gen2GetLead">
+            No ROMs are distributed here, the same rule the release pages document. You supply the base game you already
+            own, and the patch is applied on your side.
+          </p>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step__num accent-green">01</div>
+              <div class="step__text" data-i18n="gen2Step1">
+                Read the build docs on the repo: TIMELESS.md for what changed, INSTALL.md for the toolchain.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__num accent-blue">02</div>
+              <div class="step__text" data-i18n="gen2Step2">
+                Provide your own legally-dumped base ROM. Nothing is uploaded anywhere; the work happens on your
+                machine.
+              </div>
+            </div>
+            <div class="step">
+              <div class="step__num accent-red">03</div>
+              <div class="step__text" data-i18n="gen2Step3">
+                Build or patch it yourself, then check cart byte $0147 reads 1B: MBC5 + RAM + battery, no RTC.
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-row steps__cta">
+            <a
+              class="btn btn--green"
+              href="https://github.com/erick-tmr/pokecrystal/blob/master/INSTALL.md"
+              target="_blank"
+              rel="noopener"
+              ><span data-i18n="gen2CtaInstall">Build instructions</span> ↗</a
+            >
+            <span class="hint" data-i18n="gen2GetNote">existing .sav files keep working, no byte patching</span>
+          </div>
+        </section>
+
+        <!-- WHY THE CLOCK HAD TO GO -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--red" data-i18n="gen2BugEyebrow">WHY THE CLOCK HAD TO GO</span>
+            <span class="rule"></span>
+          </div>
+
+          <div class="clock">
+            <p class="clock__lead" data-i18n="gen2BugLead">
+              The clock was a design decision from an era when a Game Boy cartridge could only hold so much game: make
+              the player wait, and the game lasts longer. Wait for night to catch a Hoothoot, wait a full day for the
+              berries. The kids it was written for now have jobs and families, and none of that time. Timeless brings
+              the games forward by changing only what the clock touches.
+            </p>
+            <div class="clock__list">
+              <div class="clock__row">
+                <span class="clock__key accent-green" data-i18n="gen2BugStep1Key">Padding removed</span>
+                <span class="clock__val" data-i18n="gen2BugStep1">
+                  nothing is stretched out by waiting for real time
+                </span>
+              </div>
+              <div class="clock__row">
+                <span class="clock__key accent-blue" data-i18n="gen2BugStep2Key">Time you control</span>
+                <span class="clock__val" data-i18n="gen2BugStep2">
+                  night, weekday and the day counter, set from the Pokégear
+                </span>
+              </div>
+              <div class="clock__row">
+                <span class="clock__key accent-red" data-i18n="gen2BugStep3Key">Nothing else touched</span>
+                <span class="clock__val" data-i18n="gen2BugStep3">
+                  only the clock changes, and no RTC writes near your save
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RELATED · CRYSTAL LEGACY TIMELESS -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green" data-i18n="gen2RelatedEyebrow">RELATED BUILD</span>
+            <span class="rule"></span>
+          </div>
+
+          <div class="related">
+            <div class="related__art">
+              <div class="cartridge" aria-hidden="true">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen"></div>
+                <div class="cartridge__label">MBC5 · NO RTC</div>
+              </div>
+            </div>
+            <div class="related__body">
+              <h3 class="related__title">Crystal Legacy: <span class="accent-green">Timeless</span></h3>
+              <p class="related__lead" data-i18n="gen2LegacyLead">
+                The same RTC work applied to Pokémon Crystal Legacy, TheSmithPlays' rebalance hack, shipped as MBC5 with
+                a full illustrated walkthrough site in English and Portuguese.
+              </p>
+              <div class="btn-row">
+                <a
+                  class="btn btn--green"
+                  href="https://erick-tmr.github.io/Pokemon_Crystal_Legacy_Timeless/"
+                  target="_blank"
+                  rel="noopener"
+                  ><span data-i18n="ctaLegacySite">Open the site</span> ↗</a
+                >
+                <a
+                  class="btn btn--red"
+                  href="https://github.com/erick-tmr/Pokemon_Crystal_Legacy_Timeless/releases/latest"
+                  target="_blank"
+                  rel="noopener"
+                  >▶ <span data-i18n="ctaLegacyRelease">Latest release</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+          <div>
+            <a class="site-footer__brand" href="/">ERICK<span class="brand__dot">.</span>TMR</a>
+            <div class="site-footer__note">
+              © 2026 Erick Takeshi · <span data-i18n="footerNote">Built with caffeine, Pokémon &amp; boost.</span>
+            </div>
+          </div>
+          <div class="site-footer__legal" data-i18n="gen2FooterLegal">
+            Fan project. Pokémon © Nintendo / Game Freak. Not affiliated. No ROM distributed.
+          </div>
+        </footer>
+      </div>
+
+      <!-- The music dock is appended here at runtime by js/player/dock-markup.js. -->
+    </div>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

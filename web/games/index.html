@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games · Erick Takeshi</title>
+
+    <!-- Icons & PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.ericktakeshi.com.br/assets/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.ericktakeshi.com.br/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="https://cdn.ericktakeshi.com.br/assets/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.ericktakeshi.com.br/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" content="#0a130e" />
+    <meta name="msapplication-TileColor" content="#0a130e" />
+    <meta name="msapplication-TileImage" content="https://cdn.ericktakeshi.com.br/assets/icon-192.png" />
+
+    <!-- SEO -->
+    <link rel="canonical" href="https://www.ericktakeshi.com.br/games/" />
+    <meta
+      name="description"
+      content="Game Boy builds and patches: Pokémon Gold, Silver and Crystal with the cartridge clock handed to the player, plus the same RTC work on Crystal Legacy."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Games · Erick Takeshi" />
+    <meta property="og:site_name" content="Erick Takeshi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ericktakeshi.com.br/games/" />
+    <meta property="og:description" content="Game Boy builds and patches: what each one changes, and how to get it." />
+    <meta property="og:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Erick Takeshi, games" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Games · Erick Takeshi" />
+    <meta name="twitter:description" content="Game Boy builds and patches: what each one changes, and how to get it." />
+    <meta name="twitter:image" content="https://cdn.ericktakeshi.com.br/assets/og-image.png" />
+    <meta name="twitter:creator" content="@erick_tmr" />
+
+    <link rel="preconnect" href="https://cdn.ericktakeshi.com.br" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- Ambient background layers -->
+    <div class="bg-scanlines" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="site-header">
+        <div class="site-header__inner">
+          <div class="site-header__left">
+            <a class="brand" href="/">
+              <span class="brand__leds" aria-hidden="true">
+                <span class="brand__led brand__led--red"></span>
+                <span class="brand__led brand__led--blue"></span>
+                <span class="brand__led brand__led--green blink"></span>
+              </span>
+              <span class="brand__name">ERICK<span class="brand__dot">.</span>TMR</span>
+            </a>
+            <nav class="site-nav" aria-label="Sections">
+              <a class="site-nav__link" href="/">HOME</a>
+              <a class="site-nav__link is-active" href="/games/" aria-current="page">GAMES</a>
+              <a class="site-nav__link" href="/tools/">COOL TOOLS</a>
+            </nav>
+          </div>
+          <div class="site-header__right">
+            <span class="tz">BR · GMT-3</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container">
+        <!-- HERO -->
+        <section class="games-hero">
+          <div class="games-hero__main">
+            <div class="hero-prompt">
+              erick@tmr:~$ <span class="hero-prompt__cmd">ls ./games</span
+              ><span class="hero-prompt__caret" aria-hidden="true"></span>
+            </div>
+            <h1 class="games-hero__title">GAMES</h1>
+            <p class="games-hero__lead" data-i18n="gamesLead">
+              Every game I have built or patched, gathered in one place: what each one changes, why it exists, and how
+              to get your hands on it.
+            </p>
+          </div>
+
+          <nav class="games-index" aria-label="Games index">
+            <div class="games-index__head">
+              <span class="eyebrow eyebrow--green" data-i18n="gamesIndexTitle">INDEX</span>
+              <span class="games-index__count" data-i18n="gamesIndexCount">2 entries</span>
+            </div>
+            <a class="games-index__row" href="#game01">
+              <span class="games-index__num accent-blue">01</span>
+              <span class="games-index__name">Pokémon Gen 2: Timeless</span>
+              <span class="games-index__meta">GBC</span>
+            </a>
+            <a class="games-index__row" href="#game02">
+              <span class="games-index__num accent-green">02</span>
+              <span class="games-index__name">Crystal Legacy: Timeless</span>
+              <span class="games-index__meta">GBC</span>
+            </a>
+            <div class="games-index__row games-index__row--wip">
+              <span class="games-index__num">03</span>
+              <span class="games-index__name" data-i18n="gamesIndexNext">next build in progress</span>
+              <span class="games-index__meta">WIP</span>
+            </div>
+          </nav>
+        </section>
+
+        <!-- GAME 01 -->
+        <section class="section section--anchor" id="game01">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">GAME ▸ 01 · GEN 2</span>
+            <span class="rule"></span>
+            <span class="eyebrow eyebrow--green">● <span data-i18n="gamesStatusLive">LIVE</span></span>
+          </div>
+
+          <a class="tool-card tool-card--game" href="/games/pokemon-gen-2-timeless/">
+            <div class="tool-card__art">
+              <div class="game-stack" aria-hidden="true">
+                <div class="game-stack__lead">
+                  <div class="game-cart shell--crystal">
+                    <div class="cartridge cartridge--box">
+                      <div class="cartridge__notch"></div>
+                      <div class="cartridge__screen">
+                        <img src="https://cdn.ericktakeshi.com.br/assets/box-crystal.png" alt="" />
+                        <div class="cartridge__scan"></div>
+                      </div>
+                    </div>
+                    <div class="game-cart__caption">CRYSTAL</div>
+                  </div>
+                </div>
+                <div class="game-stack__pair">
+                  <div class="game-cart shell--gold">
+                    <div class="cartridge cartridge--box">
+                      <div class="cartridge__notch"></div>
+                      <div class="cartridge__screen">
+                        <img src="https://cdn.ericktakeshi.com.br/assets/box-gold.png" alt="" />
+                        <div class="cartridge__scan"></div>
+                      </div>
+                    </div>
+                    <div class="game-cart__caption">GOLD</div>
+                  </div>
+                  <div class="game-cart shell--silver">
+                    <div class="cartridge cartridge--box">
+                      <div class="cartridge__notch"></div>
+                      <div class="cartridge__screen">
+                        <img src="https://cdn.ericktakeshi.com.br/assets/box-silver.png" alt="" />
+                        <div class="cartridge__scan"></div>
+                      </div>
+                    </div>
+                    <div class="game-cart__caption">SILVER</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tool-card__body">
+              <h2 class="tool-card__title">Pokémon Gen 2: <span class="accent-green">Timeless</span></h2>
+              <p class="tool-card__lead" data-i18n="gamesGen2Lead">
+                Gold, Silver and Crystal with the cartridge clock handed over to the player. Nothing is gated behind
+                sleeping on it any more: set the day or the hour from the Pokégear and the daily and weekly events
+                happen now. It also keeps the clock from corrupting your save, which on RTC-less hardware it otherwise
+                can.
+              </p>
+
+              <div class="chips">
+                <span class="chip chip--sky">CRYSTAL</span>
+                <span class="chip chip--lime">GOLD / SILVER</span>
+                <span class="chip chip--plain" data-i18n="gamesChipGsBall">+ GS Ball event</span>
+              </div>
+
+              <div class="stats tool-card__stats">
+                <div class="stat">
+                  <div class="stat__value accent-red">0</div>
+                  <div class="stat__label" data-i18n="gamesStatRtc">real days waited</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value accent-green">100%</div>
+                  <div class="stat__label" data-i18n="gamesStatSave">save format kept</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value accent-blue">3</div>
+                  <div class="stat__label" data-i18n="gamesStatRoms">ROMs patched</div>
+                </div>
+              </div>
+
+              <div class="tool-card__cta">
+                <span class="btn btn--green"><span data-i18n="gamesCtaOpenPage">Open the game page</span> ▸</span>
+                <span class="hint" data-i18n="gamesGen2Hint">bring your own base ROM</span>
+              </div>
+            </div>
+          </a>
+        </section>
+
+        <!-- GAME 02 -->
+        <section class="section section--anchor" id="game02">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">GAME ▸ 02 · ROM HACK</span>
+            <span class="rule"></span>
+            <span class="eyebrow eyebrow--red">↗ <span data-i18n="gamesStatusExternal">OWN SITE</span></span>
+          </div>
+
+          <div class="tool-card tool-card--legacy">
+            <div class="tool-card__art">
+              <div class="cartridge" aria-hidden="true">
+                <div class="cartridge__notch"></div>
+                <div class="cartridge__screen"></div>
+                <div class="cartridge__label">MBC5 · NO RTC</div>
+              </div>
+            </div>
+
+            <div class="tool-card__body">
+              <h2 class="tool-card__title">Crystal Legacy: <span class="accent-green">Timeless</span></h2>
+              <p class="tool-card__lead" data-i18n="gamesLegacyLead">
+                The same RTC surgery applied to Pokémon Crystal Legacy, TheSmithPlays' rebalance hack. It has its own
+                illustrated walkthrough site and tagged releases.
+              </p>
+
+              <div class="leaders">
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gamesRowBase">BASE</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value">Crystal Legacy · TSP</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gamesRowClock">CLOCK</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value accent-green" data-i18n="gamesRowClockVal">Frozen · Pokégear</span>
+                </div>
+                <div class="leader">
+                  <span class="leader__key" data-i18n="gamesRowSite">SITE</span>
+                  <span class="leader__dots" aria-hidden="true"></span>
+                  <span class="leader__value">EN + PT</span>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <a
+                  class="btn btn--green"
+                  href="https://erick-tmr.github.io/Pokemon_Crystal_Legacy_Timeless/"
+                  target="_blank"
+                  rel="noopener"
+                  ><span data-i18n="ctaLegacySite">Open the site</span> ↗</a
+                >
+                <a
+                  class="btn btn--red"
+                  href="https://github.com/erick-tmr/Pokemon_Crystal_Legacy_Timeless/releases/latest"
+                  target="_blank"
+                  rel="noopener"
+                  >▶ <span data-i18n="ctaLegacyRelease">Latest release</span></a
+                >
+                <a
+                  class="btn btn--ghost"
+                  href="https://github.com/erick-tmr/Pokemon_Crystal_Legacy_Timeless"
+                  target="_blank"
+                  rel="noopener"
+                  ><span data-i18n="ctaSource">Source</span> ⌥</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+          <div>
+            <a class="site-footer__brand" href="/">ERICK<span class="brand__dot">.</span>TMR</a>
+            <div class="site-footer__note">
+              © 2026 Erick Takeshi · <span data-i18n="footerNote">Built with caffeine, Pokémon &amp; boost.</span>
+            </div>
+          </div>
+          <div class="site-footer__legal" data-i18n="gamesFooterLegal">
+            Fan projects. Trademarks belong to their owners. Not affiliated. No ROM distributed.
+          </div>
+        </footer>
+      </div>
+
+      <!-- The music dock is appended here at runtime by js/player/dock-markup.js. -->
+    </div>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>
