@@ -2049,6 +2049,16 @@ a.games-index__row:hover { opacity: .75; }
   .games-index { max-width: none; }
   .why__bytes { border-left: 0; padding-left: 0; }
 
+  /* The stat readout is one unbroken row of figures by design, and on a phone it
+     has to wrap. Wrapped as a flex row it left the second line flush against the
+     first and put a divider at the start of it, where it reads as a stray rule.
+     A two-column grid gives the rows air and keeps the divider between the
+     columns, where it is dividing something. */
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
+  .stats .stat { padding: 0 0 0 16px; border-left: 0; }
+  .stats .stat:nth-child(odd) { padding-left: 0; }
+  .stats .stat:nth-child(even) { border-left: 1px solid var(--border-soft); }
+
   /* These two carry their own art width, which outranks the rule above, so they
      have to be told to take the whole row themselves - otherwise the art and the
      copy stay side by side and both end up too narrow to read. */
