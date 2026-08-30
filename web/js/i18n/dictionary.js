@@ -133,6 +133,28 @@ export const DICT = {
     lMain: "MAIN GAME",
     lSide: "SIDE QUEST",
     lClass: "CLASS",
+
+    // Donate (shared — every page carries this above its footer)
+    donateKicker: "SUPPORT ▸ DONATE",
+    donateOptional: "OPTIONAL",
+    donateTitle: "Consider donating",
+    donateLead:
+      "If this tool, patch or work helped you, consider donating. It helps me keep the next build coming.",
+    donateNote: "Any amount is fine. Everything here stays free either way.",
+    donateScanA: "SCAN WITH",
+    donateScanB: "YOUR BANK",
+    donateBrOnly: "BR ONLY",
+    donateQrAlt: "Pix QR code",
+    donateCopy: "COPY Pix KEY",
+    donateCopied: "COPIED ✓",
+    donateKofiTitle: "KO-FI · CARD DONATION",
+    donateKofiOpen: "Donate on Ko-fi",
+    donateKofiClose: "Hide Ko-fi",
+    donateKofiArtAlt: "Meowth",
+    donateExplain:
+      "Pix is Brazil only, it works through Brazilian banks. Outside Brazil, use Ko-fi below: any currency, any card.",
+    donateKeyLabel: "Pix KEY",
+
     footerNote: "Built with caffeine, Pokémon & boost.",
     musicNowPlaying: "NOW PLAYING",
     musicPaused: "PAUSED"
@@ -263,6 +285,28 @@ export const DICT = {
     lMain: "JOGO PRINCIPAL",
     lSide: "MISSÃO PARALELA",
     lClass: "CLASSE",
+
+    // Donate (shared — every page carries this above its footer)
+    donateKicker: "APOIE ▸ DOE",
+    donateOptional: "OPCIONAL",
+    donateTitle: "Considere doar",
+    donateLead:
+      "Se esta ferramenta, patch ou trabalho te ajudou, considere doar. Isso me ajuda a tirar o próximo projeto do papel.",
+    donateNote: "Qualquer valor ajuda. Tudo aqui continua de graça de qualquer forma.",
+    donateScanA: "ESCANEIE NO",
+    donateScanB: "SEU BANCO",
+    donateBrOnly: "SÓ BR",
+    donateQrAlt: "QR code do Pix",
+    donateCopy: "COPIAR CHAVE Pix",
+    donateCopied: "COPIADO ✓",
+    donateKofiTitle: "KO-FI · DOAÇÃO NO CARTÃO",
+    donateKofiOpen: "Doar no Ko-fi",
+    donateKofiClose: "Esconder o Ko-fi",
+    donateKofiArtAlt: "Meowth",
+    donateExplain:
+      "O Pix funciona só em bancos brasileiros. De fora do Brasil, use o Ko-fi abaixo: qualquer moeda, qualquer cartão.",
+    donateKeyLabel: "CHAVE Pix",
+
     footerNote: "Feito com cafeína, Pokémon e turbo.",
     musicNowPlaying: "TOCANDO AGORA",
     musicPaused: "PAUSADO"

@@ -1,8 +1,9 @@
 /* ===========================================================================
    Site bootstrap — the chrome every page shares.
 
-   Responsibility (SRP): mount the music dock, construct the i18n layer and the
-   player, and own the language *policy* (which language a visitor gets, and
+   Responsibility (SRP): mount the music dock and the decorative layers, wire
+   the donate section's copy button, construct the i18n layer and the player,
+   and own the language *policy* (which language a visitor gets, and
    remembering it across navigations). I18n itself stays a pure DOM applier —
    persistence is a site decision, not a translation one.
 
@@ -14,6 +15,8 @@
 import { I18n } from "./i18n/i18n.js";
 import { mountDock } from "./player/dock-markup.js";
 import { mountBinaryRain } from "./ui/binary-rain.js";
+import { mountKobanRain } from "./ui/koban-rain.js";
+import { initDonate } from "./ui/donate.js";
 import { TRACKS, Playlist } from "./player/playlist.js";
 import { AudioEngine } from "./player/audio-engine.js";
 import { MusicPlayer } from "./player/music-player.js";
@@ -51,6 +54,7 @@ function rememberLang(lang) {
 export function bootSite({ dict, defaultLang, root = document }) {
   mountDock(root); // before MusicDock — it resolves the dock's IDs in its constructor
   mountBinaryRain(root); // decorative; no-ops on pages without [data-binary-rain]
+  mountKobanRain(root); // decorative; no-ops on pages without [data-koban-rain]
 
   const i18n = new I18n(dict, { root });
 
@@ -68,6 +72,10 @@ export function bootSite({ dict, defaultLang, root = document }) {
 
     new MusicDock({ player, i18n });
   }
+
+  // The donate section is static markup on every page; only its copy button
+  // needs wiring, and it needs i18n to render its own label.
+  initDonate({ i18n, root });
 
   i18n.onChange(rememberLang);
 
