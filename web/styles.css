@@ -86,6 +86,7 @@ img { max-width: 100%; }
 
 /* ---- Animations -------------------------------------------------------- */
 @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0.18; } }
+@keyframes menuDrop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
 @keyframes ledPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(53, 214, 138, .5); }
@@ -232,19 +233,37 @@ img { max-width: 100%; }
 .brand__name { font-family: var(--pixel); font-size: 12px; color: var(--heading); letter-spacing: 1px; }
 .brand__dot { color: var(--red); }
 
-.site-nav { display: flex; align-items: center; gap: 16px; }
+.site-nav { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+/* Each destination is a button on a console, not a word in a sentence: the
+   header is the site's control panel, and the boxes give the page you are on
+   somewhere to actually light up. */
 .site-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 5px;
+  background: var(--panel);
   font-family: var(--pixel);
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 1px;
-  color: var(--muted);
+  color: var(--text-soft);
   white-space: nowrap;
-  padding-bottom: 3px;
-  border-bottom: 2px solid transparent;
-  transition: color .15s;
+  transition: all .15s;
 }
-.site-nav__link:hover { color: var(--heading); }
-.site-nav__link.is-active { color: var(--green); border-bottom-color: var(--green); }
+.site-nav__link:hover { border-color: var(--green); color: #ffffff; background: var(--panel-3); }
+.site-nav__link.is-active {
+  color: var(--heading);
+  background: rgba(53, 214, 138, 0.18);
+  border-color: var(--green);
+  box-shadow: 0 4px 14px rgba(53, 214, 138, 0.18);
+}
+/* How much is behind the link, so the two hubs advertise their depth without
+   the visitor having to open them to find out. */
+.site-nav__count { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--muted); }
+.site-nav__link.is-active .site-nav__count { color: var(--text-dim); }
 
 .site-header__right { display: flex; align-items: center; gap: 16px; }
 .tz { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1.5px; }
@@ -261,6 +280,143 @@ img { max-width: 100%; }
   color: var(--muted);
 }
 .lang-btn.is-active { background: var(--green); color: #08130d; }
+
+/* ---- All-pages menu ---------------------------------------------------- */
+/* The three nav buttons only reach the two hubs. This panel drops the whole
+   map — the hubs, the pages inside them, and the profiles off-site — so no
+   page is ever more than one click from any other. */
+.menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--panel-3);
+  font-family: var(--pixel);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--heading);
+  transition: all .15s;
+}
+.menu-btn:hover { border-color: var(--green); background: #18402c; }
+.menu-btn__bars { display: flex; flex-direction: column; gap: 2px; }
+.menu-btn__bars span { width: 11px; height: 2px; background: var(--green); }
+
+/* The header is sticky, which makes it the containing block: the panel hangs
+   off its bottom edge and stays pinned there.
+
+   Pinned is also why it has to scroll itself. The page scrolling underneath
+   never brings the bottom of the panel up, so on a short viewport — or a phone,
+   where the header wraps to three rows and the two columns stack into one —
+   everything past the fold would simply be unreachable. --menu-top is the
+   panel's own distance from the top of the viewport, which is the header's
+   height whether or not it has wrapped; js/ui/site-menu.js measures it on each
+   open, and the fallback here is the unwrapped desktop header. */
+.site-menu {
+  --menu-top: 58px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  max-height: calc(100vh - var(--menu-top));
+  max-height: calc(100dvh - var(--menu-top));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(8, 18, 13, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, .6);
+  animation: menuDrop .16s ease-out;
+}
+.site-menu__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 24px 24px 26px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+.site-menu__head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.site-menu__head .eyebrow { font-size: 8px; }
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  transition: all .14s;
+}
+.menu-link:hover { background: var(--panel); border-color: var(--border); }
+/* off-site rows warm to the blue the ELSEWHERE column is keyed to */
+.menu-link--out:hover { background: #101d2a; }
+
+.menu-link__icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-3);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.menu-link__icon img { width: 88%; height: 88%; object-fit: contain; image-rendering: pixelated; }
+/* a real cover scan fills its tile edge to edge; a sprite floats inside one */
+.menu-link__icon--cover { background: var(--panel-2); }
+.menu-link__icon--cover img { width: 100%; height: 100%; object-fit: cover; }
+.menu-link__icon--tools { background: var(--icon-backing); }
+.menu-link__icon--mentoria { background: var(--blue-deep); }
+.menu-link__icon--mentoria img { width: 90%; height: 90%; }
+.menu-link__icon--github { background: var(--heading); }
+.menu-link__icon--email { background: var(--green); }
+.menu-link__icon--email img { width: 80%; height: 80%; }
+.menu-link__icon--term {
+  background: #0c1a2a;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.menu-link__text { flex: 1; }
+.menu-link__title { display: block; font-size: 13.5px; font-weight: 700; color: var(--heading); }
+.menu-link__sub { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted-2); margin-top: 3px; }
+.menu-link__arrow { font-size: 13px; }
+
+/* A page that lives inside the hub above it, drawn as a branch off it. */
+.menu-sub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px 7px 30px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  transition: all .14s;
+}
+.menu-sub:hover { background: var(--panel); border-color: var(--border-soft); }
+.menu-sub__branch { font-family: var(--mono); font-size: 11px; color: var(--border); }
+.menu-sub__name { flex: 1; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+.menu-sub__tag { font-family: var(--pixel); font-size: 7px; color: var(--muted); }
+/* a hub that follows another hub's child needs air, or the branch reads as
+   belonging to the hub below it instead of the one above */
+.menu-sub + .menu-link { margin-top: 4px; }
+
+.site-menu__foot {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #18301f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.site-menu__esc { font-family: var(--pixel); font-size: 7px; color: var(--muted-3); }
 
 /* ---- Layout ------------------------------------------------------------ */
 .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px 90px; }
@@ -312,8 +468,8 @@ img { max-width: 100%; }
 .btn--red:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(224, 69, 47, 0.4); }
 .btn--green { color: #08130d; background: var(--green); }
 .btn--green:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(53, 214, 138, 0.35); }
-/* The blog CTA lifts without a coloured halo — the terminal below it already
-   carries the blue, and a second glow would double up on it. */
+/* The one accent that lifts without a coloured halo: blue is already the
+   busiest accent on a page, and a glow under it doubles up on itself. */
 .btn--blue { color: var(--ink); background: var(--blue); }
 .btn--blue:hover { transform: translateY(-2px); }
 .btn--lime { color: var(--ink); background: var(--lime); }
@@ -614,34 +770,118 @@ img { max-width: 100%; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
 
-/* ---- Featured 02 · terminal -------------------------------------------- */
-.terminal { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--panel-2); }
-.terminal__bar {
+/* ---- Section select ---------------------------------------------------- */
+/* The three doors off the home page. Each is a screen with a slot number in
+   the corner and a coloured strip beneath it, so the row reads as a console's
+   select screen rather than three interchangeable tiles. One custom property
+   carries each slot's colour through its number, its strip and its call to
+   action. */
+.select-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(266px, 1fr));
+  gap: 14px;
+}
+.select-card {
+  --slot: var(--green);
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 11px;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .4);
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+}
+.select-card:hover {
+  border-color: var(--slot);
+  transform: translateY(-4px);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, .55);
+}
+.select-card--red { --slot: var(--red); }
+.select-card--blue { --slot: var(--blue); }
+
+.select-card__art { position: relative; height: 128px; overflow: hidden; background: var(--panel-2); }
+/* the strip that lights the slot's colour along the bottom of its screen */
+.select-card__art::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--slot);
+}
+.select-card__art img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; image-rendering: pixelated; }
+.select-card__scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0px, rgba(0, 0, 0, 0.20) 1px, transparent 1px, transparent 3px);
+}
+/* pulls the bottom of a photographic banner down into the card's own black so
+   the art ends in the panel rather than against a hard edge */
+.select-card__fade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 19, 14, 0.88), transparent 62%); }
+.select-card__num {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-family: var(--pixel);
+  font-size: 8px;
+  color: var(--ink);
+  background: var(--slot);
+  border-radius: 3px;
+  padding: 4px 6px;
+}
+/* the terminal slot's own copy starts top-left, so its number moves over */
+.select-card__num--right { left: auto; right: 12px; }
+
+/* Tile art: a pixel icon floating over its own graph paper. */
+.select-card__art--icon { background: var(--panel-3); display: grid; place-items: center; }
+.select-card__art--icon img { position: relative; width: 84px; height: 84px; object-fit: contain; }
+.select-card__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(224, 69, 47, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(224, 69, 47, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Terminal art: three lines of a live session standing in for a screenshot. */
+.select-card__art--term {
+  background: #0c1a2a;
+  padding: 18px 16px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.85;
+}
+.select-card__term-user { color: var(--blue); }
+.select-card__term-dir { color: var(--muted); }
+.select-card__term-cmd { color: var(--text-soft); }
+.select-card__term-note { color: var(--muted); }
+.select-card__term-caret {
+  display: inline-block;
+  width: 7px;
+  height: 12px;
+  margin-left: 5px;
+  background: var(--blue);
+  vertical-align: -1px;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+.select-card__body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.select-card__name { font-family: var(--pixel); font-size: 11px; color: var(--heading); letter-spacing: 1px; }
+/* flex:1 pushes every card's footer to its own bottom edge, so the three
+   footers line up however unevenly the descriptions wrap */
+.select-card__desc { margin: 0; font-size: 12.5px; color: var(--muted-4); line-height: 1.65; flex: 1; text-wrap: pretty; }
+.select-card__foot {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 16px;
-  background: var(--panel);
-  border-bottom: 1px solid var(--border-soft);
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed #18301f;
 }
-.terminal__dot { width: 11px; height: 11px; border-radius: 50%; }
-.terminal__dot--red { background: var(--red); }
-.terminal__dot--blue { background: var(--blue); }
-.terminal__dot--green { background: var(--green); }
-.terminal__path { margin-left: 12px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
-
-.terminal__body { padding: 22px 20px; font-family: var(--mono); font-size: 13px; line-height: 1.9; }
-.term-user { color: var(--blue); }
-.term-dir { color: var(--muted); }
-.term-link { display: block; color: var(--blue); transition: color .15s; }
-.term-link:hover { color: #a9c9f5; }
-.term-comment { color: var(--muted); }
-.term-out { color: var(--text-soft); margin-top: 10px; }
-.term-prompt { margin-top: 8px; }
-.term-cursor { border-right: 7px solid var(--blue); animation: blink 1.1s steps(1) infinite; }
-
-.terminal__actions { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 20px 22px; }
-.terminal__actions .btn { padding: 11px 17px; }
+.select-card__meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.select-card__cta { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--slot); white-space: nowrap; }
 
 /* ---- Links grid -------------------------------------------------------- */
 .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
@@ -690,21 +930,7 @@ img { max-width: 100%; }
 .link-card__icon--github img { max-width: 90%; max-height: 90%; }
 .link-card__icon--email { background: var(--green); }
 .link-card__icon--email img { max-width: 78%; max-height: 78%; }
-.link-card__icon--tools { background: var(--icon-backing); }
-.link-card__icon--tools img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
-.link-card__icon--games { background: var(--panel-3); }
 .link-card__icon--x { background: var(--panel-2); color: var(--heading); }
-/* the games tile has no pixel tile of its own, so the cartridge is drawn:
-   the same notched silhouette as the real ones, at icon scale */
-.cart-pip {
-  display: block;
-  width: 20px;
-  height: 26px;
-  border-radius: 3px 3px 4px 4px;
-  background: linear-gradient(155deg, rgba(90, 162, 245, 0.55), rgba(155, 188, 15, 0.55));
-  border: 1px solid var(--blue);
-  clip-path: polygon(0 0, 68% 0, 80% 8%, 100% 8%, 100% 100%, 0 100%);
-}
 /* X — pixel-art glyph drawn from a 2px seed dot + box-shadow (no asset needed) */
 .x-pixel {
   position: absolute;
@@ -2325,6 +2551,16 @@ a.games-index__row:hover { opacity: .75; }
   .container { padding: 0 16px 80px; }
   .player { right: 16px; bottom: 16px; width: calc(100vw - 32px); }
 
+  /* The header carries six controls now. They still all fit, but only once
+     every one of them gives up the padding it wears on a desktop. */
+  .site-header__inner { padding: 11px 16px; gap: 12px; }
+  .site-header__left { gap: 14px; }
+  .site-header__right { gap: 10px; }
+  .site-nav { gap: 6px; }
+  .site-nav__link,
+  .menu-btn { padding: 8px 9px; font-size: 8px; }
+  .site-menu__inner { padding: 20px 16px 22px; gap: 22px; }
+
   /* The cartridge is decorative; let it centre rather than crowd the copy. */
   .tool-hero__art,
   .build__art,
@@ -2426,7 +2662,7 @@ a.games-index__row:hover { opacity: .75; }
   .player__mini,
   .player__status-dot,
   .eq__bar,
-  .term-cursor {
+  .select-card__term-caret {
     animation: none !important;
     scroll-behavior: auto !important;
   }
