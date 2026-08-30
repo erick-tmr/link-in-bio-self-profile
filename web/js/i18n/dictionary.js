@@ -86,7 +86,7 @@ export const DICT = {
 
     // Game · Pokémon Gen 2: Timeless (/games/pokemon-gen-2-timeless/)
     gen2HeroLead:
-      "Gold, Silver and Crystal, rebuilt so the clock answers to you instead of to the calendar. Everything else is the game you remember, for the player who now gets an hour on a weeknight instead of a whole summer.",
+      "Gold, Silver and Crystal, rebuilt so the clock answers to you instead of to the calendar. Everything else is the game you remember, for the player who now gets one free hour on a weeknight, instead of the whole summer holiday they had back then.",
     gen2CtaBuilds: "See the builds",
     gen2CtaHow: "How to get it",
     gen2CrystalLead:
@@ -215,9 +215,9 @@ export const DICT = {
 
     // Game · Pokémon Gen 2: Timeless (/games/pokemon-gen-2-timeless/)
     gen2HeroLead:
-      "Gold, Silver e Crystal, reconstruídos para o relógio responder a você e não ao calendário. Todo o resto é o jogo que você lembra, para quem hoje tem uma hora numa noite de semana em vez de um verão inteiro.",
+      "Gold, Silver e Crystal, reconstruídos para o relógio responder a você e não ao calendário. Todo o resto é o jogo que você lembra, para quem hoje tem somente uma hora livre à noite durante algum dia da semana, ao invés de todas as férias de verão como antigamente.",
     gen2CtaBuilds: "Ver as builds",
-    gen2CtaHow: "Como conseguir",
+    gen2CtaHow: "Como obter",
     gen2CrystalLead:
       "Crystal original com o relógio nas suas mãos: abra o Pokégear, ajuste o dia ou a hora, e os eventos que custavam um dia real acontecem agora. Berries, corte de cabelo, Trainer House e a loja de ofertas seguem repetíveis. Mesmo save de 32 KB, compatível byte a byte nos dois sentidos, e o evento adormecido da GS Ball / Celebi vem ativado, como no Virtual Console.",
     gen2GoldLead:
@@ -229,7 +229,7 @@ export const DICT = {
     gen2RowFreebies: "BRINDES",
     gen2RowFreebiesVal: "Sempre disponíveis",
     gen2RowDocs: "DOCS",
-    gen2GetEyebrow: "COMO CONSEGUIR",
+    gen2GetEyebrow: "COMO OBTER",
     gen2GetTitle: "Traga a sua própria ROM",
     gen2GetLead:
       "Nenhuma ROM é distribuída aqui, a mesma regra que as páginas de release documentam. Você usa o jogo base que já possui, e o patch é aplicado do seu lado.",
