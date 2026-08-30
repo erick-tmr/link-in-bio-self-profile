@@ -2037,6 +2037,7 @@ a.games-index__row:hover { opacity: .75; }
   /* The cartridge is decorative; let it centre rather than crowd the copy. */
   .tool-hero__art,
   .build__art,
+  .cartridge-card__art,
   .tool-card__art { flex: 1 0 100%; display: flex; justify-content: center; }
   .build__pair { flex: 1 0 100%; max-width: 320px; margin-inline: auto; }
 
@@ -2047,7 +2048,11 @@ a.games-index__row:hover { opacity: .75; }
   .hero-panel__inner { padding: 26px 20px 24px; gap: 20px; }
   .games-banner__inner { padding: 24px 20px; gap: 22px; }
   .games-index { max-width: none; }
-  .why__bytes { border-left: 0; padding-left: 0; }
+  /* A hairline that divides two columns has nothing left to divide once they
+     have stacked. It just rules down the left of the copy, holding it indented
+     against an edge that is no longer there. */
+  .why__bytes,
+  .cartridge-card__info { border-left: 0; padding-left: 0; }
 
   /* The stat readout is one unbroken row of figures by design, and on a phone it
      has to wrap. Wrapped as a flex row it left the second line flush against the
@@ -2065,17 +2070,40 @@ a.games-index__row:hover { opacity: .75; }
   .tool-card--game .tool-card__art,
   .tool-card--legacy .tool-card__art { flex: 1 0 100%; }
 
-  /* Column min-widths hold these side by side on a wide screen. Once the row has
-     wrapped they are the only thing still pushing content past the edge, and
-     with the art claiming a full row above, nothing needs them to force it.
-     .tool-card__body was already doing this to /tools/ at <=320px before the
-     games pages existed. */
+  /* Every two-column row on the site collapses to one column here, and each
+     needs both halves of this rule. The 100% basis puts one column per row; the
+     min-width reset lets that column be as narrow as the phone actually is.
+     Neither works alone: the min-widths were what forced the wrap in the first
+     place, so dropping them by themselves lets the columns sit side by side and
+     shrink to nothing, and keeping them means a 280-330px floor inside a 273px
+     container. Since body is overflow-x:hidden that floor never showed up as a
+     scrollbar - it just quietly clipped the right-hand edge off the copy. */
+  .hero__photo,
+  .hero__info,
+  .cartridge-card__art,
+  .cartridge-card__info,
+  .panel,
+  .tool-hero__info,
+  .machine,
+  .machine-side,
+  .why__prose,
+  .why__bytes,
   .tool-card__body,
   .games-banner__body,
   .build__body,
   .related__body,
   .clock__lead,
-  .clock__list { min-width: 0; }
+  .clock__list { flex: 1 0 100%; min-width: 0; }
+
+  /* the photo keeps its size, so centre it rather than leave it hanging left */
+  .hero__photo { max-width: 280px; margin-inline: auto; }
+  /* a 1px rule between two columns has no place between two stacked ones */
+  .about__divider { display: none; }
+
+  /* The byte diff is a real table with real columns; it cannot reflow to a
+     phone and should not be squeezed into illegibility trying. Let it scroll
+     inside its own frame instead of pushing the page sideways. */
+  .bytes { overflow-x: auto; }
   .machine__body { padding: 16px; }
   .audit__toggle { font-size: 11.5px; }
   .actions__spacer { display: none; }

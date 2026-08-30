@@ -86,11 +86,11 @@ export const DICT = {
 
     // Game · Pokémon Gen 2: Timeless (/games/pokemon-gen-2-timeless/)
     gen2HeroLead:
-      "Gold, Silver and Crystal, rebuilt so the clock answers to you instead of to the calendar. Everything else is the game you remember, for the player who now gets an hour on a weeknight instead of a whole summer.",
+      "Gold, Silver and Crystal, rebuilt so the clock answers to you instead of to the calendar. Everything else is the game you remember, for the player who now gets one free hour on a weeknight, instead of the whole summer holiday they had back then.",
     gen2CtaBuilds: "See the builds",
     gen2CtaHow: "How to get it",
     gen2CrystalLead:
-      "Vanilla Crystal with the clock in your hands: open the Pokégear, set the day or the hour, and the events that used to cost you a real day happen now. Berries, haircuts, the Trainer House and the bargain shop stay repeatable. Same 32 KB save, byte-for-byte compatible both ways, and the dormant GS Ball / Celebi event is switched on, matching the Virtual Console release.",
+      "Vanilla Crystal with the clock in your hands: open the Pokégear, set the day or the hour, and the events that used to cost you a real day happen now. Berries, haircuts, the Trainer House and the bargain shop stay repeatable. Same 32 KB save, byte-for-byte compatible both ways, and the locked GS Ball / Celebi event is switched on, matching the Virtual Console release.",
     gen2GoldLead:
       "The Gold and Silver counterpart of the same work: a clock you set instead of one that sets you, and the daily freebies made repeatable so nothing is gated behind sleeping on it. Weekday and hour gates are kept, so the events still feel like themselves. Player-facing guide included in Portuguese.",
     gen2RowBase: "BASE ROM",
@@ -112,7 +112,7 @@ export const DICT = {
     gen2GetNote: "existing .sav files keep working, no byte patching",
     gen2BugEyebrow: "WHY THE CLOCK HAD TO GO",
     gen2BugLead:
-      "The clock was a design decision from an era when a Game Boy cartridge could only hold so much game: make the player wait, and the game lasts longer. Wait for night to catch a Hoothoot, wait a full day for the berries. The kids it was written for now have jobs and families, and none of that time. Timeless brings the games forward by changing only what the clock touches.",
+      "The clock was a design decision from an era when a Game Boy cartridge had very limited memory: make the player wait, and the game lasts longer. Wait for night to catch a Hoothoot, wait a full day for the berries. The kids it was written for now have jobs and families, and none of that time. The Timeless patch brings the games into the present, changing and improving only the mechanics the clock touches.",
     gen2BugStep1Key: "Padding removed",
     gen2BugStep1: "nothing is stretched out by waiting for real time",
     gen2BugStep2Key: "Time you control",
@@ -215,11 +215,11 @@ export const DICT = {
 
     // Game · Pokémon Gen 2: Timeless (/games/pokemon-gen-2-timeless/)
     gen2HeroLead:
-      "Gold, Silver e Crystal, reconstruídos para o relógio responder a você e não ao calendário. Todo o resto é o jogo que você lembra, para quem hoje tem uma hora numa noite de semana em vez de um verão inteiro.",
+      "Gold, Silver e Crystal, reconstruídos para o relógio responder a você e não ao calendário. Todo o resto é o jogo que você lembra, para quem hoje tem somente uma hora livre à noite durante algum dia da semana, ao invés de todas as férias de verão como antigamente.",
     gen2CtaBuilds: "Ver as builds",
-    gen2CtaHow: "Como conseguir",
+    gen2CtaHow: "Como obter",
     gen2CrystalLead:
-      "Crystal original com o relógio nas suas mãos: abra o Pokégear, ajuste o dia ou a hora, e os eventos que custavam um dia real acontecem agora. Berries, corte de cabelo, Trainer House e a loja de ofertas seguem repetíveis. Mesmo save de 32 KB, compatível byte a byte nos dois sentidos, e o evento adormecido da GS Ball / Celebi vem ativado, como no Virtual Console.",
+      "Crystal original com o relógio nas suas mãos: abra o Pokégear, ajuste o dia ou a hora, e os eventos que custavam um dia real acontecem agora. Berries, corte de cabelo, Trainer House e a loja de ofertas seguem repetíveis. Mesmo save de 32 KB, compatível byte a byte nos dois sentidos, e o evento bloqueado da GS Ball / Celebi vem ativado, como no Virtual Console.",
     gen2GoldLead:
       "A versão Gold e Silver do mesmo trabalho: um relógio que você ajusta em vez de um que manda em você, e os brindes diários repetíveis para nada depender de dormir e voltar amanhã. As travas de dia da semana e de horário continuam lá, então os eventos seguem com a cara deles. Guia para jogadores incluído em português.",
     gen2RowBase: "ROM BASE",
@@ -229,7 +229,7 @@ export const DICT = {
     gen2RowFreebies: "BRINDES",
     gen2RowFreebiesVal: "Sempre disponíveis",
     gen2RowDocs: "DOCS",
-    gen2GetEyebrow: "COMO CONSEGUIR",
+    gen2GetEyebrow: "COMO OBTER",
     gen2GetTitle: "Traga a sua própria ROM",
     gen2GetLead:
       "Nenhuma ROM é distribuída aqui, a mesma regra que as páginas de release documentam. Você usa o jogo base que já possui, e o patch é aplicado do seu lado.",
@@ -242,7 +242,7 @@ export const DICT = {
     gen2GetNote: "saves existentes continuam funcionando, sem patch de bytes",
     gen2BugEyebrow: "POR QUE O RELÓGIO SAIU",
     gen2BugLead:
-      "O relógio foi uma decisão de design de uma época em que um cartucho de Game Boy só cabia tanto jogo: faça o jogador esperar, e o jogo dura mais. Esperar a noite para pegar um Hoothoot, esperar um dia inteiro pelas berries. As crianças para quem isso foi escrito hoje têm trabalho e família, e não têm esse tempo. O Timeless traz os jogos para hoje mudando só o que o relógio afeta.",
+      "O relógio foi uma decisão de design de uma época em que um cartucho de Game Boy tinha um espaço de memória bem limitado: faça o jogador esperar, e o jogo dura mais. Esperar a noite para pegar um Hoothoot, esperar um dia inteiro pelas berries. As crianças para quem isso foi escrito hoje têm trabalho e família, e não têm esse tempo. O patch Timeless traz os jogos para os dias atuais, mudando e melhorando somente as mecânicas onde o horário afeta.",
     gen2BugStep1Key: "Enrolação removida",
     gen2BugStep1: "nada é esticado à base de esperar o tempo real",
     gen2BugStep2Key: "Tempo no seu controle",
