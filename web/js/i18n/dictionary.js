@@ -90,7 +90,7 @@ export const DICT = {
     gen2CtaBuilds: "See the builds",
     gen2CtaHow: "How to get it",
     gen2CrystalLead:
-      "Vanilla Crystal with the clock in your hands: open the Pokégear, set the day or the hour, and the events that used to cost you a real day happen now. Berries, haircuts, the Trainer House and the bargain shop stay repeatable. Same 32 KB save, byte-for-byte compatible both ways, and the dormant GS Ball / Celebi event is switched on, matching the Virtual Console release.",
+      "Vanilla Crystal with the clock in your hands: open the Pokégear, set the day or the hour, and the events that used to cost you a real day happen now. Berries, haircuts, the Trainer House and the bargain shop stay repeatable. Same 32 KB save, byte-for-byte compatible both ways, and the locked GS Ball / Celebi event is switched on, matching the Virtual Console release.",
     gen2GoldLead:
       "The Gold and Silver counterpart of the same work: a clock you set instead of one that sets you, and the daily freebies made repeatable so nothing is gated behind sleeping on it. Weekday and hour gates are kept, so the events still feel like themselves. Player-facing guide included in Portuguese.",
     gen2RowBase: "BASE ROM",
@@ -219,7 +219,7 @@ export const DICT = {
     gen2CtaBuilds: "Ver as builds",
     gen2CtaHow: "Como obter",
     gen2CrystalLead:
-      "Crystal original com o relógio nas suas mãos: abra o Pokégear, ajuste o dia ou a hora, e os eventos que custavam um dia real acontecem agora. Berries, corte de cabelo, Trainer House e a loja de ofertas seguem repetíveis. Mesmo save de 32 KB, compatível byte a byte nos dois sentidos, e o evento adormecido da GS Ball / Celebi vem ativado, como no Virtual Console.",
+      "Crystal original com o relógio nas suas mãos: abra o Pokégear, ajuste o dia ou a hora, e os eventos que custavam um dia real acontecem agora. Berries, corte de cabelo, Trainer House e a loja de ofertas seguem repetíveis. Mesmo save de 32 KB, compatível byte a byte nos dois sentidos, e o evento bloqueado da GS Ball / Celebi vem ativado, como no Virtual Console.",
     gen2GoldLead:
       "A versão Gold e Silver do mesmo trabalho: um relógio que você ajusta em vez de um que manda em você, e os brindes diários repetíveis para nada depender de dormir e voltar amanhã. As travas de dia da semana e de horário continuam lá, então os eventos seguem com a cara deles. Guia para jogadores incluído em português.",
     gen2RowBase: "ROM BASE",
