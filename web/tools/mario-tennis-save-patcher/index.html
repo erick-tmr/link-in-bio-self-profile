@@ -475,6 +475,132 @@
           </div>
         </section>
 
+        <!-- DONATE (shared: every page carries this above its footer) -->
+        <section class="section donate">
+          <div class="section__head">
+            <div class="eyebrow eyebrow--gold" data-i18n="donateKicker">SUPPORT ▸ DONATE</div>
+            <span class="rule"></span>
+            <span class="donate__optional" data-i18n="donateOptional">OPTIONAL</span>
+          </div>
+
+          <div class="donate__card">
+            <!-- coins are filled in by js/ui/koban-rain.js; empty without JS -->
+            <div class="donate__coins" data-koban-rain aria-hidden="true"></div>
+            <div class="donate__stripe" aria-hidden="true"></div>
+
+            <div class="donate__row">
+              <div class="donate__pix">
+                <div class="pix-panel">
+                  <div class="pix-panel__head">
+                    <span class="dot dot--red blink" aria-hidden="true"></span>
+                    <span class="pix-panel__brand">Pix</span>
+                    <span class="pix-panel__badge" data-i18n="donateBrOnly">BR ONLY</span>
+                  </div>
+                  <div class="pix-panel__code">
+                    <img
+                      src="https://cdn.ericktakeshi.com.br/assets/pix-qr.png"
+                      alt="Pix QR code"
+                      data-i18n="donateQrAlt"
+                      data-i18n-attr="alt"
+                    />
+                    <div class="pix-panel__scan" aria-hidden="true"></div>
+                  </div>
+                  <div class="pix-panel__hint">
+                    <span data-i18n="donateScanA">SCAN WITH</span><br /><span data-i18n="donateScanB">YOUR BANK</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="donate__body">
+                <h2 class="donate__title" data-i18n="donateTitle">Consider donating</h2>
+                <p class="donate__lead" data-i18n="donateLead">
+                  If this tool, patch or work helped you, consider donating. It helps me keep the next build coming.
+                </p>
+                <p class="donate__note" data-i18n="donateNote">
+                  Any amount is fine. Everything here stays free either way.
+                </p>
+
+                <div class="btn-row donate__actions">
+                  <button
+                    type="button"
+                    class="btn btn--gold"
+                    aria-live="polite"
+                    data-donate-copy="erick.tmr@outlook.com"
+                    data-i18n="donateCopy"
+                  >
+                    COPY Pix KEY
+                  </button>
+                </div>
+
+                <p class="donate__explain" data-i18n="donateExplain">
+                  Pix is Brazil only, it works through Brazilian banks. Outside Brazil, use Ko-fi below: any currency,
+                  any card.
+                </p>
+
+                <div class="donate__key">
+                  <span class="donate__key-label" data-i18n="donateKeyLabel">Pix KEY</span>
+                  <code class="donate__key-value" data-donate-key>erick.tmr@outlook.com</code>
+                </div>
+              </div>
+
+              <div class="donate__art">
+                <div class="donate__art-card">
+                  <img
+                    src="https://cdn.ericktakeshi.com.br/assets/meowth-payday-card.png"
+                    alt="Meowth · Pay Day"
+                  />
+                  <span class="donate__art-sheen" aria-hidden="true"></span>
+                  <span class="donate__art-glint" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ko-fi. A plain link until js/ui/donate.js upgrades it into a
+                 disclosure, so it still works without JS; the frame's URL waits
+                 in data-src so no third-party request fires until it is opened. -->
+            <div class="donate__kofi">
+              <div class="donate__kofi-head">
+                <a
+                  class="btn btn--kofi"
+                  href="https://ko-fi.com/ericktmr"
+                  target="_blank"
+                  rel="noopener"
+                  aria-controls="kofiPanel"
+                  data-donate-kofi-toggle
+                >
+                  <span class="btn__icon btn__icon--kofi">
+                    <img src="https://cdn.ericktakeshi.com.br/assets/kofi-pixel-48.png" alt="" />
+                  </span>
+                  <span data-i18n="donateKofiOpen" data-donate-kofi-label>Donate on Ko-fi</span>
+                  <span class="donate__caret" aria-hidden="true">▼</span>
+                </a>
+                <span class="donate__kofi-title" data-i18n="donateKofiTitle">KO-FI · CARD DONATION</span>
+                <span class="donate__kofi-rule" aria-hidden="true"></span>
+              </div>
+
+              <div class="donate__kofi-panel" id="kofiPanel" data-donate-kofi-panel hidden>
+                <div class="donate__kofi-frame">
+                  <iframe
+                    title="Support me on Ko-fi"
+                    data-src="https://ko-fi.com/ericktmr/?hidefeed=true&amp;widget=true&amp;embed=true&amp;preview=true"
+                    height="712"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+                <div class="donate__kofi-art">
+                  <img
+                    src="https://cdn.ericktakeshi.com.br/assets/meowth-sprite.png"
+                    alt="Meowth"
+                    data-i18n="donateKofiArtAlt"
+                    data-i18n-attr="alt"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- FOOTER -->
         <footer class="site-footer">
           <div>

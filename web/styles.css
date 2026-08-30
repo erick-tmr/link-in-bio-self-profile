@@ -13,6 +13,7 @@
   --blue-deep: #2e6fdb;
   --lime: #9bbc0f;
   --lime-soft: #dceac0;
+  --gold: #f5d33f;
   --gb-screen: #8bac0f;
   --green-bright: #6df0b1;
 
@@ -126,6 +127,38 @@ img { max-width: 100%; }
 @keyframes matrixfall { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 /* counter-rotates the sprite so it stays upright while the orbit arm spins */
 @keyframes rayUpright { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+/* The donate card's coin rain. A koban falls the height of the card and past
+   it, tumbling as it goes; the two variants spin opposite ways so the rain
+   never looks like one sprite repeated across the width. The brightness steps
+   are the coin catching the light twice on the way down. */
+@keyframes kobanFallA {
+  0%   { transform: translateY(-34px) rotate(-16deg); opacity: 0; filter: brightness(1); }
+  4%   { opacity: 1; }
+  30%  { filter: brightness(1.55); }
+  45%  { transform: translateY(calc(var(--koban-drop) * 0.42)) rotate(300deg); opacity: 1; filter: brightness(1); }
+  72%  { filter: brightness(1.45); }
+  82%  { transform: translateY(calc(var(--koban-drop) * 0.78)) rotate(560deg); opacity: .9; }
+  100% { transform: translateY(var(--koban-drop)) rotate(720deg); opacity: 0; filter: brightness(1); }
+}
+@keyframes kobanFallB {
+  0%   { transform: translateY(-34px) rotate(24deg); opacity: 0; filter: brightness(1); }
+  4%   { opacity: 1; }
+  26%  { filter: brightness(1.5); }
+  45%  { transform: translateY(calc(var(--koban-drop) * 0.42)) rotate(-270deg); opacity: 1; filter: brightness(1); }
+  68%  { filter: brightness(1.4); }
+  82%  { transform: translateY(calc(var(--koban-drop) * 0.78)) rotate(-520deg); opacity: .9; }
+  100% { transform: translateY(var(--koban-drop)) rotate(-680deg); opacity: 0; filter: brightness(1); }
+}
+@keyframes kobanTwinkle {
+  0%, 100% { transform: rotate(45deg) scale(0); opacity: 0; }
+  45%      { transform: rotate(45deg) scale(1); opacity: 1; }
+  70%      { transform: rotate(45deg) scale(0.35); opacity: .5; }
+}
+/* Both sweeps rest off-frame for most of their cycle and cross in a hurry —
+   a glint is an event, and one that never stops reads as a loading shimmer. */
+@keyframes kobanSheen { 0%, 48% { transform: translateX(-170%) rotate(16deg); } 76%, 100% { transform: translateX(240%) rotate(16deg); } }
+@keyframes cardSheen { 0%, 62% { transform: translateX(-140%) rotate(12deg); } 88%, 100% { transform: translateX(190%) rotate(12deg); } }
+@keyframes cardGlint { 0%, 70%, 100% { opacity: 0; } 82% { opacity: .55; } }
 
 /* ---- Ambient background ------------------------------------------------ */
 .bg-scanlines,
@@ -256,6 +289,7 @@ img { max-width: 100%; }
 .eyebrow--blue { color: var(--blue); }
 .eyebrow--red { color: var(--red); }
 .eyebrow--lime { color: var(--lime); }
+.eyebrow--gold { color: var(--gold); }
 
 .accent-green { color: var(--green); }
 .accent-blue { color: var(--blue); }
@@ -284,6 +318,12 @@ img { max-width: 100%; }
 .btn--blue:hover { transform: translateY(-2px); }
 .btn--lime { color: var(--ink); background: var(--lime); }
 .btn--lime:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(155, 188, 15, 0.32); }
+/* The only .btn that is always a <button>, so it carries the element resets. */
+.btn--gold { border: 0; cursor: pointer; color: var(--ink); background: var(--gold); }
+.btn--gold:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(245, 211, 63, 0.32); }
+/* The copy landed. The button stops asking and becomes the receipt, which is
+   why it goes green rather than showing a notice somewhere else on the card. */
+.btn--gold.is-copied { background: var(--green); }
 .btn--ghost { color: var(--text-soft); background: transparent; border: 1px solid var(--border); }
 .btn--ghost:hover { border-color: var(--green); color: var(--green); }
 .btn--ghost-blue:hover { border-color: var(--blue); color: var(--blue); }
@@ -777,6 +817,257 @@ img { max-width: 100%; }
 /* The bar sweeps the whole console palette, red through blue into green, so the
    save panel closes on the same three colours the header LEDs open with. */
 .hp__fill { height: 100%; width: 88%; border-radius: 2px; background: linear-gradient(90deg, var(--red), var(--blue-deep) 52%, var(--green)); }
+
+/* ---- Donate ------------------------------------------------------------ */
+/* The support band every page carries above its footer. Its own tints stay
+   scoped here rather than in :root: the QR's paper white and Ko-fi's brand
+   red are not site colours and have no business anywhere else. */
+.donate {
+  --pix-ink: #8fae9d;
+  --pix-shell: #16291e;
+  --qr-paper: #e8f2e6;
+  --kofi: #ff5e5b;
+  --kofi-deep: #e04844;
+  --kofi-soft: #ff8a87;
+}
+.donate__optional { font-family: var(--pixel); font-size: 8px; color: var(--muted); letter-spacing: 1px; }
+
+.donate__card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 22px;
+  padding: 26px;
+  background: var(--panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px var(--bg), 0 14px 36px rgba(0, 0, 0, .45);
+}
+/* gold, green, red — the section's three colours laid across its top edge */
+.donate__stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  pointer-events: none;
+  opacity: .6;
+  background: linear-gradient(90deg, var(--gold) 0 34%, var(--green) 34% 67%, var(--red) 67% 100%);
+}
+.donate__row { position: relative; display: flex; flex-wrap: wrap; gap: 30px; align-items: center; }
+.donate__pix { flex: 0 0 auto; }
+.donate__body { flex: 1 1 300px; min-width: 270px; }
+.donate__art { flex: 0 0 150px; display: grid; place-items: center; }
+
+.donate__title {
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: clamp(20px, 2.8vw, 26px);
+  margin: 0;
+  color: var(--heading);
+  letter-spacing: -0.5px;
+}
+.donate__lead { margin: 12px 0 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.75; text-wrap: pretty; max-width: 52ch; }
+.donate__note { margin: 8px 0 0; font-size: 12px; color: var(--muted); line-height: 1.7; text-wrap: pretty; max-width: 52ch; }
+.donate__actions { margin-top: 22px; align-items: center; }
+/* Pix works for Brazilian banks only, so the section has to say why there are
+   two buttons. Ruled off to the left: it is a footnote to the pair above it. */
+.donate__explain {
+  margin: 16px 0 0;
+  border-left: 2px solid var(--border);
+  padding-left: 11px;
+  font-size: 11.5px;
+  color: var(--muted-2);
+  line-height: 1.7;
+  text-wrap: pretty;
+  max-width: 46ch;
+}
+/* The key in the clear, for anyone whose clipboard button did not fire. */
+.donate__key { margin-top: 14px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.donate__key-label { font-family: var(--pixel); font-size: 7px; color: var(--muted-3); letter-spacing: 1px; }
+.donate__key-value { font-family: var(--mono); font-size: 12px; color: var(--pix-ink); word-break: break-all; }
+
+.btn--kofi { gap: 9px; padding: 9px 16px; color: #ffffff; background: var(--kofi); border: 1px solid var(--kofi); }
+.btn--kofi:hover {
+  background: var(--kofi-deep);
+  border-color: var(--kofi-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 94, 91, 0.35);
+}
+/* Ko-fi's cup needs paper under it, not the site's green tile. */
+.btn__icon--kofi { background: #fff6ef; border: 0; box-shadow: inset 0 0 0 1px rgba(120, 40, 38, 0.16); }
+.btn__icon--kofi img { width: 20px; height: 20px; max-width: none; max-height: none; }
+
+/* -- the Ko-fi disclosure -- */
+/* Ruled off below the Pix half: same section, different rail. Collapsed by
+   default, and the frame inside it stays unfetched until someone opens it. */
+.donate__kofi { position: relative; margin-top: 26px; padding-top: 24px; border-top: 1px dashed var(--border); }
+.donate__kofi-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.donate__kofi-title { font-family: var(--pixel); font-size: 8px; color: var(--kofi-soft); letter-spacing: 1px; }
+.donate__kofi-rule { flex: 1; height: 1px; min-width: 30px; background: linear-gradient(90deg, rgba(255, 94, 91, 0.45), transparent); }
+/* one glyph, turned over when the panel opens — no text to swap */
+.donate__caret { font-family: var(--pixel); font-size: 8px; transition: transform .15s; }
+[aria-expanded="true"] .donate__caret { transform: rotate(180deg); }
+
+.donate__kofi-panel { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
+.donate__kofi-frame {
+  flex: 0 1 460px;
+  max-width: 460px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--ink-2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(255, 94, 91, 0.25);
+  background: #f9f9f9;
+}
+.donate__kofi-frame iframe { display: block; width: 100%; border: 0; padding: 4px; background: #f9f9f9; }
+.donate__kofi-art { flex: 1 1 200px; min-width: 170px; display: grid; place-items: center; }
+.donate__kofi-art img {
+  display: block;
+  width: 100%;
+  max-width: 210px;
+  height: auto;
+  image-rendering: pixelated;
+  animation: bob 5.5s ease-in-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .55));
+}
+
+/* -- the Pix terminal -- */
+.pix-panel {
+  width: 186px;
+  padding: 14px 14px 10px;
+  border-radius: 10px 10px 16px 16px;
+  background: linear-gradient(160deg, var(--border-soft), var(--pix-shell));
+  border: 2px solid var(--ink-2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5), inset 0 2px 10px rgba(255, 255, 255, 0.06);
+}
+.pix-panel__head { display: flex; align-items: center; gap: 6px; margin-bottom: 9px; padding-left: 2px; }
+.pix-panel__head .dot { width: 6px; height: 6px; }
+.pix-panel__brand { font-family: var(--pixel); font-size: 6px; color: var(--pix-ink); letter-spacing: 1px; }
+.pix-panel__badge {
+  margin-left: auto;
+  font-family: var(--pixel);
+  font-size: 5px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  border: 1px solid rgba(245, 211, 63, 0.45);
+  border-radius: 3px;
+  padding: 3px 4px;
+}
+.pix-panel__code {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid var(--ink-2);
+  background: var(--qr-paper);
+  aspect-ratio: 1 / 1;
+}
+.pix-panel__code img { display: block; width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+/* The same scanlines the rest of the site wears, so the code reads as being on
+   a screen rather than stuck to one. Kept faint: a phone still has to scan it. */
+.pix-panel__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.07) 0px, rgba(0, 0, 0, 0.07) 1px, transparent 1px, transparent 3px);
+}
+.pix-panel__hint {
+  margin-top: 9px;
+  text-align: center;
+  font-family: var(--pixel);
+  font-size: 6px;
+  color: var(--muted-2);
+  letter-spacing: 1px;
+  line-height: 1.7;
+}
+
+/* -- the Pay Day card -- */
+.donate__art-card {
+  position: relative;
+  /* Its column is exactly this wide on desktop, so the width only bites once
+     the column goes full-bleed on a phone — where an unbounded card would
+     blow up to three times the size it has in the design. */
+  width: 150px;
+  border-radius: 7px;
+  overflow: hidden;
+  transform: rotate(4deg);
+  animation: bob 6s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .55));
+}
+.donate__art-card img { display: block; width: 100%; height: auto; }
+/* Two passes over the same artwork: a white sweep for the gloss on the card
+   stock, a colour wash a beat later for the holographic tilt. */
+.donate__art-sheen {
+  position: absolute;
+  top: -30%;
+  left: 0;
+  width: 45%;
+  height: 160%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  animation: cardSheen 7s ease-in-out infinite;
+}
+.donate__art-glint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(118deg, rgba(122, 95, 196, .35), rgba(90, 162, 245, .3) 30%, rgba(47, 184, 165, .3) 55%, rgba(245, 211, 63, .35) 80%);
+  mix-blend-mode: screen;
+  animation: cardGlint 7s ease-in-out infinite;
+}
+
+/* -- the coin rain (markup from js/ui/koban-rain.js) -- */
+.donate__coins { --koban-drop: 900px; position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.koban {
+  position: absolute;
+  left: var(--x);
+  top: -34px;
+  width: var(--w);
+  opacity: 0;
+  animation-duration: var(--fall);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-delay: var(--delay);
+}
+.koban--a { animation-name: kobanFallA; }
+.koban--b { animation-name: kobanFallB; }
+.koban__coin {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--h);
+  border-radius: 999px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(72deg, rgba(255, 255, 255, 0.5) 0 1.5px, rgba(255, 255, 255, 0) 1.5px 4px),
+    linear-gradient(150deg, #fffbe0 0 12%, #fbe98f 34%, #f0c93a 60%, #c99511);
+  box-shadow:
+    0 0 10px rgba(245, 211, 63, 0.55),
+    0 0 22px rgba(245, 211, 63, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85),
+    inset 0 0 0 1px rgba(160, 116, 10, 0.4);
+}
+.koban__sheen {
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 42%;
+  height: 200%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  animation: kobanSheen var(--sheen) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+.koban__spark {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  opacity: 0;
+  background: radial-gradient(circle, #ffffff 0 22%, rgba(255, 241, 170, 0.95) 45%, rgba(245, 211, 63, 0) 72%);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  animation: kobanTwinkle var(--sheen) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+/* the spin decides which corner of the coin catches the light */
+.koban--a .koban__spark { right: var(--sx); top: var(--sy); }
+.koban--b .koban__spark { left: var(--sx); bottom: var(--sy); }
 
 /* ---- Footer ------------------------------------------------------------ */
 .site-footer {
@@ -2088,6 +2379,7 @@ a.games-index__row:hover { opacity: .75; }
   .machine-side,
   .why__prose,
   .why__bytes,
+  .donate__body,
   .tool-card__body,
   .games-banner__body,
   .build__body,
@@ -2097,6 +2389,17 @@ a.games-index__row:hover { opacity: .75; }
 
   /* the photo keeps its size, so centre it rather than leave it hanging left */
   .hero__photo { max-width: 280px; margin-inline: auto; }
+
+  /* The QR terminal and the Pay Day card are the donate section's ornament;
+     the ask is the copy. Stacked in source order a phone opens on a bare QR
+     with no heading over it, so the copy is pulled up top and the two panels
+     centre underneath. */
+  .donate__body { order: -1; }
+  .donate__kofi-panel { gap: 20px; }
+  .donate__kofi-frame { flex: 1 0 100%; max-width: none; }
+  .donate__pix,
+  .donate__art { flex: 1 0 100%; display: flex; justify-content: center; }
+  .donate__card { padding: 22px 18px; }
   /* a 1px rule between two columns has no place between two stacked ones */
   .about__divider { display: none; }
 
