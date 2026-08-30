@@ -112,7 +112,7 @@ export const DICT = {
     gen2GetNote: "existing .sav files keep working, no byte patching",
     gen2BugEyebrow: "WHY THE CLOCK HAD TO GO",
     gen2BugLead:
-      "The clock was a design decision from an era when a Game Boy cartridge could only hold so much game: make the player wait, and the game lasts longer. Wait for night to catch a Hoothoot, wait a full day for the berries. The kids it was written for now have jobs and families, and none of that time. Timeless brings the games forward by changing only what the clock touches.",
+      "The clock was a design decision from an era when a Game Boy cartridge had very limited memory: make the player wait, and the game lasts longer. Wait for night to catch a Hoothoot, wait a full day for the berries. The kids it was written for now have jobs and families, and none of that time. The Timeless patch brings the games into the present, changing and improving only the mechanics the clock touches.",
     gen2BugStep1Key: "Padding removed",
     gen2BugStep1: "nothing is stretched out by waiting for real time",
     gen2BugStep2Key: "Time you control",
@@ -242,7 +242,7 @@ export const DICT = {
     gen2GetNote: "saves existentes continuam funcionando, sem patch de bytes",
     gen2BugEyebrow: "POR QUE O RELÓGIO SAIU",
     gen2BugLead:
-      "O relógio foi uma decisão de design de uma época em que um cartucho de Game Boy só cabia tanto jogo: faça o jogador esperar, e o jogo dura mais. Esperar a noite para pegar um Hoothoot, esperar um dia inteiro pelas berries. As crianças para quem isso foi escrito hoje têm trabalho e família, e não têm esse tempo. O Timeless traz os jogos para hoje mudando só o que o relógio afeta.",
+      "O relógio foi uma decisão de design de uma época em que um cartucho de Game Boy tinha um espaço de memória bem limitado: faça o jogador esperar, e o jogo dura mais. Esperar a noite para pegar um Hoothoot, esperar um dia inteiro pelas berries. As crianças para quem isso foi escrito hoje têm trabalho e família, e não têm esse tempo. O patch Timeless traz os jogos para os dias atuais, mudando e melhorando somente as mecânicas onde o horário afeta.",
     gen2BugStep1Key: "Enrolação removida",
     gen2BugStep1: "nada é esticado à base de esperar o tempo real",
     gen2BugStep2Key: "Tempo no seu controle",
