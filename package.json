@@ -5,8 +5,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node scripts/dev-server.mjs",
     "build": "node build.mjs",
-    "serve": "node build.mjs && npx -y serve dist",
+    "serve": "node build.mjs && node scripts/dev-server.mjs --dist",
     "publish-assets": "node scripts/publish-assets.mjs",
     "test": "node --test"
   },
