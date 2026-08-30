@@ -9,6 +9,20 @@ export const DEFAULT_LANG = "en";
 
 export const DICT = {
   en: {
+    // Header · all-pages menu (shared by every page)
+    navMenu: "ALL PAGES",
+    navPages: "PAGES",
+    navElsewhere: "ELSEWHERE",
+    navClose: "CLOSE",
+    navHomeName: "Home",
+    navHomeDesc: "trainer card, links & about",
+    navGamesName: "Games",
+    navGamesDesc: "2 Game Boy builds & patches",
+    navToolsName: "Cool Tools",
+    navToolsDesc: "small utilities that fix old games",
+    navBlogName: "Field Notes",
+    navBlogDesc: "long-form writing on backend craft",
+
     bioRole: "Software engineer · Pokémon ROM hacker · JDM enthusiast",
     bioLine: "Backend systems by day, Game Boy ROMs by night, chasing apexes on the weekend.",
     projTitleSub: "An RTC-free, MBC5 fork of Pokémon Crystal Legacy.",
@@ -22,10 +36,22 @@ export const DICT = {
     ctaGames: "All my games",
     ctaLegacySite: "Open the site",
     ctaLegacyRelease: "Latest release",
-    blogTitle: "Field Notes",
-    blogLead: "// long-form writing on auth, identity & backend craft.",
-    ctaBlog: "Read the blog",
-    ctaSeries: "OAuth & OIDC series",
+
+    // Section select — the three doors off the home page
+    secTitle: "Where to go next",
+    secSub: "Three places worth your click.",
+    cardGamesDesc:
+      "Game Boy builds and patches: Gen 2 with the clock handed back to the player, plus the Crystal Legacy fork.",
+    cardGamesMeta: "2 builds · GBC",
+    cardToolsDesc:
+      "Small browser utilities that fix things old games got wrong. Starting with a Mario Tennis save patcher.",
+    cardToolsMeta: "1 tool · N64",
+    cardBlogName: "FIELD NOTES",
+    cardBlogDesc:
+      "Long-form writing on backend craft: the systems, the trade-offs and the lessons that only show up in production.",
+    cardOpen: "Open",
+    cardVisit: "Read",
+
     linksTitle: "Connect",
     linkedinSub: "professional profile",
     twitterSub: "thoughts & dev chatter",
@@ -33,8 +59,6 @@ export const DICT = {
     mentoriaSub: "1:1 tech mentoring",
     amaSub: "ask me anything",
     githubSub: "code & ROM hacks",
-    gamesSub: "Game Boy builds & patches",
-    toolsSub: "Mario Tennis save patcher & more",
     emailSub: "say hello",
 
     // Cool Tools hub (/tools/)
@@ -160,6 +184,20 @@ export const DICT = {
     musicPaused: "PAUSED"
   },
   pt: {
+    // Header · all-pages menu (shared by every page)
+    navMenu: "PÁGINAS",
+    navPages: "PÁGINAS",
+    navElsewhere: "EM OUTROS LUGARES",
+    navClose: "FECHAR",
+    navHomeName: "Início",
+    navHomeDesc: "trainer card, links & sobre",
+    navGamesName: "Games",
+    navGamesDesc: "2 builds e patches de Game Boy",
+    navToolsName: "Cool Tools",
+    navToolsDesc: "utilitários que consertam jogos antigos",
+    navBlogName: "Anotações",
+    navBlogDesc: "textos longos sobre backend de verdade",
+
     bioRole: "Engenheiro de software · romhacker de Pokémon · entusiasta JDM",
     bioLine: "Backend de dia, ROMs de Game Boy de noite, curvas no fim de semana.",
     projTitleSub: "Um fork sem RTC, em MBC5, do Pokémon Crystal Legacy.",
@@ -173,10 +211,22 @@ export const DICT = {
     ctaGames: "Todos os jogos",
     ctaLegacySite: "Abrir o site",
     ctaLegacyRelease: "Última release",
-    blogTitle: "Anotações",
-    blogLead: "// textos longos sobre autenticação, identidade e backend.",
-    ctaBlog: "Ler o blog",
-    ctaSeries: "Série OAuth & OIDC",
+
+    // Section select — the three doors off the home page
+    secTitle: "Para onde ir agora",
+    secSub: "Três lugares que valem o clique.",
+    cardGamesDesc:
+      "Builds e patches de Game Boy: a Gen 2 com o relógio nas mãos do jogador e o fork do Crystal Legacy.",
+    cardGamesMeta: "2 builds · GBC",
+    cardToolsDesc:
+      "Utilitários de navegador que consertam o que jogos antigos erraram. Começando pelo patcher de save do Mario Tennis.",
+    cardToolsMeta: "1 ferramenta · N64",
+    cardBlogName: "ANOTAÇÕES",
+    cardBlogDesc:
+      "Textos longos sobre backend de verdade: os sistemas, os trade-offs e as lições que só aparecem em produção.",
+    cardOpen: "Abrir",
+    cardVisit: "Ler",
+
     linksTitle: "Conecte-se",
     linkedinSub: "perfil profissional",
     twitterSub: "ideias & papo dev",
@@ -184,8 +234,6 @@ export const DICT = {
     mentoriaSub: "mentoria tech 1:1",
     amaSub: "pergunte qualquer coisa",
     githubSub: "código & ROM hacks",
-    gamesSub: "builds & patches de Game Boy",
-    toolsSub: "patcher de save do Mario Tennis & mais",
     emailSub: "manda um oi",
 
     // Cool Tools hub (/tools/)

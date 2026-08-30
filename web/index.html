@@ -75,15 +75,127 @@
             </a>
             <nav class="site-nav" aria-label="Sections">
               <a class="site-nav__link is-active" href="/" aria-current="page">HOME</a>
-              <a class="site-nav__link" href="/games/">GAMES</a>
-              <a class="site-nav__link" href="/tools/">COOL TOOLS</a>
+              <a class="site-nav__link" href="/games/">GAMES<span class="site-nav__count">2</span></a>
+              <a class="site-nav__link" href="/tools/">COOL TOOLS<span class="site-nav__count">1</span></a>
             </nav>
           </div>
           <div class="site-header__right">
-            <span class="tz">BR · GMT-3</span>
+            <!-- The site map is duplicate navigation, so its trigger ships
+                 hidden and js/ui/site-menu.js reveals it: without JS the three
+                 nav buttons still stand, and nobody meets a dead button. -->
+            <button
+              type="button"
+              class="menu-btn"
+              aria-expanded="false"
+              aria-controls="siteMenu"
+              data-site-menu-toggle
+              hidden
+            >
+              <span class="menu-btn__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+              <span data-i18n="navMenu">ALL PAGES</span>
+            </button>
             <div class="lang-toggle" role="group" aria-label="Language">
               <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
               <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALL PAGES · the whole site map, one click from anywhere. Static
+             markup so I18n's [data-i18n] sweep (it queries once, at
+             construction) translates it like any other copy. -->
+        <div class="site-menu" id="siteMenu" data-site-menu hidden>
+          <div class="site-menu__inner">
+            <div>
+              <div class="site-menu__head">
+                <span class="eyebrow eyebrow--green" data-i18n="navPages">PAGES</span>
+                <span class="rule"></span>
+              </div>
+
+              <a class="menu-link" href="/">
+                <span class="menu-link__icon"><img src="https://cdn.ericktakeshi.com.br/assets/rayquaza-sprite.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title" data-i18n="navHomeName">Home</span>
+                  <span class="menu-link__sub" data-i18n="navHomeDesc">trainer card, links &amp; about</span>
+                </span>
+                <span class="menu-link__arrow accent-green">▸</span>
+              </a>
+
+              <a class="menu-link" href="/games/">
+                <span class="menu-link__icon menu-link__icon--cover"><img src="https://cdn.ericktakeshi.com.br/assets/box-crystal.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title" data-i18n="navGamesName">Games</span>
+                  <span class="menu-link__sub" data-i18n="navGamesDesc">2 Game Boy builds &amp; patches</span>
+                </span>
+                <span class="menu-link__arrow accent-green">▸</span>
+              </a>
+              <a class="menu-sub" href="/games/pokemon-gen-2-timeless/">
+                <span class="menu-sub__branch" aria-hidden="true">└</span>
+                <span class="menu-sub__name">Pokémon Gen 2: Timeless</span>
+                <span class="menu-sub__tag">GBC</span>
+              </a>
+
+              <a class="menu-link" href="/tools/">
+                <span class="menu-link__icon menu-link__icon--cover menu-link__icon--tools"><img src="https://cdn.ericktakeshi.com.br/assets/cool-tools-icon.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title" data-i18n="navToolsName">Cool Tools</span>
+                  <span class="menu-link__sub" data-i18n="navToolsDesc">small utilities that fix old games</span>
+                </span>
+                <span class="menu-link__arrow accent-green">▸</span>
+              </a>
+              <a class="menu-sub" href="/tools/mario-tennis-save-patcher/">
+                <span class="menu-sub__branch" aria-hidden="true">└</span>
+                <span class="menu-sub__name">Mario Tennis Save Patcher</span>
+                <span class="menu-sub__tag">N64</span>
+              </a>
+            </div>
+
+            <div>
+              <div class="site-menu__head">
+                <span class="eyebrow eyebrow--blue" data-i18n="navElsewhere">ELSEWHERE</span>
+                <span class="rule"></span>
+              </div>
+
+              <a class="menu-link menu-link--out" href="https://dev.to/erick_tmr" target="_blank" rel="noopener">
+                <span class="menu-link__icon menu-link__icon--term" aria-hidden="true">&gt;_</span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title" data-i18n="navBlogName">Field Notes</span>
+                  <span class="menu-link__sub" data-i18n="navBlogDesc">long-form writing on backend craft</span>
+                </span>
+                <span class="menu-link__arrow accent-blue">↗</span>
+              </a>
+
+              <a class="menu-link menu-link--out" href="https://calendly.com/ericktmr/mentoria" target="_blank" rel="noopener">
+                <span class="menu-link__icon menu-link__icon--mentoria"><img src="https://cdn.ericktakeshi.com.br/assets/mentoria-friede.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title">Mentoria Tech</span>
+                  <span class="menu-link__sub" data-i18n="mentoriaSub">1:1 tech mentoring</span>
+                </span>
+                <span class="menu-link__arrow accent-blue">↗</span>
+              </a>
+
+              <a class="menu-link" href="https://github.com/erick-tmr" target="_blank" rel="noopener">
+                <span class="menu-link__icon menu-link__icon--github"><img src="https://cdn.ericktakeshi.com.br/assets/github-pixel.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title">GitHub</span>
+                  <span class="menu-link__sub" data-i18n="githubSub">code &amp; ROM hacks</span>
+                </span>
+                <span class="menu-link__arrow accent-green">↗</span>
+              </a>
+
+              <a class="menu-link" href="mailto:erick.tmr@outlook.com">
+                <span class="menu-link__icon menu-link__icon--email"><img src="https://cdn.ericktakeshi.com.br/assets/email-pixel.png" alt="" /></span>
+                <span class="menu-link__text">
+                  <span class="menu-link__title">Email</span>
+                  <span class="menu-link__sub">erick.tmr@outlook.com</span>
+                </span>
+                <span class="menu-link__arrow accent-red">↗</span>
+              </a>
+
+              <div class="site-menu__foot">
+                <span class="tz">BR · GMT-3</span>
+                <span class="site-menu__esc">ESC <span data-i18n="navClose">CLOSE</span></span>
+              </div>
             </div>
           </div>
         </div>
@@ -121,11 +233,75 @@
             <p class="hero__role" data-i18n="bioRole">Software engineer · Pokémon ROM hacker · JDM enthusiast</p>
             <p class="hero__line" data-i18n="bioLine">Backend systems by day, Game Boy ROMs by night, chasing apexes on the weekend.</p>
             <div class="chips">
-              <span class="chip chip--blue">OAuth / OIDC</span>
+              <span class="chip chip--blue">Backend</span>
               <span class="chip chip--green">Game Boy ASM</span>
               <span class="chip chip--red">JDM</span>
               <span class="chip">Mentoria</span>
             </div>
+          </div>
+        </section>
+
+        <!-- SECTION SELECT -->
+        <section class="section">
+          <div class="section__head">
+            <span class="eyebrow eyebrow--green">SELECT ▸ SECTIONS</span>
+            <span class="rule"></span>
+          </div>
+          <h2 class="section__title" data-i18n="secTitle">Where to go next</h2>
+          <p class="section__sub" data-i18n="secSub">Three places worth your click.</p>
+
+          <div class="select-grid">
+            <a class="select-card" href="/games/">
+              <div class="select-card__art">
+                <img src="https://cdn.ericktakeshi.com.br/assets/games-banner.png" alt="" />
+                <span class="select-card__scan" aria-hidden="true"></span>
+                <span class="select-card__fade" aria-hidden="true"></span>
+                <span class="select-card__num">01</span>
+              </div>
+              <div class="select-card__body">
+                <span class="select-card__name">GAMES</span>
+                <p class="select-card__desc" data-i18n="cardGamesDesc">Game Boy builds and patches: Gen 2 with the clock handed back to the player, plus the Crystal Legacy fork.</p>
+                <div class="select-card__foot">
+                  <span class="select-card__meta" data-i18n="cardGamesMeta">2 builds · GBC</span>
+                  <span class="select-card__cta"><span data-i18n="cardOpen">Open</span> ▸</span>
+                </div>
+              </div>
+            </a>
+
+            <a class="select-card select-card--red" href="/tools/">
+              <div class="select-card__art select-card__art--icon">
+                <span class="select-card__grid" aria-hidden="true"></span>
+                <img src="https://cdn.ericktakeshi.com.br/assets/cool-tools-icon.png" alt="" />
+                <span class="select-card__scan" aria-hidden="true"></span>
+                <span class="select-card__num">02</span>
+              </div>
+              <div class="select-card__body">
+                <span class="select-card__name">COOL TOOLS</span>
+                <p class="select-card__desc" data-i18n="cardToolsDesc">Small browser utilities that fix things old games got wrong. Starting with a Mario Tennis save patcher.</p>
+                <div class="select-card__foot">
+                  <span class="select-card__meta" data-i18n="cardToolsMeta">1 tool · N64</span>
+                  <span class="select-card__cta"><span data-i18n="cardOpen">Open</span> ▸</span>
+                </div>
+              </div>
+            </a>
+
+            <a class="select-card select-card--blue" href="https://dev.to/erick_tmr" target="_blank" rel="noopener">
+              <div class="select-card__art select-card__art--term">
+                <div><span class="select-card__term-user">erick@hoenn</span><span class="select-card__term-dir">:~/blog$</span></div>
+                <div class="select-card__term-cmd">cat backend-craft.md</div>
+                <div class="select-card__term-note"># notes from the backend<span class="select-card__term-caret" aria-hidden="true"></span></div>
+                <span class="select-card__scan" aria-hidden="true"></span>
+                <span class="select-card__num select-card__num--right">03</span>
+              </div>
+              <div class="select-card__body">
+                <span class="select-card__name" data-i18n="cardBlogName">FIELD NOTES</span>
+                <p class="select-card__desc" data-i18n="cardBlogDesc">Long-form writing on backend craft: the systems, the trade-offs and the lessons that only show up in production.</p>
+                <div class="select-card__foot">
+                  <span class="select-card__meta">dev.to/erick_tmr</span>
+                  <span class="select-card__cta"><span data-i18n="cardVisit">Read</span> ↗</span>
+                </div>
+              </div>
+            </a>
           </div>
         </section>
 
@@ -175,34 +351,6 @@
           </div>
         </section>
 
-        <!-- FEATURED 02 · BLOG -->
-        <section class="section">
-          <div class="section__head">
-            <span class="eyebrow eyebrow--blue">FEATURED BUILD ▸ 02 · WRITING</span>
-            <span class="rule"></span>
-          </div>
-          <h2 class="section__title" data-i18n="blogTitle">Field Notes</h2>
-
-          <div class="terminal">
-            <div class="terminal__bar">
-              <span class="terminal__dot terminal__dot--red"></span>
-              <span class="terminal__dot terminal__dot--blue"></span>
-              <span class="terminal__dot terminal__dot--green"></span>
-              <span class="terminal__path">erick_tmr · dev.to</span>
-            </div>
-            <div class="terminal__body">
-              <div><span class="term-user">erick@hoenn</span><span class="term-dir">:~/blog$</span> ls --featured</div>
-              <a class="term-link" href="https://dev.to/erick_tmr/series/28190" target="_blank" rel="noopener">oauth-and-oidc.series/<span class="term-comment">   # a deep dive on identity ↗</span></a>
-              <a class="term-link" href="https://dev.to/erick_tmr" target="_blank" rel="noopener">latest-posts/<span class="term-comment">        # notes on backend &amp; auth ↗</span></a>
-              <div class="term-out" data-i18n="blogLead">// long-form writing on auth, identity &amp; backend craft.</div>
-              <div class="term-prompt"><span class="term-user">erick@hoenn</span><span class="term-dir">:~/blog$</span> <span class="term-cursor">&nbsp;</span></div>
-            </div>
-            <div class="terminal__actions">
-              <a class="btn btn--blue" href="https://dev.to/erick_tmr" target="_blank" rel="noopener"><span data-i18n="ctaBlog">Read the blog</span> ↗</a>
-              <a class="btn btn--ghost btn--ghost-blue" href="https://dev.to/erick_tmr/series/28190" target="_blank" rel="noopener">🔒 <span data-i18n="ctaSeries">OAuth &amp; OIDC series</span></a>
-            </div>
-          </div>
-        </section>
 
         <!-- CONTROLS / LINKS -->
         <section class="section">
@@ -262,26 +410,6 @@
                 <span class="link-card__sub" data-i18n="amaSub">ask me anything</span>
               </span>
               <span class="link-card__arrow accent-red">↗</span>
-            </a>
-            <a class="link-card link-card--blue" href="/games/">
-              <span class="link-card__icon link-card__icon--games">
-                <span class="cart-pip" aria-hidden="true"></span>
-              </span>
-              <span class="link-card__text">
-                <span class="link-card__title">Games</span>
-                <span class="link-card__sub" data-i18n="gamesSub">Game Boy builds &amp; patches</span>
-              </span>
-              <span class="link-card__arrow accent-blue">▸</span>
-            </a>
-            <a class="link-card" href="/tools/">
-              <span class="link-card__icon link-card__icon--tools">
-                <img src="https://cdn.ericktakeshi.com.br/assets/cool-tools-icon.png" alt="Cool Tools" />
-              </span>
-              <span class="link-card__text">
-                <span class="link-card__title">Cool Tools</span>
-                <span class="link-card__sub" data-i18n="toolsSub">Mario Tennis save patcher &amp; more</span>
-              </span>
-              <span class="link-card__arrow accent-green">▸</span>
             </a>
             <a class="link-card" href="https://github.com/erick-tmr" target="_blank" rel="noopener">
               <span class="link-card__icon link-card__icon--github">
